@@ -351,11 +351,25 @@ uv tool install ruff                    # lint + format
 Helix merges the features of every server it finds, so both together is fine.
 `gf` (open the file whose path is under the cursor) needs no server at all.
 
+## Buffers, files and the space menu
+
+Closing a file without leaving Helix has no keybinding — it is
+`:bc<ret>` (`:buffer-close`, aliases `bc` / `bclose`). The
+[files deck](decks/files.toml) covers that plus `:w`, `:wq`, `:q`, `:o`, and the
+space menu: `<space>b` buffer picker, `<space>f` file picker, `<space>/` global
+search, `<space>y` / `<space>p` system clipboard, `<space>k` docs, `<space>r`
+rename, `<space>a` code action, `<space>s` symbols, `<space>d` diagnostics,
+`<space>c` comment, `<space>?` command palette.
+
+Every one of those was read out of the installed Helix — the space-menu infobox
+and each command's own help popup — rather than from memory. Only aliases Helix
+itself reports are accepted as answers.
+
 ## Layout
 
 | Path | |
 |---|---|
-| [decks/](decks) | cards: motions, selection, edits, navigation |
+| [decks/](decks) | cards: motions, selection, edits, navigation, files |
 | [emu/](src/helix_spaced/emu) | Helix emulator: ranges, movement, key dispatch |
 | [scoring.py](src/helix_spaced/scoring.py) | attempt to rating + penalty |
 | [scheduler.py](src/helix_spaced/scheduler.py) | FSRS plus difficulty-weighted draw |

@@ -19,9 +19,14 @@ CARDS = {c.id: c for c in load_dir()}
 KEY_CARDS = [c for c in CARDS.values() if c.kind == KEYS]
 
 
-def test_the_navigation_deck_is_keystroke_graded():
-    assert KEY_CARDS, "expected navigation cards"
-    assert all(c.deck == "navigation" for c in KEY_CARDS)
+KEYSTROKE_DECKS = {"navigation", "files"}
+
+
+def test_only_editor_level_decks_are_keystroke_graded():
+    """Keystroke grading is the fallback for commands with no buffer state --
+    everything that touches text must be graded on the resulting state."""
+    assert KEY_CARDS, "expected keystroke cards"
+    assert {c.deck for c in KEY_CARDS} == KEYSTROKE_DECKS
 
 
 def test_state_cards_are_still_the_majority():
@@ -68,6 +73,11 @@ def test_answers_are_unique_across_the_navigation_deck():
 
 
 @pytest.mark.parametrize(("card_id", "expected"), [
+    ("files:close-buffer", ":bc<ret>"),
+    ("files:write", ":w<ret>"),
+    ("files:quit", ":q<ret>"),
+    ("files:buffer-picker", "<space>b"),
+    ("files:file-picker", "<space>f"),
     ("nav:goto-definition", "gd"),
     ("nav:goto-declaration", "gD"),
     ("nav:goto-type-definition", "gy"),
@@ -111,3 +121,23 @@ def test_reserved_trainer_keys_are_not_required_by_any_card():
     for c in CARDS.values():
         for answer in c.answers:
             assert not (set(normalise(answer)) & reserved), f"{c.id} needs a reserved key"
+
+
+def test_closing_a_buffer_accepts_every_verified_alias():
+    """Helix's own help gives buffer-close the aliases bc and bclose."""
+    card = CARDS["files:close-buffer"]
+    for alias in (":bc<ret>", ":bclose<ret>", ":buffer-close<ret>"):
+        assert card.check(alias), alias
+    assert not card.check(":bufferclose<ret>")
+
+
+def test_closing_a_buffer_is_not_the_same_card_as_quitting():
+    """`:q` closes the view and exits when it is the last one; `:bc` does not."""
+    assert CARDS["files:close-buffer"].keys != CARDS["files:quit"].keys
+    assert not CARDS["files:close-buffer"].check(":q<ret>")
+
+
+def test_space_menu_answers_show_the_space_key():
+    for c in KEY_CARDS:
+        if c.keys.startswith("<space>"):
+            assert c.answer.startswith("<space>"), c.id
