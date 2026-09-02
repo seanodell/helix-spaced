@@ -6,6 +6,7 @@ ctrl while a card is live, and drop it once the card is graded.
 """
 
 from collections import deque
+from datetime import UTC
 
 from fsrs import Rating
 from rich.text import Text
@@ -36,12 +37,34 @@ HELP = {
     GRADED: [("n", "next"), ("q", "quit")],
 }
 
-RATING_STYLE = {
-    Rating.Again: ("bold white on red", "AGAIN"),
-    Rating.Hard: ("bold black on yellow", "HARD"),
-    Rating.Good: ("bold white on green", "GOOD"),
-    Rating.Easy: ("bold black on bright_cyan", "EASY"),
+# The verdict answers "did I get it?" first. The FSRS rating is scheduling
+# bookkeeping and is shown separately -- reading "HARD" told you nothing about
+# whether you were right.
+RIGHT = ("bold white on green", "  RIGHT  ")
+COSTLY = ("bold black on yellow", "  RIGHT, PENALISED  ")
+WRONG = ("bold white on red", "  WRONG  ")
+
+RATING_NOTE = {
+    Rating.Again: "will come back soon",
+    Rating.Hard: "coming back sooner",
+    Rating.Good: "on schedule",
+    Rating.Easy: "pushed further out",
 }
+
+
+def human_interval(due_iso: str | None) -> str:
+    from datetime import datetime
+    if not due_iso:
+        return "soon"
+    delta = (datetime.fromisoformat(due_iso) - datetime.now(UTC)).total_seconds()
+    if delta < 90:
+        return f"{max(round(delta), 1)}s"
+    if delta < 3600:
+        # round, not truncate -- a ten minute interval reading "9m" is just wrong
+        return f"{round(delta / 60)}m"
+    if delta < 86400:
+        return f"{delta / 3600:.0f}h"
+    return f"{delta / 86400:.0f}d"
 
 
 def render_buffer(engine: Engine) -> Text:
@@ -175,6 +198,8 @@ class TrainerApp(App):
             bits.append(f"answered {s.hints}")
         if s.wrong:
             bits.append(f"restarts {s.wrong}")
+        if s.extra_keys:
+            bits.append(f"extra {s.extra_keys}")
         self.write("#status", Text("   ".join(bits), style="dim"))
 
     def finish(self) -> None:
@@ -185,14 +210,24 @@ class TrainerApp(App):
         self.done += 1
         self.recent.append(s.card.id)
 
-        style, label = RATING_STYLE[g.rating]
+        style, label = (RIGHT if g.clean else COSTLY) if s.solved else WRONG
+        row = self.trainer.store.card(s.card.id)
         out = Text()
-        out.append(f" {label} ", style=style)
-        out.append(f"  {g.reason}  ")
-        out.append(f"{s.elapsed_ms / 1000:.1f}s", style="dim")
+        out.append(label, style=style)
+        out.append(f"   {s.elapsed_ms / 1000:.1f}s", style="dim")
+        used = s.attempt().keystrokes
+        out.append(f"   {used} key{'' if used == 1 else 's'} (par {s.card.par})",
+                   style="dim")
+        if g.costs:
+            out.append("\n\n")
+            out.append(" · ".join(g.costs), style="yellow")
+            out.append(f"    penalty {g.penalty:.2f}", style="dim")
         if not s.solved:
             out.append("\n\nAnswer: ", style="dim")
             out.append(s.card.answer, style="bold")
+        out.append("\n\nnext in ", style="dim")
+        out.append(human_interval(row["due"] if row else None), style="bold")
+        out.append(f"  ({RATING_NOTE[g.rating]})", style="dim")
         self.write("#status", out)
 
     def reveal(self) -> None:

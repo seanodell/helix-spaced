@@ -1,3 +1,5 @@
+from datetime import UTC
+
 import pytest
 from textual.widgets import Static
 
@@ -6,6 +8,7 @@ from helix_spaced.app import (
     ACTIVE,
     GRADED,
     TrainerApp,
+    human_interval,
     render_buffer,
     render_help,
     resolve,
@@ -204,3 +207,83 @@ async def test_real_deck_loads_into_the_app(tmp_path):
         assert app.session is not None
         assert app.session.card.prompt
     store.close()
+
+
+# -- the verdict ----------------------------------------------------------
+
+
+def verdict(app):
+    return app.query_one("#status", Static).render().plain
+
+
+@pytest.mark.asyncio
+async def test_a_clean_answer_says_right(trainer):
+    app = TrainerApp(trainer, limit=1)
+    async with app.run_test() as pilot:
+        await pilot.press("w")
+        text = verdict(app)
+        assert "RIGHT" in text
+        assert "PENALISED" not in text
+        assert "penalty" not in text
+
+
+@pytest.mark.asyncio
+async def test_a_penalised_answer_says_so_and_why(trainer):
+    """Reading `HARD` never told you whether you were even right."""
+    app = TrainerApp(trainer, limit=1)
+    async with app.run_test() as pilot:
+        for k in ("b", "j", "k", "w"):
+            await pilot.press(k)
+        text = verdict(app)
+        assert "RIGHT, PENALISED" in text
+        assert "3 keystrokes over par" in text
+        assert "penalty 0.45" in text
+
+
+@pytest.mark.asyncio
+async def test_a_failed_card_says_wrong_and_shows_the_answer(trainer):
+    app = TrainerApp(trainer, limit=1)
+    async with app.run_test() as pilot:
+        await pilot.press("ctrl+g")
+        text = verdict(app)
+        assert "WRONG" in text
+        assert "Answer: w" in text
+
+
+@pytest.mark.asyncio
+async def test_the_verdict_reports_keys_against_par(trainer):
+    app = TrainerApp(trainer, limit=1)
+    async with app.run_test() as pilot:
+        await pilot.press("w")
+        assert "1 key (par 1)" in verdict(app)
+
+
+@pytest.mark.asyncio
+async def test_the_verdict_says_when_the_card_returns(trainer):
+    app = TrainerApp(trainer, limit=1)
+    async with app.run_test() as pilot:
+        await pilot.press("w")
+        assert "next in" in verdict(app)
+
+
+@pytest.mark.asyncio
+async def test_every_cost_is_listed_not_just_the_first(trainer):
+    app = TrainerApp(trainer, limit=1)
+    async with app.run_test() as pilot:
+        await pilot.press("ctrl+t")
+        await pilot.press("b")
+        await pilot.press("ctrl+r")
+        await pilot.press("w")
+        text = verdict(app)
+        assert "answer revealed" in text
+        assert "restart" in text
+
+
+def test_human_interval_reads_naturally():
+    from datetime import datetime, timedelta
+    now = datetime.now(UTC)
+    assert human_interval((now + timedelta(seconds=30)).isoformat()).endswith("s")
+    assert human_interval((now + timedelta(minutes=10)).isoformat()) == "10m"
+    assert human_interval((now + timedelta(hours=5)).isoformat()) == "5h"
+    assert human_interval((now + timedelta(days=3)).isoformat()) == "3d"
+    assert human_interval(None) == "soon"

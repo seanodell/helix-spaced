@@ -70,7 +70,7 @@ class Trainer:
 
     def review(self, card_id: str, attempt: Attempt, keys: str = "") -> Grade:
         row = self.store.card(card_id)
-        baseline = self.store.median_time(card_id)
+        baseline = self.store.reference_time(card_id)
         g = grade(attempt, baseline)
 
         fsrs_card = Card.from_dict(json.loads(row["fsrs"])) if row and row["fsrs"] else Card()

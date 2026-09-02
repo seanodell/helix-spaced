@@ -12,26 +12,131 @@ mise run stats       # history + your hardest cards
 
 ## How grading works
 
-Every attempt produces two numbers.
+Getting there is not the same as knowing it. An attempt is judged on four things
+— **correctness, keystrokes, help taken, and time** — and each one costs.
 
-**An FSRS rating** decides when the card comes back at all:
+Every attempt produces two numbers, and they do different jobs.
 
-| Result | Rating |
+### 1. An FSRS rating — decides *when* the card comes back
+
+| What you did | Rating |
 |---|---|
 | Wrong, or gave up | `Again` |
-| Answer revealed | `Hard` |
-| Recovered after a restart | `Hard` |
-| Clean, but over 2x your median for that card | `Hard` |
-| Clean, normal speed | `Good` |
-| Clean, under 0.6x your median, first try | `Easy` |
+| Revealed the answer | `Hard` |
+| Restarted, then got it | `Hard` |
+| Solved, but with keystrokes to spare | `Hard` |
+| Solved cleanly, but slow for you | `Hard` |
+| Solved cleanly, normal speed | `Good` |
+| Solved cleanly and fast, first try | `Easy` |
 
-**A penalty (0..1)** is tracked separately as a per-card EWMA. It biases which of
-the *currently due* cards get drawn first, so hard cards recur within a session
-without distorting the spacing model. Easy cards still come around; they just
-wait their turn.
+### 2. A penalty, 0..1 — decides *which due card you see first*
 
-Speed only counts once there is a baseline: the first time you see a card, you
-cannot be graded slow.
+The penalty is kept as a per-card EWMA (α = 0.3) and is **separate from the
+rating on purpose**. FSRS alone would ask an easy card as often as a hard one
+once both fall due. The penalty biases the draw among currently-due cards toward
+the ones you keep fumbling — so difficult material recurs within a session
+without distorting the spacing model.
+
+Weights, all in [scoring.py](src/helix_spaced/scoring.py):
+
+| Cost | Weight |
+|---|---|
+| Answer revealed | 0.60 each |
+| Keystroke over par | 0.15 each |
+| Restart | 0.12 each |
+| Slow | 0.20 per multiple past 2x, capped at 0.80 |
+| Wrong / gave up | 1.00 flat |
+
+They add up, capped at 1.0. Worked examples, generated from the code above:
+
+| What you did | Rating | Penalty |
+|---|---|---|
+| solved it cleanly, normal speed | `Good` | 0.00 |
+| solved it under 0.6x your best | `Easy` | 0.00 |
+| one keystroke over par | `Hard` | 0.15 |
+| three keystrokes over par | `Hard` | 0.45 |
+| seven keystrokes over par | `Hard` | 1.00 |
+| restarted once, then clean | `Hard` | 0.12 |
+| revealed the answer | `Hard` | 0.60 |
+| 2.5x your reference time | `Hard` | 0.10 |
+| 4x your reference time | `Hard` | 0.40 |
+| 9x your reference time | `Hard` | 0.80 |
+| revealed AND 3 over par | `Hard` | 1.00 |
+| gave up | `Again` | 1.00 |
+| first ever sighting, 60s | `Good` | 0.00 |
+
+### Keystrokes: par, not just arrival
+
+Each card has a **par** — the length of its shortest accepted answer. Every key
+above par costs 0.15 and caps the rating at `Hard`.
+
+This exists because arriving at the right state is cheap. On a one-key card,
+typing `b j k w` lands exactly where `w` does. That used to score `Easy` — and
+because it was *fast*, wandering outranked a careful, slower answer. Precisely
+backwards for a muscle-memory trainer.
+
+- **`accept` blesses an alternate route.** Both `xx` and `2x` are par 2 on the
+  same card, so neither is penalised.
+- **Beating par is free.** Find a shorter route than the deck's own answer and
+  par clamps at zero — you are never punished for being better than the deck.
+- **A restart is not a free undo.** Keys spent before `Ctrl-R` still count.
+
+### Time: measured against your own best, not a stopwatch
+
+The reference is the **25th percentile of your last 8 solved attempts** on that
+card — what you have *proven you can do*. Past 2x that, the penalty ramps at
+0.20 per additional multiple (so 2.5x costs 0.10 and 9x costs 0.80) rather than
+a flat fee, because 9x should not cost what 2.1x costs.
+
+The percentile matters. With the *median* as the reference, times of
+2s/3s/20s/21s give a median of 11.5s, and a 22s attempt reads as merely 1.9x —
+free. The percentile puts the bar at 3s, and the same attempt reads as 7.3x.
+A median reference drifts up to meet however slow you have lately been; a low
+percentile does not.
+
+Two deliberate limits, worth stating plainly:
+
+- **The first sighting of a card is never slow.** You cannot be slow at
+  something you have never seen, so there is no reference yet.
+- **A card you have never once done fast cannot be flagged as slow.** With no
+  quick attempt on record there is no evidence you can go faster. Fixing that
+  would need an absolute time budget, and the clock starts when the card appears
+  — so it includes reading the prompt, and prompts differ a lot in length. An
+  absolute bar would tax long prompts rather than slow recall.
+
+### What you see after each card
+
+The verdict answers *did I get it?* first, then what it cost:
+
+```
+  RIGHT              0.4s   1 key (par 1)
+next in 9m  (on schedule)
+
+  RIGHT, PENALISED   1.2s   4 keys (par 1)
+3 keystrokes over par    penalty 0.45
+next in 5m  (coming back sooner)
+
+  WRONG              0.0s   0 keys (par 1)
+not solved    penalty 1.00
+Answer: w
+next in 59s  (will come back soon)
+```
+
+Green for clean, yellow when it cost you, red when it did not count. Every cost
+is listed, not just the first — reveal the answer *and* fumble a restart and you
+see both. The FSRS rating is deliberately not the headline: reading `HARD` tells
+you nothing about whether you were right.
+
+### Retuning it later
+
+Every attempt is logged in full — solved, elapsed, reveals, restarts,
+keystrokes, keys over par, the resulting rating and penalty, and the exact keys
+pressed. So these weights can be re-derived against real history instead of
+guessed at. See [store.py](src/helix_spaced/store.py).
+
+```
+mise run stats     # totals plus your hardest cards by penalty EWMA
+```
 
 ## Keys
 

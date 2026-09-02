@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS reviews (
     keystrokes  INTEGER NOT NULL,
     rating      INTEGER NOT NULL,
     penalty     REAL NOT NULL,
-    keys        TEXT
+    keys        TEXT,
+    extra       INTEGER NOT NULL DEFAULT 0
 );
 CREATE INDEX IF NOT EXISTS reviews_card ON reviews(card_id, at);
 """
@@ -52,7 +53,14 @@ class Store:
         self.db = sqlite3.connect(self.path)
         self.db.row_factory = sqlite3.Row
         self.db.executescript(SCHEMA)
+        self._migrate()
         self.db.commit()
+
+    def _migrate(self) -> None:
+        """The review log is append-only, so new fields are added in place."""
+        cols = {r["name"] for r in self.db.execute("PRAGMA table_info(reviews)")}
+        if "extra" not in cols:
+            self.db.execute("ALTER TABLE reviews ADD COLUMN extra INTEGER NOT NULL DEFAULT 0")
 
     def close(self) -> None:
         self.db.close()
@@ -85,22 +93,27 @@ class Store:
     def log(self, card_id: str, attempt, rating: int, penalty: float, keys: str) -> None:
         self.db.execute(
             """INSERT INTO reviews
-               (card_id, at, solved, elapsed_ms, hints, wrong, keystrokes, rating, penalty, keys)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+               (card_id, at, solved, elapsed_ms, hints, wrong, keystrokes,
+                rating, penalty, keys, extra)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (card_id, datetime.now(UTC).isoformat(), int(attempt.solved),
              attempt.elapsed_ms, attempt.hints, attempt.wrong_attempts,
-             attempt.keystrokes, int(rating), penalty, keys))
+             attempt.keystrokes, int(rating), penalty, keys, attempt.extra_keys))
         self.db.commit()
 
-    def median_time(self, card_id: str, window: int = 8) -> int | None:
+    def reference_time(self, card_id: str, window: int = 8,
+                       percentile: float = 0.25) -> int | None:
+        """The time to beat on this card: a low percentile of recent solved
+        attempts, so the bar tracks demonstrated ability rather than drifting up
+        to match however slow you have been lately."""
         rows = self.db.execute(
             "SELECT elapsed_ms FROM reviews WHERE card_id = ? AND solved = 1 "
             "ORDER BY at DESC LIMIT ?", (card_id, window)).fetchall()
         if not rows:
             return None
         vals = sorted(r["elapsed_ms"] for r in rows)
-        mid = len(vals) // 2
-        return vals[mid] if len(vals) % 2 else (vals[mid - 1] + vals[mid]) // 2
+        idx = max(0, min(len(vals) - 1, round(percentile * (len(vals) - 1))))
+        return vals[idx]
 
     def stats(self) -> dict:
         row = self.db.execute(

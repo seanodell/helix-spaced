@@ -17,6 +17,7 @@ class Session:
     wrong: int = 0
     gave_up: bool = False
     solved: bool = False
+    spent: int = 0
     started: float | None = None
     finished: float | None = None
 
@@ -26,6 +27,12 @@ class Session:
     @property
     def typed(self) -> str:
         return "".join(self.keys)
+
+    @property
+    def extra_keys(self) -> int:
+        """Keystrokes beyond the shortest accepted route. `spent` is cumulative,
+        so a restart does not wipe the keys already used."""
+        return max(0, self.spent - self.card.par)
 
     @property
     def running(self) -> bool:
@@ -48,6 +55,7 @@ class Session:
         if self.solved or self.gave_up or self.started is None:
             return self.solved
         self.keys.append(key)
+        self.spent += 1
         try:
             self.engine.feed(key)
         except Exception:  # noqa: BLE001 - a key the emulator rejects is a wrong answer
@@ -82,5 +90,6 @@ class Session:
             elapsed_ms=self.elapsed_ms,
             hints=self.hints,
             wrong_attempts=self.wrong,
-            keystrokes=len(self.keys),
+            keystrokes=self.spent,
+            extra_keys=self.extra_keys,
         )

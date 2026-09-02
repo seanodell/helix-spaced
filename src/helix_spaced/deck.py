@@ -44,6 +44,12 @@ class Card:
         return (self.keys, *self.accept)
 
     @property
+    def par(self) -> int:
+        """Keystrokes in the shortest accepted answer. Anything above this is
+        fumbling, so `accept` is also how a deck blesses a longer valid route."""
+        return min(len(normalise(a)) for a in self.answers)
+
+    @property
     def answer(self) -> str:
         """What to type, with every keystroke visible. Derived from `keys`, so it
         cannot drift from the solution the card is graded against, and it parses

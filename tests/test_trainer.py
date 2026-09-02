@@ -76,12 +76,62 @@ def test_a_session_ignores_keys_until_begun(cards):
     assert s.press("w")
 
 
+def test_extra_keystrokes_are_counted(cards):
+    """Reaching the right state by wandering is not a clean answer."""
+    card = next(c for c in cards if c.id == "motions:w")
+    s = Session(card)
+    s.begin()
+    for k in ("b", "j", "k", "w"):
+        s.press(k)
+    assert s.solved
+    assert s.attempt().extra_keys == 3
+
+
+def test_a_clean_answer_has_no_extra_keystrokes(cards):
+    card = next(c for c in cards if c.id == "motions:w")
+    s = Session(card)
+    s.begin()
+    s.press("w")
+    assert s.attempt().extra_keys == 0
+
+
+def test_a_restart_does_not_wipe_the_keys_already_spent(cards):
+    card = next(c for c in cards if c.id == "motions:w")
+    s = Session(card)
+    s.begin()
+    s.press("b")
+    s.reset()
+    s.press("w")
+    assert s.attempt().keystrokes == 2
+    assert s.attempt().extra_keys == 1
+
+
+def test_a_blessed_alternate_route_costs_nothing(cards):
+    """`accept` is how a deck says a different route is equally good."""
+    card = next(c for c in cards if c.id == "selection:xx")
+    s = Session(card)
+    s.begin()
+    for k in ("2", "x"):
+        s.press(k)
+    assert s.solved and s.attempt().extra_keys == 0
+
+
+def test_par_is_the_shortest_accepted_route(cards):
+    card = next(c for c in cards if c.id == "selection:xx")
+    assert card.par == 2
+
+
+def test_every_card_has_a_reachable_par(cards):
+    for c in cards:
+        assert c.par >= 1, c.id
+
+
 # -- grading -------------------------------------------------------------
 
 
 def a(**kw):
     base = {"solved": True, "elapsed_ms": 1000, "hints": 0,
-            "wrong_attempts": 0, "keystrokes": 1}
+            "wrong_attempts": 0, "keystrokes": 1, "extra_keys": 0}
     return Attempt(**{**base, **kw})
 
 
@@ -99,6 +149,23 @@ def test_wrong_attempt_caps_the_rating_at_hard():
 
 def test_slow_but_clean_is_hard():
     assert grade(a(elapsed_ms=5000), 1000).rating is Rating.Hard
+
+
+def test_the_slow_penalty_ramps_rather_than_cliffs():
+    """2.1x used to cost exactly what 9x cost."""
+    mild = grade(a(elapsed_ms=2100), 1000).penalty
+    bad = grade(a(elapsed_ms=5000), 1000).penalty
+    worse = grade(a(elapsed_ms=9000), 1000).penalty
+    assert mild < bad < worse
+
+
+def test_the_slow_penalty_is_capped():
+    assert grade(a(elapsed_ms=600000), 1000).penalty <= 1.0
+
+
+def test_just_under_the_slow_threshold_is_free():
+    assert grade(a(elapsed_ms=1900), 1000).rating is Rating.Good
+    assert grade(a(elapsed_ms=1900), 1000).penalty == 0
 
 
 def test_fast_and_clean_is_easy():
@@ -130,6 +197,19 @@ def test_answers_round_trip_through_notation(cards):
         assert parse(c.answer) == parse(c.keys)
 
 
+def test_extra_keystrokes_cap_the_rating_at_hard():
+    assert grade(a(extra_keys=1, elapsed_ms=100), 1000).rating is Rating.Hard
+
+
+def test_more_wandering_costs_more():
+    assert grade(a(extra_keys=5), 1000).penalty > grade(a(extra_keys=1), 1000).penalty
+
+
+def test_wandering_fast_no_longer_scores_easy():
+    """It used to: arriving quickly by luck outscored a careful slower answer."""
+    assert grade(a(extra_keys=7, elapsed_ms=100), 1000).rating is Rating.Hard
+
+
 def test_penalty_grows_with_hints_and_errors():
     assert grade(a(), 1000).penalty == 0
     assert grade(a(hints=1), 1000).penalty > grade(a(wrong_attempts=1), 1000).penalty
@@ -141,6 +221,13 @@ def test_first_sighting_has_no_speed_baseline():
 
 
 # -- scheduling ----------------------------------------------------------
+
+
+def test_the_review_log_records_the_excess(cards, store):
+    t = Trainer(cards, store)
+    t.review(cards[0].id, a(extra_keys=4))
+    row = store.db.execute("SELECT extra FROM reviews").fetchone()
+    assert row["extra"] == 4
 
 
 def test_review_persists_state_and_history(cards, store):
@@ -191,8 +278,34 @@ def test_exclusion_prevents_immediate_repeats(cards, store):
     assert t.next_card(exclude={picked.id}).id != picked.id
 
 
-def test_median_time_tracks_recent_attempts(cards, store):
+def test_reference_time_tracks_your_better_attempts(cards, store):
+    """A low percentile, not the median: the bar must not drift up to meet you."""
     t = Trainer(cards, store)
-    for ms in (1000, 2000, 3000):
+    for ms in (1000, 2000, 3000, 4000, 5000):
         t.review(cards[0].id, a(elapsed_ms=ms))
-    assert store.median_time(cards[0].id) == 2000
+    assert store.reference_time(cards[0].id) == 2000
+
+
+def test_slipping_below_your_proven_speed_gets_flagged(cards, store):
+    """A median reference drifts up to meet recent slowness and stops flagging;
+    a low percentile keeps the bar at what you have already demonstrated."""
+    t = Trainer(cards, store)
+    for ms in (2000, 3000, 20000, 21000):
+        t.review(cards[0].id, a(elapsed_ms=ms))
+    ref = store.reference_time(cards[0].id)
+    median = 11500
+    assert ref == 3000
+    assert grade(a(elapsed_ms=22000), median).rating is Rating.Good, "median lets it pass"
+    assert grade(a(elapsed_ms=22000), ref).rating is Rating.Hard, "percentile catches it"
+
+
+def test_a_card_you_have_never_done_fast_cannot_be_called_slow(cards, store):
+    """An honest limit: with no fast attempt on record there is no evidence you
+    can go faster, and the clock includes reading the prompt, so there is no
+    absolute bar to compare against."""
+    t = Trainer(cards, store)
+    for _ in range(4):
+        t.review(cards[0].id, a(elapsed_ms=30000))
+    ref = store.reference_time(cards[0].id)
+    assert ref == 30000
+    assert grade(a(elapsed_ms=30000), ref).rating is Rating.Good
