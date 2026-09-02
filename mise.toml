@@ -1,0 +1,36 @@
+[tools]
+python = "3.12"
+uv = "latest"
+
+[env]
+_.python.venv = { path = ".venv", create = true }
+
+[tasks.install]
+run = "uv pip install -e '.[dev]'"
+
+[tasks.train]
+run = "python -m helix_spaced"
+
+[tasks.test]
+run = "pytest -q"
+
+[tasks.stats]
+run = "python -m helix_spaced stats"
+
+[tasks.validate]
+run = "python -m helix_spaced validate"
+
+[tasks.lint]
+run = "ruff check src tests tools"
+
+[tasks.verify-deck]
+description = "Re-probe every card in a real hx (regenerates tests/fixtures/deck_truth.json)"
+run = "python tools/verify_deck.py"
+
+[tasks.recalibrate]
+description = "Regenerate tests/fixtures/helix_truth.json from the installed hx"
+run = """
+python tools/corpus.py > /tmp/hx-cases.json
+HXCAL_JSON=1 HXCAL_WORKERS=14 python tools/calibrate.py /tmp/hx-cases.json   > tests/fixtures/helix_truth.json
+python -c "import json;d=json.load(open('tests/fixtures/helix_truth.json'));print(len(d),'cases',sum('ranges' in c for c in d),'ok')"
+"""

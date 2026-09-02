@@ -1,0 +1,134 @@
+deck = "edits"
+
+[[card]]
+id = "edits:d"
+prompt = "Delete the selection"
+text = "the quick brown fox\n"
+start = "w"
+keys = "d"
+hint = "One key."
+
+[[card]]
+id = "edits:c"
+prompt = "Delete the selected word and type 'big' in its place, then return to normal mode"
+text = "the quick brown fox\n"
+start = "w"
+keys = "cbig<esc>"
+hint = "Change, type, escape."
+
+[[card]]
+id = "edits:i"
+prompt = "Enter insert mode before the cursor, type 'X', then escape"
+text = "the quick brown fox\n"
+keys = "iX<esc>"
+hint = "Same as vim."
+
+[[card]]
+id = "edits:a"
+prompt = "Append after the cursor: type 'X', then escape"
+text = "the quick brown fox\n"
+keys = "aX<esc>"
+hint = "Same as vim."
+
+[[card]]
+id = "edits:A"
+prompt = "Append at the end of the line: type '!', then escape"
+text = "the quick brown fox\n"
+keys = "A!<esc>"
+hint = "Shifted append."
+
+[[card]]
+id = "edits:o"
+prompt = "Open a new line below and type 'next', then escape"
+text = "alpha beta\n"
+keys = "onext<esc>"
+hint = "Same as vim."
+
+[[card]]
+id = "edits:O"
+prompt = "Open a new line above and type 'first', then escape"
+text = "alpha beta\n"
+keys = "Ofirst<esc>"
+hint = "Shifted open."
+
+[[card]]
+id = "edits:yank-paste"
+prompt = "Yank the first word, jump to the end of the line, and paste it after the cursor"
+text = "alpha beta\n"
+keys = "wyglp"
+hint = "Three steps: yank, move, paste."
+
+[[card]]
+id = "edits:paste-before"
+prompt = "Yank the first word and paste a copy before the cursor"
+text = "alpha beta\n"
+keys = "wyP"
+hint = "Capital paste goes before."
+
+[[card]]
+id = "edits:replace"
+prompt = "Replace the character under the cursor with '-'"
+text = "the quick brown fox\n"
+keys = "r-"
+hint = "Replace, then the new character."
+
+[[card]]
+id = "edits:switch-case"
+prompt = "Switch the case of the first word"
+text = "the quick brown fox\n"
+start = "e"
+keys = "~"
+hint = "A single symbol key."
+
+[[card]]
+id = "edits:join"
+prompt = "Join the line below into this one"
+text = "alpha beta\ngamma delta\n"
+keys = "J"
+hint = "A capital letter."
+
+[[card]]
+id = "edits:undo"
+prompt = "Delete the whole line, then undo it"
+text = "alpha beta\ngamma delta\n"
+keys = "xdu"
+hint = "Select line, delete, then the usual undo key."
+
+[[card]]
+id = "edits:redo"
+prompt = "Delete the line, undo, then redo the delete"
+text = "alpha beta\ngamma delta\n"
+keys = "xduU"
+hint = "Redo is the shifted undo key."
+
+[[card]]
+id = "edits:delete-noyank"
+prompt = "Delete the selection WITHOUT copying it to the register"
+text = "the quick brown fox\n"
+start = "w"
+keys = "<A-d>"
+hint = "Alt plus the delete key."
+
+[[card]]
+id = "edits:surround-add"
+prompt = "Wrap the selected word in curly braces"
+text = "call alpha end\n"
+start = "e"
+keys = "ms{"
+hint = "Match mode, surround, then the delimiter."
+
+[[card]]
+id = "edits:surround-delete"
+prompt = "Remove the parentheses around this text, keeping the text"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "md("
+hint = "Match mode, delete, then the delimiter."
+
+[[card]]
+id = "edits:surround-replace"
+prompt = "Change the parentheses around this text into curly braces"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "mr({"
+hint = "Match mode, replace, old delimiter, new delimiter."

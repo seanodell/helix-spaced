@@ -1,0 +1,34 @@
+[project]
+name = "helix-spaced"
+version = "0.1.0"
+description = "Spaced repetition trainer for Helix keybindings"
+requires-python = ">=3.12"
+dependencies = [
+    "textual>=0.80",
+    "fsrs>=5.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.6"]
+
+[project.scripts]
+helix-spaced = "helix_spaced.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/helix_spaced"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint.per-file-ignores]
+"tools/*" = ["S", "BLE001", "SIM115", "E702", "PLW1509"]
+"tests/*" = ["S101"]

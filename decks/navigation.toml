@@ -1,0 +1,137 @@
+deck = "navigation"
+kind = "keys"
+
+# Code navigation leans on a language server and a second file, so there is no
+# buffer state to compare -- these are graded on the keystrokes. Run
+# `hx --health <lang>` if a goto does nothing in real Helix; without a server
+# installed these commands fail silently.
+
+[[card]]
+id = "nav:goto-definition"
+prompt = "Jump to the definition of the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+start = "/helpers.read<ret>"
+keys = "gd"
+hint = "Goto menu, then 'definition'."
+
+[[card]]
+id = "nav:jump-back"
+prompt = "Go back to where you were before that jump"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "<C-o>"
+hint = "A control key. Think 'out'."
+
+[[card]]
+id = "nav:jump-forward"
+prompt = "Jump forward again, after having jumped back"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "<C-i>"
+accept = ["<tab>"]
+hint = "The opposite of jumping back. Think 'in'."
+
+[[card]]
+id = "nav:goto-references"
+prompt = "List every reference to the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+start = "/load<ret>"
+keys = "gr"
+hint = "Goto menu, then 'references'."
+
+[[card]]
+id = "nav:goto-implementation"
+prompt = "Jump to the implementation of the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "gi"
+hint = "Goto menu, then 'implementation'."
+
+[[card]]
+id = "nav:goto-type-definition"
+prompt = "Jump to the type definition of the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "gy"
+hint = "Goto menu. The key is not 't' -- that one is taken by window top."
+
+[[card]]
+id = "nav:goto-declaration"
+prompt = "Jump to the declaration of the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "gD"
+hint = "Goto menu, then a shifted letter."
+
+[[card]]
+id = "nav:goto-file"
+prompt = "Open the file whose path is under the cursor (no language server needed)"
+text = "see also: src/helix_spaced/deck.py\nand https://helix-editor.com\n"
+start = "/src<ret>"
+keys = "gf"
+hint = "Goto menu, then 'file'."
+
+[[card]]
+id = "nav:save-jump"
+prompt = "Push the current selection onto the jumplist so you can come back to it"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "<C-s>"
+hint = "A control key. Think 'save this spot'."
+
+[[card]]
+id = "nav:last-accessed-file"
+prompt = "Switch back to the file you were in before this one"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "ga"
+hint = "Goto menu, then 'accessed'."
+
+[[card]]
+id = "nav:last-modified-file"
+prompt = "Jump to the last file you modified"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gm"
+hint = "Goto menu, then 'modified'."
+
+[[card]]
+id = "nav:last-modification"
+prompt = "Jump to your last edit within this file"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "g."
+hint = "Goto menu, then punctuation."
+
+[[card]]
+id = "nav:next-buffer"
+prompt = "Switch to the next open buffer"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gn"
+hint = "Goto menu, then 'next'."
+
+[[card]]
+id = "nav:prev-buffer"
+prompt = "Switch to the previous open buffer"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gp"
+hint = "Goto menu, then 'previous'."
+
+[[card]]
+id = "nav:label-jump"
+prompt = "Jump anywhere on screen using a two-character label"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gw"
+hint = "Goto menu, then 'word'."
+
+[[card]]
+id = "nav:window-top"
+prompt = "Move the cursor to the top of the visible window"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gt"
+hint = "Goto menu, then 'top'."
+
+[[card]]
+id = "nav:window-center"
+prompt = "Move the cursor to the middle of the visible window"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gc"
+hint = "Goto menu, then 'center'."
+
+[[card]]
+id = "nav:window-bottom"
+prompt = "Move the cursor to the bottom of the visible window"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gb"
+hint = "Goto menu, then 'bottom'."

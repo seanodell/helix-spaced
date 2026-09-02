@@ -1,0 +1,101 @@
+deck = "selection"
+
+[[card]]
+id = "selection:x"
+prompt = "Select the whole current line"
+text = "alpha beta\ngamma delta\n"
+keys = "x"
+hint = "One key, and pressing it again takes the next line too."
+
+[[card]]
+id = "selection:xx"
+prompt = "Select this line and the one below it"
+text = "alpha beta\ngamma delta\nepsilon zeta\n"
+keys = "xx"
+hint = "The line-select key is repeatable."
+accept = ["2x"]
+
+[[card]]
+id = "selection:select-all"
+prompt = "Select the entire file"
+text = "alpha beta\ngamma delta\n"
+keys = "%"
+hint = "A single symbol key."
+
+[[card]]
+id = "selection:collapse"
+prompt = "Collapse the selection down to just the cursor"
+text = "the quick brown fox\n"
+start = "x"
+keys = ";"
+hint = "A punctuation key next to the comma."
+
+[[card]]
+id = "selection:flip"
+prompt = "Flip the selection so the cursor sits at the other end"
+text = "the quick brown fox\n"
+start = "w"
+keys = "<A-;>"
+hint = "Alt plus the collapse key."
+
+[[card]]
+id = "selection:extend-mode"
+prompt = "Turn on extend mode, then move forward a word so the selection grows"
+text = "the quick brown fox\n"
+keys = "vw"
+hint = "One key toggles extend, then any motion extends instead of replacing."
+
+[[card]]
+id = "selection:extend-line-bounds"
+prompt = "Expand the current selection out to whole-line boundaries"
+text = "alpha beta\ngamma delta\n"
+start = "w"
+keys = "X"
+hint = "Shifted version of the line-select key."
+
+[[card]]
+id = "selection:copy-cursor-below"
+prompt = "Add a second cursor on the line below"
+text = "alpha beta\ngamma delta\n"
+keys = "C"
+hint = "A capital letter. Duplicates the cursor downward."
+
+[[card]]
+id = "selection:keep-primary"
+prompt = "Collapse multiple cursors back to just the primary one"
+text = "alpha beta\ngamma delta\n"
+start = "C"
+keys = ","
+hint = "The counterpart to the collapse key."
+
+[[card]]
+id = "selection:mi-paren"
+prompt = "Select what is inside the parentheses, without the parentheses"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "mi("
+hint = "Match mode, inside, then the delimiter."
+
+[[card]]
+id = "selection:ma-paren"
+prompt = "Select the parentheses and everything in them"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "ma("
+hint = "Match mode, around, then the delimiter."
+
+[[card]]
+id = "selection:mi-quote"
+prompt = "Select the text inside the double quotes"
+text = "say \"hi there\" ok\n"
+start = "fh"
+keys = "mi\""
+hint = "Match mode, inside, then the delimiter."
+
+[[card]]
+id = "selection:miw"
+prompt = "Select the whole word the cursor is inside"
+text = "call(alpha, beta) end\n"
+start = "fp"
+keys = "miw"
+hint = "Match mode, inside, then the object type."

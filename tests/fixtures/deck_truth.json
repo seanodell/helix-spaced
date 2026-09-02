@@ -1,0 +1,910 @@
+[
+  {
+    "text": "the quick brown fox\n",
+    "keys": "wd",
+    "result": "quick brown fox\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:d"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "wcbig<esc>",
+    "result": "bigquick brown fox\n",
+    "spans": [
+      [
+        3,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 3,
+        "head": 4
+      }
+    ],
+    "id": "edits:c"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "iX<esc>",
+    "result": "Xthe quick brown fox\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ],
+    "id": "edits:i"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "aX<esc>",
+    "result": "tXhe quick brown fox\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ],
+    "id": "edits:a"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "A!<esc>",
+    "result": "the quick brown fox!\n",
+    "spans": [
+      [
+        20,
+        21
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 20,
+        "head": 21
+      }
+    ],
+    "id": "edits:A"
+  },
+  {
+    "text": "alpha beta\n",
+    "keys": "onext<esc>",
+    "result": "alpha beta\nnext\n",
+    "spans": [
+      [
+        15,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 15,
+        "head": 16
+      }
+    ],
+    "id": "edits:o"
+  },
+  {
+    "text": "alpha beta\n",
+    "keys": "Ofirst<esc>",
+    "result": "first\nalpha beta\n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ],
+    "id": "edits:O"
+  },
+  {
+    "text": "alpha beta\n",
+    "keys": "wyglp",
+    "result": "alpha betaalpha \n",
+    "spans": [
+      [
+        10,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 16
+      }
+    ],
+    "id": "edits:yank-paste"
+  },
+  {
+    "text": "alpha beta\n",
+    "keys": "wyP",
+    "result": "alpha alpha beta\n",
+    "spans": [
+      [
+        0,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 6
+      }
+    ],
+    "id": "edits:paste-before"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "r-",
+    "result": "-he quick brown fox\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:replace"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "e~",
+    "result": "THE quick brown fox\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ],
+    "id": "edits:switch-case"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "J",
+    "result": "alpha beta gamma delta\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:join"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "xdu",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ],
+    "id": "edits:undo"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "xduU",
+    "result": "gamma delta\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:redo"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "w<A-d>",
+    "result": "quick brown fox\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:delete-noyank"
+  },
+  {
+    "text": "call alpha end\n",
+    "keys": "ems{",
+    "result": "{call} alpha end\n",
+    "spans": [
+      [
+        0,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 6
+      }
+    ],
+    "id": "edits:surround-add"
+  },
+  {
+    "text": "call(alpha, beta) end\n",
+    "keys": "wwmd(",
+    "result": "callalpha, beta end\n",
+    "spans": [
+      [
+        4,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 5
+      }
+    ],
+    "id": "edits:surround-delete"
+  },
+  {
+    "text": "call(alpha, beta) end\n",
+    "keys": "wwmr({",
+    "result": "call{alpha, beta} end\n",
+    "spans": [
+      [
+        4,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 5
+      }
+    ],
+    "id": "edits:surround-replace"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "w",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        0,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 4
+      }
+    ],
+    "id": "motions:w"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "wwb",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        4,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 4
+      }
+    ],
+    "id": "motions:b"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "e",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ],
+    "id": "motions:e"
+  },
+  {
+    "text": "foo_bar baz-qux (nested)\n",
+    "keys": "W",
+    "result": "foo_bar baz-qux (nested)\n",
+    "spans": [
+      [
+        0,
+        8
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 8
+      }
+    ],
+    "id": "motions:W"
+  },
+  {
+    "text": "foo_bar baz-qux (nested)\n",
+    "keys": "WWB",
+    "result": "foo_bar baz-qux (nested)\n",
+    "spans": [
+      [
+        8,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 16,
+        "head": 8
+      }
+    ],
+    "id": "motions:B"
+  },
+  {
+    "text": "foo_bar baz-qux (nested)\n",
+    "keys": "E",
+    "result": "foo_bar baz-qux (nested)\n",
+    "spans": [
+      [
+        0,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 7
+      }
+    ],
+    "id": "motions:E"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "3w",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        10,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 16
+      }
+    ],
+    "id": "motions:count-w"
+  },
+  {
+    "text": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "keys": "jjgg",
+    "result": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "motions:gg"
+  },
+  {
+    "text": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "keys": "ge",
+    "result": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "spans": [
+      [
+        23,
+        24
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 23,
+        "head": 24
+      }
+    ],
+    "id": "motions:ge"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "wwgh",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "motions:gh"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "gl",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        9,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 10
+      }
+    ],
+    "id": "motions:gl"
+  },
+  {
+    "text": "    indented line\n",
+    "keys": "gs",
+    "result": "    indented line\n",
+    "spans": [
+      [
+        4,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 5
+      }
+    ],
+    "id": "motions:gs"
+  },
+  {
+    "text": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "keys": "2G",
+    "result": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "spans": [
+      [
+        11,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 11,
+        "head": 12
+      }
+    ],
+    "id": "motions:goto-line"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "fq",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      }
+    ],
+    "id": "motions:f"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "tq",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        0,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 4
+      }
+    ],
+    "id": "motions:t"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "wwFh",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        1,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 1
+      }
+    ],
+    "id": "motions:F"
+  },
+  {
+    "text": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "keys": "j",
+    "result": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "spans": [
+      [
+        11,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 11,
+        "head": 12
+      }
+    ],
+    "id": "motions:j"
+  },
+  {
+    "text": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "keys": "jjk",
+    "result": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "spans": [
+      [
+        11,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 11,
+        "head": 12
+      }
+    ],
+    "id": "motions:k"
+  },
+  {
+    "text": "call(alpha, beta) end\n",
+    "keys": "f(mm",
+    "result": "call(alpha, beta) end\n",
+    "spans": [
+      [
+        16,
+        17
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 16,
+        "head": 17
+      }
+    ],
+    "id": "motions:mm"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "x",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ],
+    "id": "selection:x"
+  },
+  {
+    "text": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "keys": "xx",
+    "result": "alpha beta\ngamma delta\nepsilon zeta\n",
+    "spans": [
+      [
+        0,
+        23
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 23
+      }
+    ],
+    "id": "selection:xx"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "%",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        0,
+        23
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 23
+      }
+    ],
+    "id": "selection:select-all"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "x;",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        19,
+        20
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 19,
+        "head": 20
+      }
+    ],
+    "id": "selection:collapse"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "w<A-;>",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        0,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 0
+      }
+    ],
+    "id": "selection:flip"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "vw",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        0,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 4
+      }
+    ],
+    "id": "selection:extend-mode"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "wX",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ],
+    "id": "selection:extend-line-bounds"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "C",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        0,
+        1
+      ],
+      [
+        11,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      },
+      {
+        "anchor": 11,
+        "head": 12
+      }
+    ],
+    "id": "selection:copy-cursor-below"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "C,",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        11,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 11,
+        "head": 12
+      }
+    ],
+    "id": "selection:keep-primary"
+  },
+  {
+    "text": "call(alpha, beta) end\n",
+    "keys": "wwmi(",
+    "result": "call(alpha, beta) end\n",
+    "spans": [
+      [
+        5,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 16
+      }
+    ],
+    "id": "selection:mi-paren"
+  },
+  {
+    "text": "call(alpha, beta) end\n",
+    "keys": "wwma(",
+    "result": "call(alpha, beta) end\n",
+    "spans": [
+      [
+        4,
+        17
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 17
+      }
+    ],
+    "id": "selection:ma-paren"
+  },
+  {
+    "text": "say \"hi there\" ok\n",
+    "keys": "fhmi\"",
+    "result": "say \"hi there\" ok\n",
+    "spans": [
+      [
+        5,
+        13
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 13
+      }
+    ],
+    "id": "selection:mi-quote"
+  },
+  {
+    "text": "call(alpha, beta) end\n",
+    "keys": "fpmiw",
+    "result": "call(alpha, beta) end\n",
+    "spans": [
+      [
+        5,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 10
+      }
+    ],
+    "id": "selection:miw"
+  }
+]
