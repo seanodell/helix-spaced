@@ -11,6 +11,11 @@ AS_CHAR = {
     "lt": "<", "gt": ">", "minus": "-", "percent": "%",
 }
 
+# Keys whose character is invisible when printed, so they are always shown in
+# their bracketed form -- a trailing space in an answer is otherwise unreadable.
+INVISIBLE = {" ": "space", "\n": "ret", "\t": "tab"}
+
+
 class Key:
     __slots__ = ("alt", "ctrl", "name", "shift")
 
@@ -32,6 +37,13 @@ class Key:
         if p or len(self.name) > 1:
             return f"<{p}{self.name}>"
         return self.name
+
+    @property
+    def display(self) -> str:
+        """Spec, but never an invisible character."""
+        if not self.alt and not self.ctrl and self.name in INVISIBLE:
+            return f"<{INVISIBLE[self.name]}>"
+        return self.spec
 
     def __eq__(self, other):
         if isinstance(other, str):
@@ -69,3 +81,12 @@ def parse(seq: str) -> list[Key]:
             out.append(Key(seq[i]))
             i += 1
     return out
+
+
+def notation(seq: str) -> str:
+    """Re-emit a key sequence so every keystroke is visible.
+
+    `parse(notation(s))` equals `parse(s)`, so what is displayed is exactly what
+    can be typed back.
+    """
+    return "".join(k.display for k in parse(seq))

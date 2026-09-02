@@ -110,10 +110,24 @@ def test_normal_and_clean_is_good():
 
 
 def test_the_answer_is_always_the_graded_solution(cards):
-    """Derived from `keys`, so a revealed answer cannot drift from what passes."""
+    """Derived from `keys`, so a revealed answer cannot drift from what passes.
+    It is shown in visible notation, and typing exactly that must still solve it."""
     for c in cards:
-        assert c.answer == c.keys
-        assert c.check(c.answer)
+        assert c.check(c.answer), f"{c.id}: revealed answer {c.answer!r} does not solve it"
+
+
+def test_no_answer_contains_an_invisible_keystroke(cards):
+    """A bare space in an answer reads as nothing at all -- `T ` must show as
+    `T<space>`, or a learner sees `T` and wonders why it does not work."""
+    for c in cards:
+        assert not any(ch in c.answer for ch in " \t\n"), \
+            f"{c.id}: answer {c.answer!r} has an invisible keystroke"
+
+
+def test_answers_round_trip_through_notation(cards):
+    from helix_spaced.emu.keys import parse
+    for c in cards:
+        assert parse(c.answer) == parse(c.keys)
 
 
 def test_penalty_grows_with_hints_and_errors():

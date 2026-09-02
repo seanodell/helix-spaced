@@ -98,10 +98,10 @@ def test_tab_is_accepted_for_jump_forward():
     assert card.check(from_textual("ctrl+i", None) or "<C-i>")
 
 
-def test_navigation_answers_are_literal_keys(cards=None):
+def test_navigation_answers_are_literal_keys():
     """A first-time learner sees exactly what to press."""
     for c in KEY_CARDS:
-        assert c.answer == c.keys
+        assert c.check(c.answer)
         assert c.answer.strip()
 
 

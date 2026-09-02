@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .emu.engine import Engine
-from .emu.keys import parse
+from .emu.keys import notation, parse
 
 DECK_DIR = Path(__file__).resolve().parent.parent.parent / "decks"
 
@@ -45,9 +45,10 @@ class Card:
 
     @property
     def answer(self) -> str:
-        """What to type. Derived from `keys`, so it cannot drift from the
-        solution the card is actually graded against."""
-        return self.keys
+        """What to type, with every keystroke visible. Derived from `keys`, so it
+        cannot drift from the solution the card is graded against, and it parses
+        back to the same keys -- `T ` shows as `T<space>`."""
+        return notation(self.keys)
 
     @property
     def solution(self) -> str:

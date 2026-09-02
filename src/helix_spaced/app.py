@@ -16,6 +16,7 @@ from textual.widgets import Static
 
 from .deck import KEYS, load_dir
 from .emu.engine import Engine
+from .emu.keys import notation
 from .keymap import from_textual
 from .scheduler import Trainer
 from .session import Session
@@ -161,7 +162,7 @@ class TrainerApp(App):
     def redraw(self) -> None:
         assert self.session
         self.write("#buffer", render_buffer(self.session.engine))
-        self.write("#typed", Text(self.session.typed or " ", style="dim"))
+        self.write("#typed", Text(notation(self.session.typed) or " ", style="dim"))
         self.refresh_status()
 
     def refresh_status(self) -> None:
@@ -190,8 +191,8 @@ class TrainerApp(App):
         out.append(f"  {g.reason}  ")
         out.append(f"{s.elapsed_ms / 1000:.1f}s", style="dim")
         if not s.solved:
-            out.append("\n\nSolution: ", style="dim")
-            out.append(s.card.keys, style="bold")
+            out.append("\n\nAnswer: ", style="dim")
+            out.append(s.card.answer, style="bold")
         self.write("#status", out)
 
     def reveal(self) -> None:
