@@ -163,3 +163,74 @@ def detect_indent(text: str) -> str:
         return "\t"
     smallest = min(widths)
     return " " * smallest
+
+
+def is_blank(text: str, line: int) -> bool:
+    a, b = line_bounds(text, line)
+    return not text[a:b].strip()
+
+
+def n_lines(text: str) -> int:
+    return len(line_starts(text))
+
+
+def next_paragraph_start(text: str, pos: int, count: int = 1) -> int:
+    """Blank lines first: starting *on* a separator means the paragraph after it
+    is the current one, so the target is the paragraph beyond that."""
+    line, total = line_of(text, pos), n_lines(text)
+    for _ in range(count):
+        while line < total and is_blank(text, line):
+            line += 1
+        while line < total and not is_blank(text, line):
+            line += 1
+        while line < total and is_blank(text, line):
+            line += 1
+    return line_starts(text)[line] if line < total else len(text)
+
+
+def prev_paragraph_start(text: str, pos: int, count: int = 1) -> int:
+    line = line_of(text, pos)
+    for _ in range(count):
+        line -= 1
+        while line >= 0 and is_blank(text, line):
+            line -= 1
+        while line > 0 and not is_blank(text, line - 1):
+            line -= 1
+        if line < 0:
+            line = 0
+            break
+    return line_starts(text)[max(line, 0)]
+
+
+def paragraph_bounds(text: str, pos: int, around: bool) -> tuple[int, int]:
+    """Char range of the paragraph at pos; `around` swallows the blank lines after it."""
+    total = n_lines(text)
+    line = min(line_of(text, pos), total - 1)
+    while line < total and is_blank(text, line):
+        line += 1
+    line = min(line, total - 1)
+    start = line
+    while start > 0 and not is_blank(text, start - 1):
+        start -= 1
+    end = line
+    while end + 1 < total and not is_blank(text, end + 1):
+        end += 1
+    stop = end + 1
+    if around:
+        while stop < total and is_blank(text, stop):
+            stop += 1
+    starts = line_starts(text)
+    a = starts[start]
+    b = starts[stop] if stop < total else len(text)
+    return a, b
+
+
+def paragraph_anchor(text: str, pos: int) -> int:
+    """Where `]p` drops its anchor: the cursor, unless it sits on a blank line,
+    in which case the anchor moves to the paragraph that follows it."""
+    line, total = line_of(text, pos), n_lines(text)
+    if not is_blank(text, line):
+        return pos
+    while line < total and is_blank(text, line):
+        line += 1
+    return line_starts(text)[line] if line < total else len(text)

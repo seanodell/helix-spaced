@@ -40,6 +40,10 @@ class Editor:
     future: list[State] = field(default_factory=list)
     goal_column: int | None = None
     last_find: tuple[str, str] | None = None
+    last_search: str = ""
+    last_insert: str = ""
+    last_change: tuple[bool, str] = (False, "")
+    macro: list = field(default_factory=list)
 
     @staticmethod
     def new(text: str) -> "Editor":

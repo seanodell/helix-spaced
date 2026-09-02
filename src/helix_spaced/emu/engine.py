@@ -75,6 +75,8 @@ class Engine:
         self.pending_count = 1
         self.prompt: str | None = None
         self.prompt_buf = ""
+        self.register = '"'
+        self.recording: list[Key] | None = None
         self.extend = False
 
     # -- public ---------------------------------------------------------
@@ -116,6 +118,8 @@ class Engine:
     # -- dispatch -------------------------------------------------------
 
     def key(self, k: Key) -> None:
+        if self.recording is not None and k.spec != "Q":
+            self.recording.append(k)
         if self.prompt is not None:
             return self._prompt_key(k)
         if self.ed.state.mode == "insert":
@@ -171,6 +175,7 @@ class Engine:
         if kind == "S":
             return self._split_regex(rx)
         if kind in ("/", "?"):
+            self.ed.last_search = pattern
             return self._search(rx, forward=kind == "/")
         return None
 
@@ -197,8 +202,10 @@ class Engine:
             self._set(self.state.with_ranges(out))
 
     def _search(self, rx, forward: bool) -> None:
+        """Measured from the selection's start, not the cursor, so `N` steps off
+        the current match instead of finding it again."""
         t = self.text
-        start = self.state.ranges[self.state.primary].cursor
+        start = self.state.ranges[self.state.primary].start
         hits = [m for m in rx.finditer(t) if m.end() > m.start()]
         if not hits:
             return
@@ -227,6 +234,27 @@ class Engine:
             self._goto(seq[1], n)
         elif head == "m":
             self._match(seq, n)
+        elif head == '"':
+            if seq[1].char:
+                self.register = seq[1].char
+        elif head in ("[", "]"):
+            self._bracket(seq, n)
+
+    def _bracket(self, seq: list[Key], n: int) -> None:
+        """`]p` / `[p` select from the cursor to the next / previous paragraph."""
+        if seq[1].spec != "p":
+            return
+        t = self.text
+        forward = seq[0].spec == "]"
+
+        def one(r: Range) -> Range:
+            cur = r.cursor
+            if forward:
+                return Range(mv.paragraph_anchor(t, cur),
+                             mv.next_paragraph_start(t, cur, n))
+            return Range(min(cur + 1, len(t)), mv.prev_paragraph_start(t, cur, n))
+
+        self._motion(one)
 
     # -- normal mode -----------------------------------------------------
 
@@ -275,7 +303,7 @@ class Engine:
             return self._delete(yank=spec == "d")
         if spec in ("c", "<A-c>"):
             self._delete(yank=spec == "c", collapse=True)
-            return self._enter_insert()
+            return self._enter_insert(replaced=True)
         if spec == "i":
             return self._enter_insert([Range(r.end, r.start) for r in self.state.ranges])
         if spec == "a":
@@ -289,8 +317,27 @@ class Engine:
         if spec == "O":
             return self._open_line(0)
         if spec == "y":
-            ed.registers['"'] = [self.state.selected(r) for r in ed.ranges]
+            ed.registers[self._take_register()] = [
+                self.state.selected(r) for r in ed.ranges]
             return
+        if spec == "R":
+            return self._replace_with_yanked()
+        if spec == "_":
+            return self._trim()
+        if spec == "<A-s>":
+            return self._split_on_newline()
+        if spec == "<A-J>":
+            return self._join(n, select_space=True)
+        if spec == ".":
+            return self._repeat_insert()
+        if spec == "*":
+            return self._search_selection()
+        if spec in ("n", "N"):
+            return self._search_next(forward=spec == "n")
+        if spec == "Q":
+            return self._toggle_record()
+        if spec == "q":
+            return self._replay()
         if spec in ("p", "P"):
             return self._paste(after=spec == "p", count=n)
         if spec == "~":
@@ -386,6 +433,10 @@ class Engine:
         if not t:
             return None
         pos = min(pos, len(t) - 1)
+        if t[pos].isspace():
+            # Helix does not expand a word object from whitespace -- every one of
+            # miw/maw/miW/maW returns just the grapheme under the cursor.
+            return pos, pos + 1
         boundary = (lambda a, b: is_long_word_boundary(a, b)) if long else \
             (lambda a, b: is_word_boundary(a, b))
         start = pos
@@ -409,6 +460,8 @@ class Engine:
             if obj in ("w", "W"):
                 found = self._word_object(r.cursor, around, obj == "W")
                 return Range(*found) if found else r
+            if obj == "p":
+                return Range(*mv.paragraph_bounds(self.text, r.cursor, around))
             if obj in PAIRS:
                 o, c = PAIRS[obj]
                 found = self._pair_at(r.cursor, o, c)
@@ -650,7 +703,7 @@ class Engine:
     def _delete(self, yank: bool, collapse: bool = False) -> None:
         st = self.state
         if yank:
-            self.ed.registers['"'] = [st.selected(r) for r in st.ranges]
+            self.ed.registers[self._take_register()] = [st.selected(r) for r in st.ranges]
         specs = [(r.start, r.end, "") for r in st.ranges]
         n_after = len(self.text) - sum(e - s for s, e, _ in specs)
         place = (lambda p, r: Range(p[0], p[0])) if collapse \
@@ -665,7 +718,9 @@ class Engine:
     def _replace_char(self, ch: str) -> None:
         self._map_text(lambda s: ch * len(s))
 
-    def _enter_insert(self, ranges=None) -> None:
+    def _enter_insert(self, ranges=None, replaced: bool = False) -> None:
+        self.ed.last_insert = ""
+        self.ed.last_change = (replaced, "")
         st = self.state
         self._set(State(st.text, tuple(ranges) if ranges else st.ranges, st.primary, "insert"))
 
@@ -682,6 +737,8 @@ class Engine:
         ch = k.char
         if ch is None:
             return
+        self.ed.last_insert += ch
+        self.ed.last_change = (self.ed.last_change[0], self.ed.last_insert)
         st = self.state
         specs = [(r.head, r.head, ch) for r in st.ranges]
         text, _ = self._splice(specs)
@@ -712,7 +769,7 @@ class Engine:
         self._set(State(text, tuple(rs), st.primary, "insert"))
 
     def _paste(self, after: bool, count: int) -> None:
-        vals = self.ed.registers.get('"')
+        vals = self.ed.registers.get(self._take_register())
         if not vals:
             return
         t = self.text
@@ -730,7 +787,94 @@ class Engine:
             specs.append((pos, pos, val))
         self._apply(specs, lambda p, r: Range(p[0], p[1]))
 
-    def _join(self, n: int) -> None:
+    def _take_register(self) -> str:
+        """A register chosen with `"` applies to the next command only."""
+        reg, self.register = self.register, '"'
+        return reg
+
+    def _replace_with_yanked(self) -> None:
+        vals = self.ed.registers.get('"')
+        if not vals:
+            return
+        st = self.state
+        specs = []
+        for i, r in enumerate(st.ranges):
+            specs.append((r.start, r.end, vals[i] if i < len(vals) else vals[-1]))
+        self._apply(specs, lambda p, r: Range(p[0], p[1]))
+
+    def _trim(self) -> None:
+        out = []
+        for r in self.state.ranges:
+            body = self.state.selected(r)
+            lead = len(body) - len(body.lstrip())
+            tail = len(body) - len(body.rstrip())
+            a, b = r.start + lead, r.end - tail
+            out.append(Range(a, b) if b > a else r)
+        self._set(self.state.with_ranges(out))
+
+    def _split_on_newline(self) -> None:
+        out = []
+        for r in self.state.ranges:
+            pos = r.start
+            for i in range(r.start, r.end):
+                if self.text[i] == "\n":
+                    if i > pos:
+                        out.append(Range(pos, i))
+                    pos = i + 1
+            if pos < r.end:
+                out.append(Range(pos, r.end))
+        if out:
+            self._set(self.state.with_ranges(out))
+
+    def _repeat_insert(self) -> None:
+        """`.` repeats the last change, not just the typing: after `c` it deletes
+        the current selection first, the way the original change did."""
+        deleted, text = self.ed.last_change
+        if not text:
+            return
+        if deleted:
+            self._delete(yank=False, collapse=True)
+        st = self.state
+        specs = [(r.head, r.head, text) for r in st.ranges]
+        new, _ = self._splice(specs)
+        self.ed.checkpoint()
+        heads = sorted(sp[0] for sp in specs)
+
+        def shift(pos: int) -> int:
+            return pos + sum(len(text) for h in heads if h <= pos)
+
+        self._set(State(new, st.ranges, st.primary, st.mode).with_ranges(
+            [Range(shift(r.anchor), shift(r.head)).widen(len(new)) for r in st.ranges]))
+
+    def _search_selection(self) -> None:
+        r = self.state.ranges[self.state.primary]
+        body = self.state.selected(r)
+        if body:
+            self.ed.last_search = re.escape(body)
+
+    def _search_next(self, forward: bool) -> None:
+        pattern = self.ed.last_search
+        if not pattern:
+            return
+        try:
+            self._search(re.compile(pattern), forward=forward)
+        except re.error:
+            pass
+
+    def _toggle_record(self) -> None:
+        if self.recording is None:
+            self.recording = []
+        else:
+            self.ed.macro = list(self.recording)
+            self.recording = None
+
+    def _replay(self) -> None:
+        if not self.ed.macro or self.recording is not None:
+            return
+        for k in list(self.ed.macro):
+            self.key(k)
+
+    def _join(self, n: int, select_space: bool = False) -> None:
         """Helix drops the separator when the line being pulled up is blank."""
         t = self.text
         st = self.state
@@ -749,9 +893,12 @@ class Engine:
             sep = "" if j == mv.line_bounds(t, ln + 1)[1] else " "
             specs.append((e, j, sep))
         self.ed.checkpoint()
-        text, _ = self._splice(specs)
-        shift = self._shifter(specs)
+        text, placed = self._splice(specs)
         st2 = State(text, st.ranges, st.primary, st.mode)
+        if select_space:
+            spaces = [Range(a, b) for (a, b), (_, _, repl) in zip(placed, specs) if repl]
+            return self._set(st2.with_ranges(spaces or list(st.ranges)))
+        shift = self._shifter(specs)
         self._set(st2.with_ranges(
             [Range(shift(r.anchor), shift(r.head)) for r in st.ranges]))
 

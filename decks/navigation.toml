@@ -135,3 +135,31 @@ prompt = "Move the cursor to the bottom of the visible window"
 text = "from pathlib import Path\nimport helpers\n"
 keys = "gb"
 hint = "Goto menu, then 'bottom'."
+
+[[card]]
+id = "nav:page-down"
+prompt = "Scroll down a full page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-f>"
+hint = "A control key. Think 'forward'."
+
+[[card]]
+id = "nav:page-up"
+prompt = "Scroll up a full page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-b>"
+hint = "A control key. Think 'back'."
+
+[[card]]
+id = "nav:half-page-down"
+prompt = "Scroll down half a page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-d>"
+hint = "A control key. Think 'down'."
+
+[[card]]
+id = "nav:half-page-up"
+prompt = "Scroll up half a page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-u>"
+hint = "A control key. Think 'up'."

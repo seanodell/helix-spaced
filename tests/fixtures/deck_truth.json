@@ -324,6 +324,348 @@
     "id": "edits:surround-replace"
   },
   {
+    "text": "    indented line\n",
+    "keys": "I!<esc>",
+    "result": "    !indented line\n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ],
+    "id": "edits:I"
+  },
+  {
+    "text": "  alpha beta\n  gamma\n",
+    "keys": ">",
+    "result": "    alpha beta\n  gamma\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ],
+    "id": "edits:indent"
+  },
+  {
+    "text": "    alpha beta\n    gamma\n",
+    "keys": "<",
+    "result": "alpha beta\n    gamma\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:unindent"
+  },
+  {
+    "text": "alpha beta\ngamma\n",
+    "keys": "<A-J>",
+    "result": "alpha beta gamma\n",
+    "spans": [
+      [
+        10,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 11
+      }
+    ],
+    "id": "edits:join-select-space"
+  },
+  {
+    "text": "alpha beta gamma\n",
+    "keys": "wywR",
+    "result": "alpha alpha gamma\n",
+    "spans": [
+      [
+        6,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 12
+      }
+    ],
+    "id": "edits:replace-with-yanked"
+  },
+  {
+    "text": "ALPHA beta\n",
+    "keys": "e`",
+    "result": "alpha beta\n",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      }
+    ],
+    "id": "edits:lowercase"
+  },
+  {
+    "text": "alpha beta\n",
+    "keys": "e<A-`>",
+    "result": "ALPHA beta\n",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      }
+    ],
+    "id": "edits:uppercase"
+  },
+  {
+    "text": "alpha beta\n",
+    "keys": "iX<esc>.",
+    "result": "XXalpha beta\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ],
+    "id": "edits:repeat-insert"
+  },
+  {
+    "text": "alpha beta\n",
+    "keys": "\"aywgl\"ap",
+    "result": "alpha betaa\n",
+    "spans": [
+      [
+        10,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 11
+      }
+    ],
+    "id": "edits:named-register-yank"
+  },
+  {
+    "text": "cfg = {a: 1, b: 2} done\n",
+    "keys": "famd{",
+    "result": "cfg = a: 1, b: 2 done\n",
+    "spans": [
+      [
+        0,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 7
+      }
+    ],
+    "id": "edits:surround-delete-brace"
+  },
+  {
+    "text": "say \"hi there\" ok\n",
+    "keys": "fhmd\"",
+    "result": "say hi there ok\n",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      }
+    ],
+    "id": "edits:surround-delete-quote"
+  },
+  {
+    "text": "items = [one, two] done\n",
+    "keys": "fomr[{",
+    "result": "items = {one, two} done\n",
+    "spans": [
+      [
+        0,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 10
+      }
+    ],
+    "id": "edits:surround-replace-bracket"
+  },
+  {
+    "text": "make this bold\n",
+    "keys": "wwems*",
+    "result": "make this* bold*\n",
+    "spans": [
+      [
+        9,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 16
+      }
+    ],
+    "id": "edits:surround-add-star"
+  },
+  {
+    "text": "make this linked\n",
+    "keys": "wwems[",
+    "result": "make this[ linked]\n",
+    "spans": [
+      [
+        9,
+        18
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 18
+      }
+    ],
+    "id": "edits:surround-add-bracket"
+  },
+  {
+    "text": "one\ntwo\nthree\nfour\n",
+    "keys": "QxdQq",
+    "result": "three\nfour\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:macro-record-replay"
+  },
+  {
+    "text": "alpha beta gamma\n",
+    "keys": "QwdQq",
+    "result": "gamma\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:macro-word"
+  },
+  {
+    "text": "items = [one, two] done\n",
+    "keys": "fomd[",
+    "result": "items = one, two done\n",
+    "spans": [
+      [
+        0,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 9
+      }
+    ],
+    "id": "edits:surround-delete-bracket"
+  },
+  {
+    "text": "call(alpha, beta) end\n",
+    "keys": "wwmr([",
+    "result": "call[alpha, beta] end\n",
+    "spans": [
+      [
+        4,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 5
+      }
+    ],
+    "id": "edits:surround-replace-paren-bracket"
+  },
+  {
+    "text": "cfg = {a: 1} done\n",
+    "keys": "famr{(",
+    "result": "cfg = (a: 1) done\n",
+    "spans": [
+      [
+        0,
+        8
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 8
+      }
+    ],
+    "id": "edits:surround-replace-brace-paren"
+  },
+  {
     "text": "the quick brown fox\n",
     "keys": "w",
     "result": "the quick brown fox\n",
@@ -666,6 +1008,96 @@
     "id": "motions:mm"
   },
   {
+    "text": "the quick brown fox\n",
+    "keys": "5l3h",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ],
+    "id": "motions:count-h"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "wwT ",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        4,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 4
+      }
+    ],
+    "id": "motions:T"
+  },
+  {
+    "text": "first para\nstill first\n\nsecond para\nmore\n",
+    "keys": "]p",
+    "result": "first para\nstill first\n\nsecond para\nmore\n",
+    "spans": [
+      [
+        0,
+        24
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 24
+      }
+    ],
+    "id": "motions:next-paragraph"
+  },
+  {
+    "text": "first para\nstill first\n\nsecond para\nmore\n",
+    "keys": "]p]p[p",
+    "result": "first para\nstill first\n\nsecond para\nmore\n",
+    "spans": [
+      [
+        24,
+        41
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 41,
+        "head": 24
+      }
+    ],
+    "id": "motions:prev-paragraph"
+  },
+  {
+    "text": "the quick brown fox\n",
+    "keys": "l",
+    "result": "the quick brown fox\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ],
+    "id": "motions:l"
+  },
+  {
     "text": "alpha beta\ngamma delta\n",
     "keys": "x",
     "result": "alpha beta\ngamma delta\n",
@@ -906,5 +1338,393 @@
       }
     ],
     "id": "selection:miw"
+  },
+  {
+    "text": "alpha beta gamma\n",
+    "keys": "wmaw",
+    "result": "alpha beta gamma\n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ],
+    "id": "selection:maw"
+  },
+  {
+    "text": "cfg = {a: 1, b: 2} done\n",
+    "keys": "fami{",
+    "result": "cfg = {a: 1, b: 2} done\n",
+    "spans": [
+      [
+        7,
+        17
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 17
+      }
+    ],
+    "id": "selection:mi-brace"
+  },
+  {
+    "text": "items = [one, two] done\n",
+    "keys": "fomi[",
+    "result": "items = [one, two] done\n",
+    "spans": [
+      [
+        9,
+        17
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 17
+      }
+    ],
+    "id": "selection:mi-bracket"
+  },
+  {
+    "text": "say 'hi there' ok\n",
+    "keys": "fhmi'",
+    "result": "say 'hi there' ok\n",
+    "spans": [
+      [
+        5,
+        13
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 13
+      }
+    ],
+    "id": "selection:mi-single-quote"
+  },
+  {
+    "text": "first para\nstill first\n\nsecond para\n",
+    "keys": "mip",
+    "result": "first para\nstill first\n\nsecond para\n",
+    "spans": [
+      [
+        0,
+        23
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 23
+      }
+    ],
+    "id": "selection:inner-paragraph"
+  },
+  {
+    "text": "first para\nstill first\n\nsecond para\n",
+    "keys": "map",
+    "result": "first para\nstill first\n\nsecond para\n",
+    "spans": [
+      [
+        0,
+        24
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 24
+      }
+    ],
+    "id": "selection:around-paragraph"
+  },
+  {
+    "text": "   padded text   \nnext\n",
+    "keys": "x_",
+    "result": "   padded text   \nnext\n",
+    "spans": [
+      [
+        3,
+        14
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 3,
+        "head": 14
+      }
+    ],
+    "id": "selection:trim"
+  },
+  {
+    "text": "alpha\nbeta\ngamma\n",
+    "keys": "xx<A-s>",
+    "result": "alpha\nbeta\ngamma\n",
+    "spans": [
+      [
+        0,
+        5
+      ],
+      [
+        6,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      },
+      {
+        "anchor": 6,
+        "head": 10
+      }
+    ],
+    "id": "selection:split-on-newline"
+  },
+  {
+    "text": "alpha beta\ngamma delta\n",
+    "keys": "j<A-C>",
+    "result": "alpha beta\ngamma delta\n",
+    "spans": [
+      [
+        0,
+        1
+      ],
+      [
+        11,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      },
+      {
+        "anchor": 11,
+        "head": 12
+      }
+    ],
+    "id": "selection:copy-cursor-above"
+  },
+  {
+    "text": "one two one two\n",
+    "keys": "e*n",
+    "result": "one two one two\n",
+    "spans": [
+      [
+        8,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 11
+      }
+    ],
+    "id": "selection:search-selection"
+  },
+  {
+    "text": "one two one two\n",
+    "keys": "e*nN",
+    "result": "one two one two\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ],
+    "id": "selection:search-prev"
+  },
+  {
+    "text": "alpha beta gamma\n",
+    "keys": "%sa<ret>",
+    "result": "alpha beta gamma\n",
+    "spans": [
+      [
+        0,
+        1
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        15,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      },
+      {
+        "anchor": 4,
+        "head": 5
+      },
+      {
+        "anchor": 9,
+        "head": 10
+      },
+      {
+        "anchor": 12,
+        "head": 13
+      },
+      {
+        "anchor": 15,
+        "head": 16
+      }
+    ],
+    "id": "selection:select-regex"
+  },
+  {
+    "text": "one,two,three\n",
+    "keys": "xS,<ret>",
+    "result": "one,two,three\n",
+    "spans": [
+      [
+        0,
+        3
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        8,
+        14
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      },
+      {
+        "anchor": 4,
+        "head": 7
+      },
+      {
+        "anchor": 8,
+        "head": 14
+      }
+    ],
+    "id": "selection:split-regex"
+  },
+  {
+    "text": "alpha beta gamma\n",
+    "keys": "/gamma<ret>",
+    "result": "alpha beta gamma\n",
+    "spans": [
+      [
+        11,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 11,
+        "head": 16
+      }
+    ],
+    "id": "selection:search"
+  },
+  {
+    "text": "items = [one, two] done\n",
+    "keys": "foma[",
+    "result": "items = [one, two] done\n",
+    "spans": [
+      [
+        8,
+        18
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 18
+      }
+    ],
+    "id": "selection:ma-bracket"
+  },
+  {
+    "text": "cfg = {a: 1, b: 2} done\n",
+    "keys": "fama{",
+    "result": "cfg = {a: 1, b: 2} done\n",
+    "spans": [
+      [
+        6,
+        18
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 18
+      }
+    ],
+    "id": "selection:ma-brace"
+  },
+  {
+    "text": "say \"hi there\" ok\n",
+    "keys": "fhma\"",
+    "result": "say \"hi there\" ok\n",
+    "spans": [
+      [
+        4,
+        14
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 14
+      }
+    ],
+    "id": "selection:ma-quote"
+  },
+  {
+    "text": "say 'hi there' ok\n",
+    "keys": "fhma'",
+    "result": "say 'hi there' ok\n",
+    "spans": [
+      [
+        4,
+        14
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 14
+      }
+    ],
+    "id": "selection:ma-single-quote"
   }
 ]

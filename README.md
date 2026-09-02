@@ -72,7 +72,7 @@ reads the file back. Because that edit is length-preserving, the selected span i
 recovered exactly; a second run collapses to the cursor first, which yields the
 range's direction.
 
-1138 cases across seventeen buffers are checked in as
+1382 cases across twenty-one buffers are checked in as
 [tests/fixtures/helix_truth.json](tests/fixtures/helix_truth.json), and
 [tests/test_conformance.py](tests/test_conformance.py) replays every one against
 the emulator. That fixture, not the Python, is the specification.
@@ -205,6 +205,22 @@ so the jump-forward card accepts both.
 mise run validate      # every card's solution solves it
 mise run verify-deck    # state cards re-probed in a real hx
 ```
+
+## Coverage
+
+The deck covers **all 87 distinct commands** taught by
+[helix-trainer](https://github.com/bug-ops/helix-trainer) (read from its
+`scenarios/en/**/*.toml`, 160 scenarios), across 114 cards, plus 47 commands it
+does not teach — LSP navigation, the jumplist, `W`/`B`/`E`, `<A-;>`, `<A-d>`,
+counts, and search.
+
+Two places where we deliberately differ from it:
+
+- **`q` / `Q` are the right way round.** helix-trainer's lesson hints say `q`
+  records and `Q` replays; real Helix is the opposite. Verified by pressing each
+  in a real `hx` — `q` reports "Register [@] empty", a failed *replay*.
+- **No Vim-isms.** Its daily quests drill `0`, `$` and `yy`. `0`/`$` are
+  non-default aliases and `yy` is not a Helix binding at all.
 
 ## Navigation needs a language server
 

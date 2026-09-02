@@ -57,6 +57,22 @@ STRESS_KEYS = [
     "%sa<ret>", "%se<ret>", "sxyz<esc>", "/e<ret>", "sd<ret>", "S <ret>",
 ]
 
+# Commands added to close the gap against helix-trainer's curriculum.
+P = "first para\nstill first\n\nsecond para\nmore\n\nthird\n"
+Q = "  padded  \nalpha beta gamma\none two one two\n"
+GAP_KEYS = [
+    "]p", "[p", "]p]p", "]p]p[p", "w]p", "j]p", "jj]p", "2]p",
+    "mip", "map", "wmip", "wmap", "jjmip",
+    "<A-J>", "w<A-J>", "R", "wyeR", "wywR",
+    "_", "x_", "xx_", "<A-s>", "xx<A-s>", "x<A-s>",
+    "iX<esc>.", "aY<esc>.", "wcZ<esc>.",
+    "e*", "e*n", "e*nN", "e*nn", "wе*" if False else "we*n",
+    '"ay"aP', '"ayw"aP', '"byd"bp',
+    "T ", "wT ", "maw", "wmaw", "mi'", "ma'", "mi{", "ma{", "mi[", "ma[", 'ma"',
+    "md[", "md{", 'md"', "mr[{", "mr{(", "ms*", "ms[", "ms'",
+    "I!<esc>", "3h", "wl", "wh", "S <ret>", "Q", "q",
+]
+
 CASES = []
 for text in (A, B, C, D, E):
     for keys in MOTION + SELECT + EDIT:
@@ -66,6 +82,9 @@ for text in (F, G, H, A):
         CASES.append({"text": text, "keys": keys})
 for text in STRESS.values():
     for keys in STRESS_KEYS:
+        CASES.append({"text": text, "keys": keys})
+for text in (P, Q, F, G):
+    for keys in GAP_KEYS:
         CASES.append({"text": text, "keys": keys})
 
 if __name__ == "__main__":

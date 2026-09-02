@@ -139,3 +139,41 @@ text = "call(alpha, beta) end\n"
 start = "f("
 keys = "mm"
 hint = "Match mode, then the same key again."
+
+[[card]]
+id = "motions:count-h"
+prompt = "Move three characters left in one command"
+text = "the quick brown fox\n"
+start = "5l"
+keys = "3h"
+hint = "Prefix the motion with a number."
+
+[[card]]
+id = "motions:T"
+prompt = "Search backward for a space and stop just after it"
+text = "the quick brown fox\n"
+start = "ww"
+keys = "T "
+hint = "Capital till, then the target character."
+
+[[card]]
+id = "motions:next-paragraph"
+prompt = "Select from here to the start of the next paragraph"
+text = "first para\nstill first\n\nsecond para\nmore\n"
+keys = "]p"
+hint = "A bracket, then 'p'."
+
+[[card]]
+id = "motions:prev-paragraph"
+prompt = "Select back to the start of the previous paragraph"
+text = "first para\nstill first\n\nsecond para\nmore\n"
+start = "]p]p"
+keys = "[p"
+hint = "The mirror of the next-paragraph key."
+
+[[card]]
+id = "motions:l"
+prompt = "Move one character right"
+text = "the quick brown fox\n"
+keys = "l"
+hint = "Same as vim."
