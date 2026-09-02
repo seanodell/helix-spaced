@@ -1,5 +1,8 @@
 """Turn one attempt into an FSRS rating plus a difficulty signal.
 
+`hints` counts how many times the answer was revealed. The field keeps its name
+because the review log is append-only and older rows use it.
+
 Two things come out of an attempt. The rating drives FSRS scheduling (when the
 card comes back at all). The penalty is a separate 0..1 difficulty signal that
 biases which of the *currently due* cards get asked first, so hard cards recur
@@ -10,7 +13,9 @@ from dataclasses import dataclass
 
 from fsrs import Rating
 
-HINT_PENALTY = 0.45
+# Revealing the answer shows the literal keystrokes, not a nudge, so it costs
+# more than the old hint did.
+ANSWER_PENALTY = 0.6
 WRONG_KEY_PENALTY = 0.12
 SLOW_FACTOR = 2.0
 FAST_FACTOR = 0.6
@@ -38,7 +43,7 @@ def grade(attempt: Attempt, baseline_ms: int | None) -> Grade:
     if not attempt.solved:
         return Grade(Rating.Again, 1.0, "wrong")
 
-    penalty = min(1.0, attempt.hints * HINT_PENALTY
+    penalty = min(1.0, attempt.hints * ANSWER_PENALTY
                   + attempt.wrong_attempts * WRONG_KEY_PENALTY)
     slow = baseline_ms is not None and attempt.elapsed_ms > baseline_ms * SLOW_FACTOR
     fast = baseline_ms is not None and attempt.elapsed_ms < baseline_ms * FAST_FACTOR
@@ -47,7 +52,7 @@ def grade(attempt: Attempt, baseline_ms: int | None) -> Grade:
         penalty = min(1.0, penalty + 0.25)
 
     if attempt.hints:
-        return Grade(Rating.Hard, penalty, "hint used")
+        return Grade(Rating.Hard, penalty, "answer shown")
     if attempt.wrong_attempts:
         return Grade(Rating.Hard, penalty, "recovered after a wrong try")
     if slow:

@@ -5,14 +5,12 @@ id = "selection:x"
 prompt = "Select the whole current line"
 text = "alpha beta\ngamma delta\n"
 keys = "x"
-hint = "One key, and pressing it again takes the next line too."
 
 [[card]]
 id = "selection:xx"
 prompt = "Select this line and the one below it"
 text = "alpha beta\ngamma delta\nepsilon zeta\n"
 keys = "xx"
-hint = "The line-select key is repeatable."
 accept = ["2x"]
 
 [[card]]
@@ -20,7 +18,6 @@ id = "selection:select-all"
 prompt = "Select the entire file"
 text = "alpha beta\ngamma delta\n"
 keys = "%"
-hint = "A single symbol key."
 
 [[card]]
 id = "selection:collapse"
@@ -28,7 +25,6 @@ prompt = "Collapse the selection down to just the cursor"
 text = "the quick brown fox\n"
 start = "x"
 keys = ";"
-hint = "A punctuation key next to the comma."
 
 [[card]]
 id = "selection:flip"
@@ -36,14 +32,12 @@ prompt = "Flip the selection so the cursor sits at the other end"
 text = "the quick brown fox\n"
 start = "w"
 keys = "<A-;>"
-hint = "Alt plus the collapse key."
 
 [[card]]
 id = "selection:extend-mode"
 prompt = "Turn on extend mode, then move forward a word so the selection grows"
 text = "the quick brown fox\n"
 keys = "vw"
-hint = "One key toggles extend, then any motion extends instead of replacing."
 
 [[card]]
 id = "selection:extend-line-bounds"
@@ -51,14 +45,12 @@ prompt = "Expand the current selection out to whole-line boundaries"
 text = "alpha beta\ngamma delta\n"
 start = "w"
 keys = "X"
-hint = "Shifted version of the line-select key."
 
 [[card]]
 id = "selection:copy-cursor-below"
 prompt = "Add a second cursor on the line below"
 text = "alpha beta\ngamma delta\n"
 keys = "C"
-hint = "A capital letter. Duplicates the cursor downward."
 
 [[card]]
 id = "selection:keep-primary"
@@ -66,7 +58,6 @@ prompt = "Collapse multiple cursors back to just the primary one"
 text = "alpha beta\ngamma delta\n"
 start = "C"
 keys = ","
-hint = "The counterpart to the collapse key."
 
 [[card]]
 id = "selection:mi-paren"
@@ -74,7 +65,6 @@ prompt = "Select what is inside the parentheses, without the parentheses"
 text = "call(alpha, beta) end\n"
 start = "ww"
 keys = "mi("
-hint = "Match mode, inside, then the delimiter."
 
 [[card]]
 id = "selection:ma-paren"
@@ -82,7 +72,6 @@ prompt = "Select the parentheses and everything in them"
 text = "call(alpha, beta) end\n"
 start = "ww"
 keys = "ma("
-hint = "Match mode, around, then the delimiter."
 
 [[card]]
 id = "selection:mi-quote"
@@ -90,7 +79,6 @@ prompt = "Select the text inside the double quotes"
 text = "say \"hi there\" ok\n"
 start = "fh"
 keys = "mi\""
-hint = "Match mode, inside, then the delimiter."
 
 [[card]]
 id = "selection:miw"
@@ -98,7 +86,6 @@ prompt = "Select the whole word the cursor is inside"
 text = "call(alpha, beta) end\n"
 start = "fp"
 keys = "miw"
-hint = "Match mode, inside, then the object type."
 
 [[card]]
 id = "selection:maw"
@@ -106,7 +93,6 @@ prompt = "Select the word under the cursor together with the whitespace after it
 text = "alpha beta gamma\n"
 start = "w"
 keys = "maw"
-hint = "Match mode, around, then the object type."
 
 [[card]]
 id = "selection:mi-brace"
@@ -114,7 +100,6 @@ prompt = "Select what is inside the curly braces"
 text = "cfg = {a: 1, b: 2} done\n"
 start = "fa"
 keys = "mi{"
-hint = "Match mode, inside, then the delimiter."
 
 [[card]]
 id = "selection:mi-bracket"
@@ -122,7 +107,6 @@ prompt = "Select what is inside the square brackets"
 text = "items = [one, two] done\n"
 start = "fo"
 keys = "mi["
-hint = "Match mode, inside, then the delimiter."
 
 [[card]]
 id = "selection:mi-single-quote"
@@ -130,21 +114,18 @@ prompt = "Select the text inside the single quotes"
 text = "say 'hi there' ok\n"
 start = "fh"
 keys = "mi'"
-hint = "Match mode, inside, then the delimiter."
 
 [[card]]
 id = "selection:inner-paragraph"
 prompt = "Select this whole paragraph, without the blank line after it"
 text = "first para\nstill first\n\nsecond para\n"
 keys = "mip"
-hint = "Match mode, inside, then the object type."
 
 [[card]]
 id = "selection:around-paragraph"
 prompt = "Select this paragraph including the blank line after it"
 text = "first para\nstill first\n\nsecond para\n"
 keys = "map"
-hint = "Match mode, around, then the object type."
 
 [[card]]
 id = "selection:trim"
@@ -152,7 +133,6 @@ prompt = "Trim the whitespace off both ends of the selection"
 text = "   padded text   \nnext\n"
 start = "x"
 keys = "_"
-hint = "A single underscore."
 
 [[card]]
 id = "selection:split-on-newline"
@@ -160,7 +140,6 @@ prompt = "Split this multi-line selection into one cursor per line"
 text = "alpha\nbeta\ngamma\n"
 start = "xx"
 keys = "<A-s>"
-hint = "Alt plus the select-regex key."
 
 [[card]]
 id = "selection:copy-cursor-above"
@@ -168,7 +147,6 @@ prompt = "Add a second cursor on the line above"
 text = "alpha beta\ngamma delta\n"
 start = "j"
 keys = "<A-C>"
-hint = "Alt plus the copy-cursor key."
 
 [[card]]
 id = "selection:search-selection"
@@ -176,7 +154,6 @@ prompt = "Use the selected word as the search term, then jump to its next occurr
 text = "one two one two\n"
 start = "e"
 keys = "*n"
-hint = "A symbol sets the search term; another key advances."
 
 [[card]]
 id = "selection:search-prev"
@@ -184,28 +161,24 @@ prompt = "Jump to the previous occurrence of the current search term"
 text = "one two one two\n"
 start = "e*n"
 keys = "N"
-hint = "The shifted version of the advance key."
 
 [[card]]
 id = "selection:select-regex"
 prompt = "Select the whole file, then narrow to every occurrence of 'a' within it"
 text = "alpha beta gamma\n"
 keys = "%sa<ret>"
-hint = "Select all, then a key that opens a regex prompt."
 
 [[card]]
 id = "selection:split-regex"
 prompt = "Select the whole line, then split it into pieces on every comma"
 text = "one,two,three\n"
 keys = "xS,<ret>"
-hint = "The shifted version of the select-regex key."
 
 [[card]]
 id = "selection:search"
 prompt = "Search forward for 'gamma'"
 text = "alpha beta gamma\n"
 keys = "/gamma<ret>"
-hint = "The usual search key, then the term and enter."
 
 [[card]]
 id = "selection:ma-bracket"
@@ -213,7 +186,6 @@ prompt = "Select the square brackets and everything inside them"
 text = "items = [one, two] done\n"
 start = "fo"
 keys = "ma["
-hint = "Match mode, around, then the delimiter."
 
 [[card]]
 id = "selection:ma-brace"
@@ -221,7 +193,6 @@ prompt = "Select the curly braces and everything inside them"
 text = "cfg = {a: 1, b: 2} done\n"
 start = "fa"
 keys = "ma{"
-hint = "Match mode, around, then the delimiter."
 
 [[card]]
 id = "selection:ma-quote"
@@ -229,7 +200,6 @@ prompt = "Select the double quotes and the text inside them"
 text = "say \"hi there\" ok\n"
 start = "fh"
 keys = "ma\""
-hint = "Match mode, around, then the delimiter."
 
 [[card]]
 id = "selection:ma-single-quote"
@@ -237,4 +207,3 @@ prompt = "Select the single quotes and the text inside them"
 text = "say 'hi there' ok\n"
 start = "fh"
 keys = "ma'"
-hint = "Match mode, around, then the delimiter."

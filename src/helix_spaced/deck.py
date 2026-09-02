@@ -35,7 +35,6 @@ class Card:
     prompt: str
     text: str
     keys: str
-    hint: str = ""
     start: str = ""
     accept: tuple[str, ...] = field(default_factory=tuple)
     kind: str = STATE
@@ -43,6 +42,12 @@ class Card:
     @property
     def answers(self) -> tuple[str, ...]:
         return (self.keys, *self.accept)
+
+    @property
+    def answer(self) -> str:
+        """What to type. Derived from `keys`, so it cannot drift from the
+        solution the card is actually graded against."""
+        return self.keys
 
     @property
     def solution(self) -> str:
@@ -91,7 +96,7 @@ def load_file(path: Path) -> list[Card]:
         cid = c.get("id") or f"{deck}:{i:03d}"
         out.append(Card(
             id=cid, deck=deck, prompt=c["prompt"], text=c["text"], keys=c["keys"],
-            hint=c.get("hint", ""), start=c.get("start", ""),
+            start=c.get("start", ""),
             accept=tuple(c.get("accept", ())), kind=c.get("kind", data.get("kind", STATE))))
     return out
 

@@ -66,9 +66,10 @@ class Session:
         self.keys.clear()
         self.engine = self.card.initial()
 
-    def take_hint(self) -> str:
+    def reveal(self) -> str:
+        """Show the keys to type. Counts against the score."""
         self.hints += 1
-        return self.card.hint or f"{len(self.card.keys)} keystrokes"
+        return self.card.answer
 
     def give_up(self) -> None:
         self.gave_up = True

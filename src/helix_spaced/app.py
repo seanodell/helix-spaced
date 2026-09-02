@@ -23,14 +23,14 @@ from .store import Store
 
 ACTIVE, GRADED = "active", "graded"
 
-NEXT, HINT, RESTART, GIVE_UP, QUIT = "next", "hint", "restart", "give_up", "quit"
+NEXT, ANSWER, RESTART, GIVE_UP, QUIT = "next", "answer", "restart", "give_up", "quit"
 
 # One letter per action. Hold ctrl while a card is running; press it bare once
 # the card is graded and the trainer owns the keyboard again.
-ACTIONS = {"n": NEXT, "t": HINT, "r": RESTART, "g": GIVE_UP, "q": QUIT}
+ACTIONS = {"n": NEXT, "t": ANSWER, "r": RESTART, "g": GIVE_UP, "q": QUIT}
 
 HELP = {
-    ACTIVE: [("t", "hint"), ("r", "restart"), ("g", "give up"),
+    ACTIVE: [("t", "answer"), ("r", "restart"), ("g", "give up"),
              ("n", "skip"), ("q", "quit")],
     GRADED: [("n", "next"), ("q", "quit")],
 }
@@ -171,7 +171,7 @@ class TrainerApp(App):
         bits = [f"{s.elapsed_ms / 1000:5.1f}s",
                 f"due {len(self.trainer.due_pool())}", f"done {self.done}"]
         if s.hints:
-            bits.append(f"hints {s.hints}")
+            bits.append(f"answered {s.hints}")
         if s.wrong:
             bits.append(f"restarts {s.wrong}")
         self.write("#status", Text("   ".join(bits), style="dim"))
@@ -194,11 +194,13 @@ class TrainerApp(App):
             out.append(s.card.keys, style="bold")
         self.write("#status", out)
 
-    def hint(self) -> None:
-        """Hints get their own panel; #status is rewritten by the timer every tick."""
+    def reveal(self) -> None:
+        """The answer gets its own panel; #status is rewritten by the timer."""
         assert self.session
-        text = self.session.take_hint()
-        self.write("#hint", Text(f"Hint: {text}"))
+        keys = self.session.reveal()
+        out = Text("Answer: ", style="dim")
+        out.append(keys, style="bold")
+        self.write("#hint", out)
 
     # -- input --------------------------------------------------------------
 
@@ -219,8 +221,8 @@ class TrainerApp(App):
             self.exit(message=f"Done: {self.done} cards")
         elif action == NEXT:
             self.next_card()
-        elif action == HINT and self.phase == ACTIVE:
-            self.hint()
+        elif action == ANSWER and self.phase == ACTIVE:
+            self.reveal()
         elif action == RESTART and self.phase == ACTIVE:
             self.session.reset()
             self.redraw()

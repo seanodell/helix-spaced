@@ -5,7 +5,6 @@ id = "motions:w"
 prompt = "Move to the start of the next word"
 text = "the quick brown fox\n"
 keys = "w"
-hint = "One key. Selects up to the next word start."
 
 [[card]]
 id = "motions:b"
@@ -13,21 +12,18 @@ prompt = "Move back to the start of the previous word"
 text = "the quick brown fox\n"
 start = "ww"
 keys = "b"
-hint = "Mirror of w."
 
 [[card]]
 id = "motions:e"
 prompt = "Move to the end of the current word"
 text = "the quick brown fox\n"
 keys = "e"
-hint = "Selects to the last character of the word."
 
 [[card]]
 id = "motions:W"
 prompt = "Move to the next WORD start, treating punctuation as part of the word"
 text = "foo_bar baz-qux (nested)\n"
 keys = "W"
-hint = "Shifted w."
 
 [[card]]
 id = "motions:B"
@@ -35,21 +31,18 @@ prompt = "Move back a WORD (punctuation included)"
 text = "foo_bar baz-qux (nested)\n"
 start = "WW"
 keys = "B"
-hint = "Shifted b."
 
 [[card]]
 id = "motions:E"
 prompt = "Move to the end of the current WORD"
 text = "foo_bar baz-qux (nested)\n"
 keys = "E"
-hint = "Shifted e."
 
 [[card]]
 id = "motions:count-w"
 prompt = "Jump forward three words in one command"
 text = "the quick brown fox\n"
 keys = "3w"
-hint = "Prefix the motion with a number."
 
 [[card]]
 id = "motions:gg"
@@ -57,14 +50,12 @@ prompt = "Jump to the start of the file"
 text = "alpha beta\ngamma delta\nepsilon zeta\n"
 start = "jj"
 keys = "gg"
-hint = "Goto menu, then the same key again."
 
 [[card]]
 id = "motions:ge"
 prompt = "Jump to the last line of the file"
 text = "alpha beta\ngamma delta\nepsilon zeta\n"
 keys = "ge"
-hint = "Goto menu, then 'end'."
 
 [[card]]
 id = "motions:gh"
@@ -72,42 +63,36 @@ prompt = "Jump to the start of the line"
 text = "alpha beta\ngamma delta\n"
 start = "ww"
 keys = "gh"
-hint = "Goto menu. Think 'h' for leftmost."
 
 [[card]]
 id = "motions:gl"
 prompt = "Jump to the end of the line"
 text = "alpha beta\ngamma delta\n"
 keys = "gl"
-hint = "Goto menu. Think 'l' for rightmost."
 
 [[card]]
 id = "motions:gs"
 prompt = "Jump to the first non-whitespace character of the line"
 text = "    indented line\n"
 keys = "gs"
-hint = "Goto menu, then 's' for start-of-text."
 
 [[card]]
 id = "motions:goto-line"
 prompt = "Jump to line 2"
 text = "alpha beta\ngamma delta\nepsilon zeta\n"
 keys = "2G"
-hint = "Count, then a capital letter."
 
 [[card]]
 id = "motions:f"
 prompt = "Select forward up to and including the next 'q'"
 text = "the quick brown fox\n"
 keys = "fq"
-hint = "Find. Takes the target character next."
 
 [[card]]
 id = "motions:t"
 prompt = "Select forward up to but NOT including the next 'q'"
 text = "the quick brown fox\n"
 keys = "tq"
-hint = "Till, rather than find."
 
 [[card]]
 id = "motions:F"
@@ -115,14 +100,12 @@ prompt = "Search backward for 'h' and select back to it"
 text = "the quick brown fox\n"
 start = "ww"
 keys = "Fh"
-hint = "Capitalised find reverses direction."
 
 [[card]]
 id = "motions:j"
 prompt = "Move down one line"
 text = "alpha beta\ngamma delta\nepsilon zeta\n"
 keys = "j"
-hint = "Same as vim."
 
 [[card]]
 id = "motions:k"
@@ -130,7 +113,6 @@ prompt = "Move up one line"
 text = "alpha beta\ngamma delta\nepsilon zeta\n"
 start = "jj"
 keys = "k"
-hint = "Same as vim."
 
 [[card]]
 id = "motions:mm"
@@ -138,7 +120,6 @@ prompt = "Jump from this bracket to its matching one"
 text = "call(alpha, beta) end\n"
 start = "f("
 keys = "mm"
-hint = "Match mode, then the same key again."
 
 [[card]]
 id = "motions:count-h"
@@ -146,7 +127,6 @@ prompt = "Move three characters left in one command"
 text = "the quick brown fox\n"
 start = "5l"
 keys = "3h"
-hint = "Prefix the motion with a number."
 
 [[card]]
 id = "motions:T"
@@ -154,14 +134,12 @@ prompt = "Search backward for a space and stop just after it"
 text = "the quick brown fox\n"
 start = "ww"
 keys = "T "
-hint = "Capital till, then the target character."
 
 [[card]]
 id = "motions:next-paragraph"
 prompt = "Select from here to the start of the next paragraph"
 text = "first para\nstill first\n\nsecond para\nmore\n"
 keys = "]p"
-hint = "A bracket, then 'p'."
 
 [[card]]
 id = "motions:prev-paragraph"
@@ -169,11 +147,9 @@ prompt = "Select back to the start of the previous paragraph"
 text = "first para\nstill first\n\nsecond para\nmore\n"
 start = "]p]p"
 keys = "[p"
-hint = "The mirror of the next-paragraph key."
 
 [[card]]
 id = "motions:l"
 prompt = "Move one character right"
 text = "the quick brown fox\n"
 keys = "l"
-hint = "Same as vim."

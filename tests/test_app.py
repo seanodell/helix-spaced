@@ -81,7 +81,7 @@ def test_render_shows_a_selected_newline():
 @pytest.fixture
 def trainer(tmp_path):
     card = Card(id="t:w", deck="t", prompt="next word",
-                text="the quick brown fox\n", keys="w", hint="one key")
+                text="the quick brown fox\n", keys="w")
     store = Store(tmp_path / "a.db")
     yield Trainer([card], store)
     store.close()
@@ -116,12 +116,15 @@ async def test_letters_reach_the_buffer_not_the_trainer(trainer):
 
 
 @pytest.mark.asyncio
-async def test_hint_during_a_card_uses_ctrl(trainer):
+async def test_the_answer_key_shows_the_keys_to_type(trainer):
+    """It reveals the literal solution, not a nudge -- so it must cost you."""
     app = TrainerApp(trainer, limit=1)
     async with app.run_test() as pilot:
         await pilot.press("ctrl+t")
         assert app.session.hints == 1
         assert app.session.typed == ""
+        shown = app.query_one("#hint", Static).render().plain
+        assert shown == "Answer: w"
         await pilot.press("w")
         assert app.session.attempt().hints == 1
 

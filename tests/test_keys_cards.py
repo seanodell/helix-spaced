@@ -98,6 +98,13 @@ def test_tab_is_accepted_for_jump_forward():
     assert card.check(from_textual("ctrl+i", None) or "<C-i>")
 
 
+def test_navigation_answers_are_literal_keys(cards=None):
+    """A first-time learner sees exactly what to press."""
+    for c in KEY_CARDS:
+        assert c.answer == c.keys
+        assert c.answer.strip()
+
+
 def test_reserved_trainer_keys_are_not_required_by_any_card():
     """A card can never ask for a key the trainer swallows."""
     reserved = {"<C-n>", "<C-t>", "<C-r>", "<C-g>", "<C-q>"}

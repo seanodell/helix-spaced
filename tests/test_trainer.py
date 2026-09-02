@@ -109,6 +109,13 @@ def test_normal_and_clean_is_good():
     assert grade(a(elapsed_ms=1000), 1000).rating is Rating.Good
 
 
+def test_the_answer_is_always_the_graded_solution(cards):
+    """Derived from `keys`, so a revealed answer cannot drift from what passes."""
+    for c in cards:
+        assert c.answer == c.keys
+        assert c.check(c.answer)
+
+
 def test_penalty_grows_with_hints_and_errors():
     assert grade(a(), 1000).penalty == 0
     assert grade(a(hints=1), 1000).penalty > grade(a(wrong_attempts=1), 1000).penalty

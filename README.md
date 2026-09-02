@@ -1,8 +1,8 @@
 # helix-spaced
 
 Spaced repetition trainer for Helix keybindings. Covers the ground `helix-trainer`
-covers, but grades you: hints, wrong tries and slow answers all cost you, and the
-cards you keep fumbling come back more often.
+covers, but grades you: revealing the answer, wrong tries and slow answers all
+cost you, and the cards you keep fumbling come back more often.
 
 ```
 mise run install     # one time
@@ -19,7 +19,7 @@ Every attempt produces two numbers.
 | Result | Rating |
 |---|---|
 | Wrong, or gave up | `Again` |
-| Hint used | `Hard` |
+| Answer revealed | `Hard` |
 | Recovered after a restart | `Hard` |
 | Clean, but over 2x your median for that card | `Hard` |
 | Clean, normal speed | `Good` |
@@ -41,7 +41,7 @@ a card is live, and drop it once the card is graded.
 
 | While a card runs | Once graded | Action |
 |---|---|---|
-| `Ctrl-T` | `t` | hint (penalty) |
+| `Ctrl-T` | `t` | show the answer (penalty) |
 | `Ctrl-R` | `r` | restart the card (counts as a wrong try) |
 | `Ctrl-G` | `g` | give up, show the answer |
 | `Ctrl-N` | `n` | next card (skipping a live card scores nothing) |
@@ -166,11 +166,15 @@ id = "motions:w"
 prompt = "Move to the start of the next word"
 text = "the quick brown fox\n"
 keys = "w"
-hint = "One key."
 ```
 
 `start` runs setup keys before the card begins. `accept` lists alternative
 solutions where more than one end state is genuinely correct.
+
+There is no `hint` field. `Ctrl-T` reveals `keys` verbatim — the literal
+keystrokes to type — because a card is often the first time you meet a command.
+Deriving it from `keys` means the revealed answer can never drift from the
+solution the card is graded against.
 
 ### Keystroke cards (`kind = "keys"`)
 

@@ -6,7 +6,6 @@ prompt = "Delete the selection"
 text = "the quick brown fox\n"
 start = "w"
 keys = "d"
-hint = "One key."
 
 [[card]]
 id = "edits:c"
@@ -14,63 +13,54 @@ prompt = "Delete the selected word and type 'big' in its place, then return to n
 text = "the quick brown fox\n"
 start = "w"
 keys = "cbig<esc>"
-hint = "Change, type, escape."
 
 [[card]]
 id = "edits:i"
 prompt = "Enter insert mode before the cursor, type 'X', then escape"
 text = "the quick brown fox\n"
 keys = "iX<esc>"
-hint = "Same as vim."
 
 [[card]]
 id = "edits:a"
 prompt = "Append after the cursor: type 'X', then escape"
 text = "the quick brown fox\n"
 keys = "aX<esc>"
-hint = "Same as vim."
 
 [[card]]
 id = "edits:A"
 prompt = "Append at the end of the line: type '!', then escape"
 text = "the quick brown fox\n"
 keys = "A!<esc>"
-hint = "Shifted append."
 
 [[card]]
 id = "edits:o"
 prompt = "Open a new line below and type 'next', then escape"
 text = "alpha beta\n"
 keys = "onext<esc>"
-hint = "Same as vim."
 
 [[card]]
 id = "edits:O"
 prompt = "Open a new line above and type 'first', then escape"
 text = "alpha beta\n"
 keys = "Ofirst<esc>"
-hint = "Shifted open."
 
 [[card]]
 id = "edits:yank-paste"
 prompt = "Yank the first word, jump to the end of the line, and paste it after the cursor"
 text = "alpha beta\n"
 keys = "wyglp"
-hint = "Three steps: yank, move, paste."
 
 [[card]]
 id = "edits:paste-before"
 prompt = "Yank the first word and paste a copy before the cursor"
 text = "alpha beta\n"
 keys = "wyP"
-hint = "Capital paste goes before."
 
 [[card]]
 id = "edits:replace"
 prompt = "Replace the character under the cursor with '-'"
 text = "the quick brown fox\n"
 keys = "r-"
-hint = "Replace, then the new character."
 
 [[card]]
 id = "edits:switch-case"
@@ -78,28 +68,24 @@ prompt = "Switch the case of the first word"
 text = "the quick brown fox\n"
 start = "e"
 keys = "~"
-hint = "A single symbol key."
 
 [[card]]
 id = "edits:join"
 prompt = "Join the line below into this one"
 text = "alpha beta\ngamma delta\n"
 keys = "J"
-hint = "A capital letter."
 
 [[card]]
 id = "edits:undo"
 prompt = "Delete the whole line, then undo it"
 text = "alpha beta\ngamma delta\n"
 keys = "xdu"
-hint = "Select line, delete, then the usual undo key."
 
 [[card]]
 id = "edits:redo"
 prompt = "Delete the line, undo, then redo the delete"
 text = "alpha beta\ngamma delta\n"
 keys = "xduU"
-hint = "Redo is the shifted undo key."
 
 [[card]]
 id = "edits:delete-noyank"
@@ -107,7 +93,6 @@ prompt = "Delete the selection WITHOUT copying it to the register"
 text = "the quick brown fox\n"
 start = "w"
 keys = "<A-d>"
-hint = "Alt plus the delete key."
 
 [[card]]
 id = "edits:surround-add"
@@ -115,7 +100,6 @@ prompt = "Wrap the selected word in curly braces"
 text = "call alpha end\n"
 start = "e"
 keys = "ms{"
-hint = "Match mode, surround, then the delimiter."
 
 [[card]]
 id = "edits:surround-delete"
@@ -123,7 +107,6 @@ prompt = "Remove the parentheses around this text, keeping the text"
 text = "call(alpha, beta) end\n"
 start = "ww"
 keys = "md("
-hint = "Match mode, delete, then the delimiter."
 
 [[card]]
 id = "edits:surround-replace"
@@ -131,42 +114,36 @@ prompt = "Change the parentheses around this text into curly braces"
 text = "call(alpha, beta) end\n"
 start = "ww"
 keys = "mr({"
-hint = "Match mode, replace, old delimiter, new delimiter."
 
 [[card]]
 id = "edits:I"
 prompt = "Insert at the first non-whitespace character of the line: type '!', then escape"
 text = "    indented line\n"
 keys = "I!<esc>"
-hint = "Shifted insert."
 
 [[card]]
 id = "edits:indent"
 prompt = "Indent this line one level"
 text = "  alpha beta\n  gamma\n"
 keys = ">"
-hint = "A single angle bracket."
 
 [[card]]
 id = "edits:unindent"
 prompt = "Remove one level of indentation from this line"
 text = "    alpha beta\n    gamma\n"
 keys = "<"
-hint = "The mirror of the indent key."
 
 [[card]]
 id = "edits:join-select-space"
 prompt = "Join the next line up and leave the inserted space selected"
 text = "alpha beta\ngamma\n"
 keys = "<A-J>"
-hint = "Alt plus the join key."
 
 [[card]]
 id = "edits:replace-with-yanked"
 prompt = "Yank the first word, then replace the second word with it"
 text = "alpha beta gamma\n"
 keys = "wywR"
-hint = "A capital letter. Think 'replace'."
 
 [[card]]
 id = "edits:lowercase"
@@ -174,7 +151,6 @@ prompt = "Force the selected word to lowercase"
 text = "ALPHA beta\n"
 start = "e"
 keys = "`"
-hint = "A single backtick."
 
 [[card]]
 id = "edits:uppercase"
@@ -182,21 +158,18 @@ prompt = "Force the selected word to uppercase"
 text = "alpha beta\n"
 start = "e"
 keys = "<A-`>"
-hint = "Alt plus the lowercase key."
 
 [[card]]
 id = "edits:repeat-insert"
 prompt = "Insert 'X' and escape, then repeat that same insertion once more"
 text = "alpha beta\n"
 keys = "iX<esc>."
-hint = "A single period repeats the last insert."
 
 [[card]]
 id = "edits:named-register-yank"
 prompt = "Yank the first word into register 'a', move on, then paste it back from register 'a'"
 text = "alpha beta\n"
 keys = "\"aywgl\"ap"
-hint = "A quote picks the register, before both the yank and the paste."
 
 [[card]]
 id = "edits:surround-delete-brace"
@@ -204,7 +177,6 @@ prompt = "Remove the curly braces around this text, keeping the text"
 text = "cfg = {a: 1, b: 2} done\n"
 start = "fa"
 keys = "md{"
-hint = "Match mode, delete, then the delimiter."
 
 [[card]]
 id = "edits:surround-delete-quote"
@@ -212,7 +184,6 @@ prompt = "Remove the double quotes around this text, keeping the text"
 text = "say \"hi there\" ok\n"
 start = "fh"
 keys = "md\""
-hint = "Match mode, delete, then the delimiter."
 
 [[card]]
 id = "edits:surround-replace-bracket"
@@ -220,7 +191,6 @@ prompt = "Change the square brackets around this text into curly braces"
 text = "items = [one, two] done\n"
 start = "fo"
 keys = "mr[{"
-hint = "Match mode, replace, old delimiter, new delimiter."
 
 [[card]]
 id = "edits:surround-add-star"
@@ -228,7 +198,6 @@ prompt = "Wrap the selected word in asterisks, the way Markdown emphasis works"
 text = "make this bold\n"
 start = "wwe"
 keys = "ms*"
-hint = "Match mode, surround, then the character to wrap with."
 
 [[card]]
 id = "edits:surround-add-bracket"
@@ -236,21 +205,18 @@ prompt = "Wrap the selected word in square brackets"
 text = "make this linked\n"
 start = "wwe"
 keys = "ms["
-hint = "Match mode, surround, then the delimiter."
 
 [[card]]
 id = "edits:macro-record-replay"
 prompt = "Record a macro that deletes a line, stop recording, then replay it once"
 text = "one\ntwo\nthree\nfour\n"
 keys = "QxdQq"
-hint = "A capital letter toggles recording; the lowercase one replays."
 
 [[card]]
 id = "edits:macro-word"
 prompt = "Record deleting a word, stop recording, then replay it"
 text = "alpha beta gamma\n"
 keys = "QwdQq"
-hint = "Toggle recording, do the edit, toggle off, then replay."
 
 [[card]]
 id = "edits:surround-delete-bracket"
@@ -258,7 +224,6 @@ prompt = "Remove the square brackets around this text, keeping the text"
 text = "items = [one, two] done\n"
 start = "fo"
 keys = "md["
-hint = "Match mode, delete, then the delimiter."
 
 [[card]]
 id = "edits:surround-replace-paren-bracket"
@@ -266,7 +231,6 @@ prompt = "Change the parentheses around this text into square brackets"
 text = "call(alpha, beta) end\n"
 start = "ww"
 keys = "mr(["
-hint = "Match mode, replace, old delimiter, new delimiter."
 
 [[card]]
 id = "edits:surround-replace-brace-paren"
@@ -274,4 +238,3 @@ prompt = "Change the curly braces around this text into parentheses"
 text = "cfg = {a: 1} done\n"
 start = "fa"
 keys = "mr{("
-hint = "Match mode, replace, old delimiter, new delimiter."
