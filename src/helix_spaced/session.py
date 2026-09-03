@@ -3,7 +3,7 @@
 import time
 from dataclasses import dataclass, field
 
-from .deck import Card
+from .deck import Card, normalise
 from .emu.engine import Engine
 from .scoring import Attempt
 
@@ -31,7 +31,14 @@ class Session:
     @property
     def extra_keys(self) -> int:
         """Keystrokes beyond the shortest accepted route. `spent` is cumulative,
-        so a restart does not wipe the keys already used."""
+        so a restart does not wipe the keys already used.
+
+        Typing an accepted answer exactly costs nothing even when a shorter route
+        exists -- `accept` says "this route is fine", so it must not be charged
+        against a briefer one."""
+        typed = normalise(self.typed)
+        if self.spent == len(typed) and typed in {normalise(x) for x in self.card.answers}:
+            return 0
         return max(0, self.spent - self.card.par)
 
     @property

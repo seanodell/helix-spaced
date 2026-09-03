@@ -9,7 +9,9 @@ SPECIAL = {
 # Reserved by the trainer while a card is running. Helix binds none of these in
 # normal mode -- its ctrl keys are b/f/u/d, e/y, i/o, s, a/x, w and c -- so
 # reserving them costs no card.
-CONTROL_KEYS = {"ctrl+q", "ctrl+c", "ctrl+n", "ctrl+t", "ctrl+r", "ctrl+g"}
+# Ctrl-C is deliberately absent: it is Helix's toggle-comments and the trainer
+# lets it through, so Ctrl-Q is the only way out.
+CONTROL_KEYS = {"ctrl+q", "ctrl+n", "ctrl+t", "ctrl+r", "ctrl+g"}
 
 
 def from_textual(key: str, character: str | None) -> str | None:
@@ -29,3 +31,8 @@ def from_textual(key: str, character: str | None) -> str | None:
     if character and character.isprintable() and len(character) == 1:
         return "<lt>" if character == "<" else character
     return None
+
+
+# The same reserved keys in Helix notation, for deck-side checks: a card can
+# never require one of these, and none may set a card's par.
+RESERVED_NOTATION = frozenset({"<C-q>", "<C-n>", "<C-t>", "<C-r>", "<C-g>"})

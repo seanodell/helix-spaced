@@ -720,6 +720,78 @@
     "id": "edits:delete-to-line-start"
   },
   {
+    "text": "x = 1\ny = 2\nz = 3\n",
+    "keys": "<space>c",
+    "result": "# x = 1\ny = 2\nz = 3\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ],
+    "id": "edits:comment-line"
+  },
+  {
+    "text": "# x = 1\ny = 2\n",
+    "keys": "<space>c",
+    "result": "x = 1\ny = 2\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:uncomment-line"
+  },
+  {
+    "text": "x = 1\ny = 2\nz = 3\n",
+    "keys": "xx<space>c",
+    "result": "# x = 1\n# y = 2\nz = 3\n",
+    "spans": [
+      [
+        2,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 16
+      }
+    ],
+    "id": "edits:comment-block"
+  },
+  {
+    "text": "    indented = 1\nplain = 2\n",
+    "keys": "<space>c",
+    "result": "    # indented = 1\nplain = 2\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:comment-indented"
+  },
+  {
     "text": "the quick brown fox\n",
     "keys": "w",
     "result": "the quick brown fox\n",

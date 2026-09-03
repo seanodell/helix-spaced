@@ -126,6 +126,18 @@ def test_every_card_has_a_reachable_par(cards):
         assert c.par >= 1, c.id
 
 
+def test_a_blessed_route_costs_nothing_even_when_longer(cards):
+    """`<space>c` is two keys and `<C-c>` is one; both are accepted, so neither
+    is charged against the other."""
+    card = next(c for c in cards if c.id == "edits:comment-block")
+    assert card.par == 1
+    s = Session(card)
+    s.begin()
+    for k in (" ", "c"):
+        s.press(k)
+    assert s.solved and s.attempt().extra_keys == 0
+
+
 # -- grading -------------------------------------------------------------
 
 

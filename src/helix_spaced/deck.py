@@ -11,6 +11,7 @@ from pathlib import Path
 
 from .emu.engine import Engine
 from .emu.keys import notation, parse
+from .keymap import RESERVED_NOTATION
 
 DECK_DIR = Path(__file__).resolve().parent.parent.parent / "decks"
 
@@ -38,16 +39,25 @@ class Card:
     start: str = ""
     accept: tuple[str, ...] = field(default_factory=tuple)
     kind: str = STATE
+    comment: str = "#"   # comment token Helix would use for this buffer's filetype
 
     @property
     def answers(self) -> tuple[str, ...]:
         return (self.keys, *self.accept)
 
     @property
+    def typeable(self) -> tuple[str, ...]:
+        """Answers a player can actually enter. An answer using a key the trainer
+        reserves is unreachable, so it must not set par."""
+        out = tuple(a for a in self.answers
+                    if not (set(normalise(a)) & RESERVED_NOTATION))
+        return out or self.answers
+
+    @property
     def par(self) -> int:
-        """Keystrokes in the shortest accepted answer. Anything above this is
+        """Keystrokes in the shortest *typeable* answer. Anything above this is
         fumbling, so `accept` is also how a deck blesses a longer valid route."""
-        return min(len(normalise(a)) for a in self.answers)
+        return min(len(normalise(a)) for a in self.typeable)
 
     @property
     def answer(self) -> str:
@@ -61,7 +71,7 @@ class Card:
         return self.keys
 
     def initial(self) -> Engine:
-        e = Engine(self.text)
+        e = Engine(self.text, comment=self.comment)
         if self.start:
             e.feed(self.start)
         return e
@@ -104,7 +114,8 @@ def load_file(path: Path) -> list[Card]:
         out.append(Card(
             id=cid, deck=deck, prompt=c["prompt"], text=c["text"], keys=c["keys"],
             start=c.get("start", ""),
-            accept=tuple(c.get("accept", ())), kind=c.get("kind", data.get("kind", STATE))))
+            accept=tuple(c.get("accept", ())), kind=c.get("kind", data.get("kind", STATE)),
+            comment=c.get("comment", data.get("comment", "#"))))
     return out
 
 

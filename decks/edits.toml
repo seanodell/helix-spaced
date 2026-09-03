@@ -259,3 +259,32 @@ prompt = "Delete from the cursor back to the start of the line"
 text = "drop this keep that\nsecond line\n"
 start = "ww"
 keys = "vghd"
+
+[[card]]
+id = "edits:comment-line"
+prompt = "Comment out the current line"
+text = "x = 1\ny = 2\nz = 3\n"
+keys = "<space>c"
+accept = ["<C-c>"]
+
+[[card]]
+id = "edits:uncomment-line"
+prompt = "Uncomment the current line"
+text = "# x = 1\ny = 2\n"
+keys = "<space>c"
+accept = ["<C-c>"]
+
+[[card]]
+id = "edits:comment-block"
+prompt = "Comment out this line and the one below it"
+text = "x = 1\ny = 2\nz = 3\n"
+start = "xx"
+keys = "<space>c"
+accept = ["<C-c>"]
+
+[[card]]
+id = "edits:comment-indented"
+prompt = "Comment this line out, keeping its indentation"
+text = "    indented = 1\nplain = 2\n"
+keys = "<space>c"
+accept = ["<C-c>"]

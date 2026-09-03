@@ -7,6 +7,7 @@ from helix_spaced.app import (
     ACTIONS,
     ACTIVE,
     GRADED,
+    QUIT,
     TrainerApp,
     human_interval,
     render_buffer,
@@ -389,3 +390,25 @@ async def test_moving_on_after_a_redo_scores_again(tmp_path):
 
 def test_the_graded_help_offers_redo():
     assert "redo" in render_help(GRADED).plain
+
+
+@pytest.mark.asyncio
+async def test_ctrl_c_reaches_the_buffer_and_does_not_quit(tmp_path):
+    """Ctrl-C is Helix's toggle-comments. Ctrl-Q is the only way out."""
+    store = Store(tmp_path / "cc.db")
+    card = Card(id="t:c", deck="t", prompt="comment it out",
+                text="x = 1\ny = 2\n", keys="<C-c>", accept=["<space>c"])
+    app = TrainerApp(Trainer([card], store), limit=1)
+    async with app.run_test() as pilot:
+        await pilot.press("ctrl+c")
+        assert app.is_running
+        assert app.session.solved
+        assert app.session.engine.text == "# x = 1\ny = 2\n"
+    store.close()
+
+
+def test_ctrl_q_is_the_only_quit():
+    assert resolve("ctrl+q", ACTIVE) == QUIT
+    assert resolve("ctrl+q", GRADED) == QUIT
+    assert resolve("ctrl+c", ACTIVE) is None, "ctrl+c must fall through to the buffer"
+    assert resolve("ctrl+c", GRADED) is None

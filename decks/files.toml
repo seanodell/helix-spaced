@@ -115,11 +115,6 @@ prompt = "Offer code actions for the current position"
 text = "from pathlib import Path\nimport helpers\n"
 keys = "<space>a"
 
-[[card]]
-id = "files:comment-toggle"
-prompt = "Comment or uncomment the selected lines"
-text = "from pathlib import Path\nimport helpers\n"
-keys = "<space>c"
 
 [[card]]
 id = "files:jumplist-picker"

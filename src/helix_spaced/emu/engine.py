@@ -76,8 +76,9 @@ WORD_TARGETS = {
 
 
 class Engine:
-    def __init__(self, text: str):
+    def __init__(self, text: str, comment: str = "#"):
         self.ed = Editor.new(text)
+        self.comment = comment
         self.count = 0
         self.pending: list[Key] = []
         self.pending_count = 1
@@ -90,8 +91,8 @@ class Engine:
     # -- public ---------------------------------------------------------
 
     @staticmethod
-    def run(text: str, keys: str) -> "Engine":
-        e = Engine(text)
+    def run(text: str, keys: str, comment: str = "#") -> "Engine":
+        e = Engine(text, comment=comment)
         e.feed(keys)
         return e
 
@@ -252,6 +253,8 @@ class Engine:
                 self.register = seq[1].char
         elif head in ("[", "]"):
             self._bracket(seq, n)
+        elif head == " " and seq[1].spec == "c":
+            self._toggle_comment()
 
     def _bracket(self, seq: list[Key], n: int) -> None:
         """`]p` / `[p` select from the cursor to the next / previous paragraph."""
@@ -359,6 +362,8 @@ class Engine:
             return self._map_text(lambda s: s.lower())
         if spec == "<A-`>":
             return self._map_text(lambda s: s.upper())
+        if spec == "<C-c>":
+            return self._toggle_comment()
         if spec == "J":
             return self._join(n)
         if spec == ">":
@@ -929,6 +934,40 @@ class Engine:
             return max(pos + off, 0)
 
         return shift
+
+    def _toggle_comment(self) -> None:
+        """Comment every line in the selection, or uncomment when they all
+        already are. The token goes at the first non-blank column, so indentation
+        is preserved."""
+        t = self.text
+        st = self.state
+        token = self.comment
+        lines = sorted({ln for r in st.ranges
+                        for ln in range(self._line_range(r)[0], self._line_range(r)[1] + 1)})
+        rows = []
+        for ln in lines:
+            a, b = mv.line_bounds(t, ln)
+            body = t[a:b]
+            stripped = body.lstrip()
+            if stripped:
+                rows.append((a + len(body) - len(stripped), stripped))
+        if not rows:
+            return
+        uncomment = all(text.startswith(token) for _, text in rows)
+        specs = []
+        for pos, text in rows:
+            if uncomment:
+                width = len(token)
+                if text[width:width + 1] == " ":
+                    width += 1
+                specs.append((pos, pos + width, ""))
+            else:
+                specs.append((pos, pos, token + " "))
+        self.ed.checkpoint()
+        new, _ = self._splice(specs)
+        shift = self._shifter(specs)
+        self._set(State(new, st.ranges, st.primary, st.mode).with_ranges(
+            [Range(shift(r.anchor), shift(r.head)) for r in st.ranges]))
 
     def _indent(self, n: int, d: int) -> None:
         t = self.text

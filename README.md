@@ -75,8 +75,11 @@ typing `b j k w` lands exactly where `w` does. That used to score `Easy` — and
 because it was *fast*, wandering outranked a careful, slower answer. Precisely
 backwards for a muscle-memory trainer.
 
-- **`accept` blesses an alternate route.** Both `xx` and `2x` are par 2 on the
-  same card, so neither is penalised.
+- **`accept` blesses an alternate route**, whatever its length. Toggling a
+  comment is `<C-c>` (one key) or `<space>c` (two); both are accepted, so
+  neither is charged against the other.
+- **A key the trainer reserves can never set par.** Otherwise a card would be
+  penalised for an answer you are physically unable to press.
 - **Beating par is free.** Find a shorter route than the deck's own answer and
   par clamps at zero — you are never punished for being better than the deck.
 - **A restart is not a free undo.** Keys spent before `Ctrl-R` still count.
@@ -151,6 +154,9 @@ a card is live, and drop it once the card is graded.
 | `Ctrl-G` | `g` | give up, show the answer |
 | `Ctrl-N` | `n` | next card (skipping a live card scores nothing) |
 | `Ctrl-Q` | `q` | quit |
+
+`Ctrl-C` is **not** reserved — it is Helix's toggle-comments and reaches the
+buffer, so `Ctrl-Q` is the only way out.
 
 Ctrl still works after grading, so muscle memory never misfires. `Enter` and
 `Space` also move to the next card.

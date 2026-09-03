@@ -13,7 +13,7 @@ import pytest
 
 from helix_spaced.deck import KEYS, STATE, load_dir, normalise
 from helix_spaced.emu.engine import Engine
-from helix_spaced.keymap import from_textual
+from helix_spaced.keymap import RESERVED_NOTATION, from_textual
 
 CARDS = {c.id: c for c in load_dir()}
 KEY_CARDS = [c for c in CARDS.values() if c.kind == KEYS]
@@ -117,7 +117,7 @@ def test_navigation_answers_are_literal_keys():
 
 def test_reserved_trainer_keys_are_not_required_by_any_card():
     """A card can never ask for a key the trainer swallows."""
-    reserved = {"<C-n>", "<C-t>", "<C-r>", "<C-g>", "<C-q>"}
+    reserved = set(RESERVED_NOTATION)
     for c in CARDS.values():
         for answer in c.answers:
             assert not (set(normalise(answer)) & reserved), f"{c.id} needs a reserved key"
@@ -141,3 +141,12 @@ def test_space_menu_answers_show_the_space_key():
     for c in KEY_CARDS:
         if c.keys.startswith("<space>"):
             assert c.answer.startswith("<space>"), c.id
+
+
+def test_par_is_never_set_by_an_unreachable_answer():
+    """`<C-c>` also toggles comments in Helix, but Ctrl-C quits the trainer.
+    A par taken from a key you cannot press penalises a correct answer."""
+    for c in CARDS.values():
+        shortest = min(c.typeable, key=lambda a: len(normalise(a)))
+        assert not (set(normalise(shortest)) & RESERVED_NOTATION), c.id
+        assert c.par == len(normalise(shortest))

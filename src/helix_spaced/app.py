@@ -100,8 +100,6 @@ def render_help(phase: str) -> Text:
 
 def resolve(key: str, phase: str) -> str | None:
     """Map a key event to a trainer action, or None if it belongs to the buffer."""
-    if key == "ctrl+c":
-        return QUIT
     if key.startswith("ctrl+"):
         return ACTIONS.get(key[len("ctrl+"):])
     if phase == GRADED:

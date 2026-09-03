@@ -15,8 +15,9 @@ from helix_spaced.emu.engine import PREFIXES, Engine
 
 TEXT = "call(alpha, beta) end\n"
 
-# `r` is the odd one out: `r<char>` is replace, so it is *meant* to edit.
-EDITING_PREFIXES = {"r"}
+# Sequences that are *meant* to edit, so "buffer unchanged" does not apply:
+# `r<char>` replaces, and `<space>c` toggles comments.
+EDITING_SEQUENCES = {("r", "a"), ("r", "i"), ("r", "o"), ("r", "c"), (" ", "c")}
 
 
 def test_the_reported_bug_ma_does_not_enter_insert_mode():
@@ -32,7 +33,7 @@ def test_a_prefix_never_leaks_its_next_key_as_a_command(prefix):
     for follow in ("a", "i", "o", "c"):
         e = Engine.run(TEXT, prefix + follow)
         assert e.state.mode == "normal", f"{prefix + follow} entered insert mode"
-        if prefix not in EDITING_PREFIXES:
+        if (prefix, follow) not in EDITING_SEQUENCES:
             assert e.text == TEXT, f"{prefix + follow} changed the buffer"
 
 
