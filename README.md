@@ -130,6 +130,36 @@ is listed, not just the first — reveal the answer *and* fumble a restart and y
 see both. The FSRS rating is deliberately not the headline: reading `HARD` tells
 you nothing about whether you were right.
 
+### Mastering a card
+
+The penalty is not a permanent mark — it is worked off. Every clean answer decays
+it, and below 0.10 it is **cleared to exactly zero**. An exponential decay only
+approaches zero, so without that floor a card could never actually be free of a
+bad day.
+
+A card is **mastered** when its penalty is cleared *and* the last three answers
+were clean. Both halves matter: the penalty is long-run difficulty, the streak is
+recent reliability.
+
+From a total failure that is seven clean answers:
+
+```
+failed badly       penalty 1.000  streak 0
+clean answer  1    penalty 0.700  streak 1
+clean answer  2    penalty 0.490  streak 2
+...
+clean answer  6    penalty 0.118  streak 6
+clean answer  7    penalty 0.000  streak 7   <- mastered
+```
+
+One slip afterwards is treated proportionately: a single keystroke over par is
+too small to re-inflate the penalty, but it **resets the streak**, so mastery is
+lost and takes three more clean answers to earn back. A real failure does both.
+
+The live status line carries `mastered 12/139`, the verdict screen calls out the
+moment a card tips over, and `mise run stats` reports the total. A practice redo
+cannot grant it — an unscored run does not advance the streak.
+
 ### Retuning it later
 
 Every attempt is logged in full — solved, elapsed, reveals, restarts,

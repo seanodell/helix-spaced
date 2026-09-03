@@ -13,7 +13,7 @@ from datetime import UTC, datetime
 
 from fsrs import Card, Rating, Scheduler
 
-from .scoring import Attempt, Grade, grade, update_ewma
+from .scoring import Attempt, Grade, grade, is_mastered, update_ewma
 from .store import Store
 
 NEW_CARD_WEIGHT = 1.5
@@ -86,7 +86,17 @@ class Trainer:
 
         prev = row["penalty_ewma"] if row else None
         ewma = update_ewma(prev, g.penalty)
+        streak = (row["clean_streak"] if row else 0) + 1 if g.clean else 0
         self.store.save_card(card_id, self.cards[card_id].deck, updated.to_dict(),
-                             ewma, g.rating == Rating.Again, updated.due)
+                             ewma, g.rating == Rating.Again, updated.due, streak)
         self.store.log(card_id, attempt, int(g.rating), g.penalty, keys)
         return g
+
+    def mastered(self, card_id: str) -> bool:
+        row = self.store.card(card_id)
+        if row is None:
+            return False
+        return is_mastered(row["penalty_ewma"], row["clean_streak"])
+
+    def mastered_count(self) -> int:
+        return len(self.store.mastered_ids() & set(self.cards))

@@ -232,6 +232,90 @@ def test_first_sighting_has_no_speed_baseline():
     assert grade(a(elapsed_ms=99999), None).rating is Rating.Good
 
 
+# -- mastery -------------------------------------------------------------
+
+
+def test_the_penalty_actually_reaches_zero(cards, store):
+    """An exponential decay only approaches zero, so it is floored to clear."""
+    t = Trainer(cards, store)
+    cid = cards[0].id
+    t.review(cid, a(solved=False))
+    for _ in range(7):
+        t.review(cid, a())
+    assert store.card(cid)["penalty_ewma"] == 0.0
+
+
+def test_a_card_is_mastered_once_cleared_and_steady(cards, store):
+    t = Trainer(cards, store)
+    cid = cards[0].id
+    t.review(cid, a(solved=False))
+    assert not t.mastered(cid)
+    for _ in range(7):
+        t.review(cid, a())
+    assert t.mastered(cid)
+
+
+def test_a_clean_run_alone_is_not_mastery(cards, store):
+    """Zero penalty with a short streak is not enough -- it could be a fluke."""
+    t = Trainer(cards, store)
+    cid = cards[0].id
+    t.review(cid, a())
+    assert store.card(cid)["penalty_ewma"] == 0.0
+    assert not t.mastered(cid)
+    t.review(cid, a())
+    assert not t.mastered(cid)
+    t.review(cid, a())
+    assert t.mastered(cid)
+
+
+def test_one_slip_costs_mastery(cards, store):
+    t = Trainer(cards, store)
+    cid = cards[0].id
+    for _ in range(3):
+        t.review(cid, a())
+    assert t.mastered(cid)
+    t.review(cid, a(extra_keys=1))
+    assert not t.mastered(cid), "a fumble must break the streak"
+    assert store.card(cid)["clean_streak"] == 0
+
+
+def test_regaining_mastery_takes_the_streak_again(cards, store):
+    t = Trainer(cards, store)
+    cid = cards[0].id
+    for _ in range(3):
+        t.review(cid, a())
+    t.review(cid, a(extra_keys=1))
+    for i in range(1, 3):
+        t.review(cid, a())
+        assert not t.mastered(cid), f"still short at {i}"
+    t.review(cid, a())
+    assert t.mastered(cid)
+
+
+def test_a_failure_unmasters_a_card(cards, store):
+    t = Trainer(cards, store)
+    cid = cards[0].id
+    for _ in range(3):
+        t.review(cid, a())
+    assert t.mastered(cid)
+    t.review(cid, a(solved=False))
+    assert not t.mastered(cid)
+    assert store.card(cid)["penalty_ewma"] > 0
+
+
+def test_mastered_count_only_counts_loaded_cards(cards, store):
+    t = Trainer(cards[:2], store)
+    assert t.mastered_count() == 0
+    for _ in range(3):
+        t.review(cards[0].id, a())
+    assert t.mastered_count() == 1
+
+
+def test_an_unseen_card_is_not_mastered(cards, store):
+    t = Trainer(cards, store)
+    assert not t.mastered(cards[0].id)
+
+
 # -- scheduling ----------------------------------------------------------
 
 

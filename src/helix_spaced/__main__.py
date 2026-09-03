@@ -27,6 +27,8 @@ def cmd_stats(args) -> int:
     pct = (100 * s["solved"] / s["reviews"]) if s["reviews"] else 0
     print(f"reviews {s['reviews']}   solved {s['solved']} ({pct:.0f}%)   "
           f"avg {s['avg_ms'] / 1000:.1f}s")
+    mastered = store.mastered_ids() & set(cards)
+    print(f"mastered {len(mastered)}/{len(cards)} cards")
     hard = store.hardest()
     if hard:
         print("\nhardest cards")

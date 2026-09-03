@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS cards (
     penalty_ewma REAL,
     reviews      INTEGER NOT NULL DEFAULT 0,
     lapses       INTEGER NOT NULL DEFAULT 0,
-    due          TEXT
+    due          TEXT,
+    clean_streak INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS reviews (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -61,6 +62,10 @@ class Store:
         cols = {r["name"] for r in self.db.execute("PRAGMA table_info(reviews)")}
         if "extra" not in cols:
             self.db.execute("ALTER TABLE reviews ADD COLUMN extra INTEGER NOT NULL DEFAULT 0")
+        cols = {r["name"] for r in self.db.execute("PRAGMA table_info(cards)")}
+        if "clean_streak" not in cols:
+            self.db.execute(
+                "ALTER TABLE cards ADD COLUMN clean_streak INTEGER NOT NULL DEFAULT 0")
 
     def close(self) -> None:
         self.db.close()
@@ -77,17 +82,20 @@ class Store:
         self.db.commit()
 
     def save_card(self, card_id: str, deck: str, fsrs: dict, penalty_ewma: float,
-                  lapsed: bool, due: datetime) -> None:
+                  lapsed: bool, due: datetime, clean_streak: int = 0) -> None:
         self.db.execute(
-            """INSERT INTO cards (id, deck, fsrs, penalty_ewma, reviews, lapses, due)
-               VALUES (?, ?, ?, ?, 1, ?, ?)
+            """INSERT INTO cards
+               (id, deck, fsrs, penalty_ewma, reviews, lapses, due, clean_streak)
+               VALUES (?, ?, ?, ?, 1, ?, ?, ?)
                ON CONFLICT(id) DO UPDATE SET
                  fsrs = excluded.fsrs,
                  penalty_ewma = excluded.penalty_ewma,
                  reviews = cards.reviews + 1,
                  lapses = cards.lapses + excluded.lapses,
-                 due = excluded.due""",
-            (card_id, deck, json.dumps(fsrs), penalty_ewma, int(lapsed), due.isoformat()))
+                 due = excluded.due,
+                 clean_streak = excluded.clean_streak""",
+            (card_id, deck, json.dumps(fsrs), penalty_ewma, int(lapsed),
+             due.isoformat(), clean_streak))
         self.db.commit()
 
     def log(self, card_id: str, attempt, rating: int, penalty: float, keys: str) -> None:
@@ -120,6 +128,13 @@ class Store:
             "SELECT COUNT(*) n, SUM(solved) ok, AVG(elapsed_ms) avg_ms FROM reviews").fetchone()
         return {"reviews": row["n"] or 0, "solved": row["ok"] or 0,
                 "avg_ms": int(row["avg_ms"] or 0)}
+
+    def mastered_ids(self) -> set[str]:
+        from .scoring import MASTERY_STREAK
+        rows = self.db.execute(
+            "SELECT id FROM cards WHERE penalty_ewma = 0 AND clean_streak >= ?",
+            (MASTERY_STREAK,)).fetchall()
+        return {r["id"] for r in rows}
 
     def hardest(self, limit: int = 10) -> list[sqlite3.Row]:
         return self.db.execute(

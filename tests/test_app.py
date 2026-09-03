@@ -412,3 +412,59 @@ def test_ctrl_q_is_the_only_quit():
     assert resolve("ctrl+q", GRADED) == QUIT
     assert resolve("ctrl+c", ACTIVE) is None, "ctrl+c must fall through to the buffer"
     assert resolve("ctrl+c", GRADED) is None
+
+
+def clean_attempt():
+    from helix_spaced.scoring import Attempt
+    return Attempt(solved=True, elapsed_ms=1000, hints=0, wrong_attempts=0,
+                   keystrokes=1, extra_keys=0)
+
+
+@pytest.mark.asyncio
+async def test_mastering_a_card_is_called_out(trainer):
+    """The moment a card tips into mastered should be visible, not silent."""
+    trainer.review("t:w", clean_attempt())
+    trainer.review("t:w", clean_attempt())
+    assert not trainer.mastered("t:w")
+    app = TrainerApp(trainer, limit=9)
+    async with app.run_test() as pilot:
+        await pilot.press("w")
+        text = verdict(app)
+        assert trainer.mastered("t:w")
+        assert "MASTERED" in text
+        assert "this card is done" in text
+
+
+@pytest.mark.asyncio
+async def test_an_already_mastered_card_is_not_re_announced(trainer):
+    for _ in range(3):
+        trainer.review("t:w", clean_attempt())
+    assert trainer.mastered("t:w")
+    app = TrainerApp(trainer, limit=9)
+    async with app.run_test() as pilot:
+        await pilot.press("w")
+        assert "MASTERED" not in verdict(app)
+        assert "RIGHT" in verdict(app)
+
+
+@pytest.mark.asyncio
+async def test_the_status_line_shows_mastery_progress(trainer):
+    app = TrainerApp(trainer, limit=9)
+    async with app.run_test():
+        assert "mastered 0/1" in app.query_one("#status", Static).render().plain
+
+
+@pytest.mark.asyncio
+async def test_a_practice_redo_cannot_grant_mastery(trainer):
+    """Redoing is unscored, so it must not advance the streak either."""
+    trainer.review("t:w", clean_attempt())
+    trainer.review("t:w", clean_attempt())
+    app = TrainerApp(trainer, limit=9)
+    async with app.run_test() as pilot:
+        await pilot.press("w")            # third clean -> mastered
+        assert trainer.mastered("t:w")
+        streak = trainer.store.card("t:w")["clean_streak"]
+        await pilot.press("r")
+        await pilot.press("w")
+        assert trainer.store.card("t:w")["clean_streak"] == streak, "redo moved the streak"
+        assert "MASTERED" not in verdict(app), "a redo must not re-announce it"

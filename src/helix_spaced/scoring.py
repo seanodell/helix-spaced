@@ -33,6 +33,8 @@ FAST_FACTOR = 0.6
 SLOW_RAMP = 0.2          # penalty per multiple of the reference time beyond SLOW_FACTOR
 MAX_SLOW_PENALTY = 0.8
 PENALTY_EWMA_ALPHA = 0.3
+PENALTY_FLOOR = 0.10     # below this the penalty is cleared outright
+MASTERY_STREAK = 3       # consecutive clean answers needed once it is clear
 
 
 @dataclass(frozen=True, slots=True)
@@ -100,6 +102,15 @@ def grade(attempt: Attempt, baseline_ms: int | None) -> Grade:
 
 
 def update_ewma(previous: float | None, penalty: float) -> float:
+    """An exponential decay only approaches zero, so a card could never actually
+    be *clear* of its history. Below the floor it is snapped to zero."""
     if previous is None:
-        return penalty
-    return previous * (1 - PENALTY_EWMA_ALPHA) + penalty * PENALTY_EWMA_ALPHA
+        value = penalty
+    else:
+        value = previous * (1 - PENALTY_EWMA_ALPHA) + penalty * PENALTY_EWMA_ALPHA
+    return 0.0 if value < PENALTY_FLOOR else value
+
+
+def is_mastered(penalty_ewma: float | None, clean_streak: int) -> bool:
+    """Mastered means the penalty is worked off *and* it was no fluke."""
+    return penalty_ewma == 0.0 and clean_streak >= MASTERY_STREAK

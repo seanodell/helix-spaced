@@ -41,6 +41,7 @@ HELP = {
 # bookkeeping and is shown separately -- reading "HARD" told you nothing about
 # whether you were right.
 RIGHT = ("bold white on green", "  RIGHT  ")
+MASTERED = ("bold black on bright_green", "  RIGHT - MASTERED  ")
 COSTLY = ("bold black on yellow", "  RIGHT, PENALISED  ")
 WRONG = ("bold white on red", "  WRONG  ")
 
@@ -193,7 +194,8 @@ class TrainerApp(App):
             return
         s = self.session
         bits = [f"{s.elapsed_ms / 1000:5.1f}s",
-                f"due {len(self.trainer.due_pool())}", f"done {self.done}"]
+                f"due {len(self.trainer.due_pool())}", f"done {self.done}",
+                f"mastered {self.trainer.mastered_count()}/{len(self.trainer.cards)}"]
         if s.hints:
             bits.append(f"answered {s.hints}")
         if s.wrong:
@@ -218,6 +220,7 @@ class TrainerApp(App):
     def finish(self) -> None:
         assert self.session
         s = self.session
+        was_mastered = self.trainer.mastered(s.card.id)
         if self.practice:
             g = self.trainer.dry_grade(s.card.id, s.attempt())
         else:
@@ -226,7 +229,16 @@ class TrainerApp(App):
             self.recent.append(s.card.id)
         self.set_phase(GRADED)
 
-        style, label = (RIGHT if g.clean else COSTLY) if s.solved else WRONG
+        newly_mastered = (s.solved and g.clean and not self.practice
+                          and self.trainer.mastered(s.card.id) and not was_mastered)
+        if not s.solved:
+            style, label = WRONG
+        elif newly_mastered:
+            style, label = MASTERED
+        elif g.clean:
+            style, label = RIGHT
+        else:
+            style, label = COSTLY
         row = self.trainer.store.card(s.card.id)
         out = Text()
         out.append(label, style=style)
@@ -241,6 +253,9 @@ class TrainerApp(App):
         if not s.solved:
             out.append("\n\nAnswer: ", style="dim")
             out.append(s.card.answer, style="bold")
+        if newly_mastered:
+            out.append("\n\npenalty cleared and 3 clean in a row - this card is done",
+                       style="bold green")
         if self.practice:
             out.append("\n\npractice run - not scored", style="dim italic")
         else:
