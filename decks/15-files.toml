@@ -1,0 +1,64 @@
+section = "files"
+title = "Files and buffers"
+order = 15
+kind = "keys"
+
+[[card]]
+id = "files:close-buffer"
+prompt = "Close the current file but stay in Helix"
+text = "from pathlib import Path\nimport helpers\n"
+keys = ":bc<ret>"
+accept = [":buffer-close<ret>", ":bclose<ret>"]
+
+[[card]]
+id = "files:close-buffer-force"
+prompt = "Close the current file without saving, discarding your changes"
+text = "from pathlib import Path\nimport helpers\n"
+keys = ":bc!<ret>"
+accept = [":buffer-close!<ret>", ":bclose!<ret>"]
+
+[[card]]
+id = "files:write"
+prompt = "Save the current file"
+text = "from pathlib import Path\nimport helpers\n"
+keys = ":w<ret>"
+accept = [":write<ret>"]
+
+[[card]]
+id = "files:write-quit"
+prompt = "Save the current file and close the view"
+text = "from pathlib import Path\nimport helpers\n"
+keys = ":wq<ret>"
+accept = [":x<ret>", ":write-quit<ret>"]
+
+[[card]]
+id = "files:quit"
+prompt = "Close the current view, leaving Helix if it is the last one"
+text = "from pathlib import Path\nimport helpers\n"
+keys = ":q<ret>"
+accept = [":quit<ret>"]
+
+[[card]]
+id = "files:open"
+prompt = "Open src/main.py from disk into this view"
+text = "from pathlib import Path\nimport helpers\n"
+keys = ":o src/main.py<ret>"
+accept = [":open src/main.py<ret>", ":e src/main.py<ret>", ":edit src/main.py<ret>"]
+
+[[card]]
+id = "files:buffer-picker"
+prompt = "Open the buffer picker to switch between open files"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>b"
+
+[[card]]
+id = "files:file-picker"
+prompt = "Open the file picker to find a file in the workspace"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>f"
+
+[[card]]
+id = "files:command-palette"
+prompt = "Open the command palette"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>?"

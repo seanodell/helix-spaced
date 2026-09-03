@@ -1,0 +1,29 @@
+section = "finding"
+title = "Finding a character"
+order = 3
+
+[[card]]
+id = "motions:f"
+prompt = "Select forward up to and including the next 'q'"
+text = "the quick brown fox\n"
+keys = "fq"
+
+[[card]]
+id = "motions:t"
+prompt = "Select forward up to but NOT including the next 'q'"
+text = "the quick brown fox\n"
+keys = "tq"
+
+[[card]]
+id = "motions:F"
+prompt = "Search backward for 'h' and select back to it"
+text = "the quick brown fox\n"
+start = "ww"
+keys = "Fh"
+
+[[card]]
+id = "motions:T"
+prompt = "Search backward for a space and stop just after it"
+text = "the quick brown fox\n"
+start = "ww"
+keys = "T "

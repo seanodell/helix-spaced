@@ -1,0 +1,76 @@
+section = "reshaping"
+title = "Reshaping lines"
+order = 8
+
+[[card]]
+id = "edits:join"
+prompt = "Join the line below into this one"
+text = "alpha beta\ngamma delta\n"
+keys = "J"
+
+[[card]]
+id = "edits:join-select-space"
+prompt = "Join the next line up and leave the inserted space selected"
+text = "alpha beta\ngamma\n"
+keys = "<A-J>"
+
+[[card]]
+id = "edits:indent"
+prompt = "Indent this line one level"
+text = "  alpha beta\n  gamma\n"
+keys = ">"
+
+[[card]]
+id = "edits:unindent"
+prompt = "Remove one level of indentation from this line"
+text = "    alpha beta\n    gamma\n"
+keys = "<"
+
+[[card]]
+id = "selection:trim"
+prompt = "Trim the whitespace off both ends of the selection"
+text = "   padded text   \nnext\n"
+start = "x"
+keys = "_"
+
+[[card]]
+id = "edits:switch-case"
+prompt = "Switch the case of the first word"
+text = "the quick brown fox\n"
+start = "e"
+keys = "~"
+
+[[card]]
+id = "edits:lowercase"
+prompt = "Force the selected word to lowercase"
+text = "ALPHA beta\n"
+start = "e"
+keys = "`"
+
+[[card]]
+id = "edits:uppercase"
+prompt = "Force the selected word to uppercase"
+text = "alpha beta\n"
+start = "e"
+keys = "<A-`>"
+
+[[card]]
+id = "edits:delete-to-line-end"
+prompt = "Delete from the cursor to the end of the line (there is no single key for this)"
+text = "keep this drop that\nsecond line\n"
+start = "ww"
+keys = "vgld"
+
+[[card]]
+id = "edits:change-to-line-end"
+prompt = "Replace everything from the cursor to the end of the line with 'new', then escape"
+text = "keep this drop that\nsecond line\n"
+start = "ww"
+keys = "vglcnew<esc>"
+
+[[card]]
+id = "edits:delete-to-line-start"
+prompt = "Delete from the cursor back to the start of the line"
+text = "drop this keep that\nsecond line\n"
+start = "ww"
+keys = "vghd"

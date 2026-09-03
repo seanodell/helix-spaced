@@ -114,6 +114,7 @@ class TrainerApp(App):
     ENABLE_COMMAND_PALETTE = False
     CSS = """
     Screen { layout: vertical; }
+    #section { padding: 0 2; background: $primary-darken-2; color: $text; }
     #prompt { padding: 1 2; background: $panel; color: $text; text-style: bold; }
     #buffer { padding: 1 2; height: auto; min-height: 6; }
     #typed  { padding: 0 2; height: 1; color: $text-muted; }
@@ -135,6 +136,7 @@ class TrainerApp(App):
 
     def compose(self) -> ComposeResult:
         with Vertical():
+            yield Static(id="section")
             yield Static(id="prompt")
             yield Static(id="buffer")
             yield Static(id="typed")
@@ -172,12 +174,28 @@ class TrainerApp(App):
         self.session.begin()
         self.practice = False
         self.set_phase(ACTIVE)
+        self.write("#section", self.section_banner())
         self.write("#prompt", card.prompt)
         self.write("#hint", "")
         self.write("#note", Text(
             "navigation command - the buffer will not change", style="dim italic")
             if card.kind == KEYS else "")
         self.redraw()
+
+    def section_banner(self) -> Text:
+        total = len(self.trainer.sections)
+        current = self.trainer.current_section()
+        out = Text()
+        if current is None:
+            out.append(f" all {total} sections mastered - review only ", style="bold")
+            return out
+        done, size = self.trainer.section_progress(current)
+        whole = self.trainer.sections_mastered()
+        out.append(f" {current.order}/{total} ", style="bold")
+        out.append(f"{current.title}", style="bold")
+        out.append(f"  ·  {done}/{size} mastered", style="dim")
+        out.append(f"  ·  {whole} section{'' if whole == 1 else 's'} done", style="dim")
+        return out
 
     def set_phase(self, phase: str) -> None:
         self.phase = phase
@@ -194,7 +212,7 @@ class TrainerApp(App):
             return
         s = self.session
         bits = [f"{s.elapsed_ms / 1000:5.1f}s",
-                f"due {len(self.trainer.due_pool())}", f"done {self.done}",
+                f"due {self.trainer.due_now()}", f"done {self.done}",
                 f"mastered {self.trainer.mastered_count()}/{len(self.trainer.cards)}"]
         if s.hints:
             bits.append(f"answered {s.hints}")
@@ -221,6 +239,7 @@ class TrainerApp(App):
         assert self.session
         s = self.session
         was_mastered = self.trainer.mastered(s.card.id)
+        was_section = self.trainer.current_section()
         if self.practice:
             g = self.trainer.dry_grade(s.card.id, s.attempt())
         else:
@@ -256,6 +275,14 @@ class TrainerApp(App):
         if newly_mastered:
             out.append("\n\npenalty cleared and 3 clean in a row - this card is done",
                        style="bold green")
+            after = self.trainer.current_section()
+            if after is None:
+                out.append("\n\nthat was the last card - the whole deck is mastered",
+                           style="bold green")
+            elif was_section is not None and after.order > was_section.order:
+                done, _ = self.trainer.section_progress(was_section)
+                out.append(f"\n\nsection {was_section.order} complete "
+                           f"({done} cards) - next up: {after.title}", style="bold green")
         if self.practice:
             out.append("\n\npractice run - not scored", style="dim italic")
         else:

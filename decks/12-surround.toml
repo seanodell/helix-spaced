@@ -1,0 +1,80 @@
+section = "surround"
+title = "Surrounding text"
+order = 12
+
+[[card]]
+id = "edits:surround-add"
+prompt = "Wrap the selected word in curly braces"
+text = "call alpha end\n"
+start = "e"
+keys = "ms{"
+
+[[card]]
+id = "edits:surround-add-star"
+prompt = "Wrap the selected word in asterisks, the way Markdown emphasis works"
+text = "make this bold\n"
+start = "wwe"
+keys = "ms*"
+
+[[card]]
+id = "edits:surround-add-bracket"
+prompt = "Wrap the selected word in square brackets"
+text = "make this linked\n"
+start = "wwe"
+keys = "ms["
+
+[[card]]
+id = "edits:surround-delete"
+prompt = "Remove the parentheses around this text, keeping the text"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "md("
+
+[[card]]
+id = "edits:surround-delete-bracket"
+prompt = "Remove the square brackets around this text, keeping the text"
+text = "items = [one, two] done\n"
+start = "fo"
+keys = "md["
+
+[[card]]
+id = "edits:surround-delete-brace"
+prompt = "Remove the curly braces around this text, keeping the text"
+text = "cfg = {a: 1, b: 2} done\n"
+start = "fa"
+keys = "md{"
+
+[[card]]
+id = "edits:surround-delete-quote"
+prompt = "Remove the double quotes around this text, keeping the text"
+text = "say \"hi there\" ok\n"
+start = "fh"
+keys = "md\""
+
+[[card]]
+id = "edits:surround-replace"
+prompt = "Change the parentheses around this text into curly braces"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "mr({"
+
+[[card]]
+id = "edits:surround-replace-bracket"
+prompt = "Change the square brackets around this text into curly braces"
+text = "items = [one, two] done\n"
+start = "fo"
+keys = "mr[{"
+
+[[card]]
+id = "edits:surround-replace-paren-bracket"
+prompt = "Change the parentheses around this text into square brackets"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "mr(["
+
+[[card]]
+id = "edits:surround-replace-brace-paren"
+prompt = "Change the curly braces around this text into parentheses"
+text = "cfg = {a: 1} done\n"
+start = "fa"
+keys = "mr{("

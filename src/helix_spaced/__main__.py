@@ -27,14 +27,32 @@ def cmd_keys(args) -> int:
 
 
 def cmd_stats(args) -> int:
+    from .deck import sections as split_sections
     store = Store()
-    cards = {c.id: c for c in load_dir()}
+    all_cards = load_dir()
+    cards = {c.id: c for c in all_cards}
     s = store.stats()
     pct = (100 * s["solved"] / s["reviews"]) if s["reviews"] else 0
     print(f"reviews {s['reviews']}   solved {s['solved']} ({pct:.0f}%)   "
           f"avg {s['avg_ms'] / 1000:.1f}s")
     mastered = store.mastered_ids() & set(cards)
-    print(f"mastered {len(mastered)}/{len(cards)} cards")
+    secs = split_sections(all_cards)
+    done_secs = [s for s in secs if all(c.id in mastered for c in s.cards)]
+    print(f"mastered {len(mastered)}/{len(cards)} cards, "
+          f"{len(done_secs)}/{len(secs)} sections")
+    current = next((s for s in secs
+                    if not all(c.id in mastered for c in s.cards)), None)
+    print("\ncurriculum")
+    for sec in secs:
+        n = sum(1 for c in sec.cards if c.id in mastered)
+        if n == len(sec.cards):
+            mark = "done   "
+        elif current is not None and sec.order == current.order:
+            mark = "current"
+        else:
+            mark = "locked "
+        bar = "#" * n + "." * (len(sec.cards) - n)
+        print(f"  {sec.order:>2}. {mark} {sec.title:<28} {bar:<16} {n}/{len(sec.cards)}")
     hard = store.hardest()
     if hard:
         print("\nhardest cards")

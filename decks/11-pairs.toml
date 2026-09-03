@@ -1,0 +1,80 @@
+section = "pairs"
+title = "Matching pairs"
+order = 11
+
+[[card]]
+id = "motions:mm"
+prompt = "Jump from this bracket to its matching one"
+text = "call(alpha, beta) end\n"
+start = "f("
+keys = "mm"
+
+[[card]]
+id = "selection:mi-paren"
+prompt = "Select what is inside the parentheses, without the parentheses"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "mi("
+
+[[card]]
+id = "selection:ma-paren"
+prompt = "Select the parentheses and everything in them"
+text = "call(alpha, beta) end\n"
+start = "ww"
+keys = "ma("
+
+[[card]]
+id = "selection:mi-bracket"
+prompt = "Select what is inside the square brackets"
+text = "items = [one, two] done\n"
+start = "fo"
+keys = "mi["
+
+[[card]]
+id = "selection:ma-bracket"
+prompt = "Select the square brackets and everything inside them"
+text = "items = [one, two] done\n"
+start = "fo"
+keys = "ma["
+
+[[card]]
+id = "selection:mi-brace"
+prompt = "Select what is inside the curly braces"
+text = "cfg = {a: 1, b: 2} done\n"
+start = "fa"
+keys = "mi{"
+
+[[card]]
+id = "selection:ma-brace"
+prompt = "Select the curly braces and everything inside them"
+text = "cfg = {a: 1, b: 2} done\n"
+start = "fa"
+keys = "ma{"
+
+[[card]]
+id = "selection:mi-quote"
+prompt = "Select the text inside the double quotes"
+text = "say \"hi there\" ok\n"
+start = "fh"
+keys = "mi\""
+
+[[card]]
+id = "selection:ma-quote"
+prompt = "Select the double quotes and the text inside them"
+text = "say \"hi there\" ok\n"
+start = "fh"
+keys = "ma\""
+
+[[card]]
+id = "selection:mi-single-quote"
+prompt = "Select the text inside the single quotes"
+text = "say 'hi there' ok\n"
+start = "fh"
+keys = "mi'"
+
+[[card]]
+id = "selection:ma-single-quote"
+prompt = "Select the single quotes and the text inside them"
+text = "say 'hi there' ok\n"
+start = "fh"
+keys = "ma'"

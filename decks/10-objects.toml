@@ -1,0 +1,42 @@
+section = "objects"
+title = "Word and paragraph objects"
+order = 10
+
+[[card]]
+id = "selection:miw"
+prompt = "Select the whole word the cursor is inside"
+text = "call(alpha, beta) end\n"
+start = "fp"
+keys = "miw"
+
+[[card]]
+id = "selection:maw"
+prompt = "Select the word under the cursor together with the whitespace after it"
+text = "alpha beta gamma\n"
+start = "w"
+keys = "maw"
+
+[[card]]
+id = "selection:inner-paragraph"
+prompt = "Select this whole paragraph, without the blank line after it"
+text = "first para\nstill first\n\nsecond para\n"
+keys = "mip"
+
+[[card]]
+id = "selection:around-paragraph"
+prompt = "Select this paragraph including the blank line after it"
+text = "first para\nstill first\n\nsecond para\n"
+keys = "map"
+
+[[card]]
+id = "motions:next-paragraph"
+prompt = "Select from here to the start of the next paragraph"
+text = "first para\nstill first\n\nsecond para\nmore\n"
+keys = "]p"
+
+[[card]]
+id = "motions:prev-paragraph"
+prompt = "Select back to the start of the previous paragraph"
+text = "first para\nstill first\n\nsecond para\nmore\n"
+start = "]p]p"
+keys = "[p"

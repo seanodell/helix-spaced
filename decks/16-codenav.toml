@@ -1,10 +1,7 @@
-deck = "navigation"
+section = "codenav"
+title = "Code navigation"
+order = 16
 kind = "keys"
-
-# Code navigation leans on a language server and a second file, so there is no
-# buffer state to compare -- these are graded on the keystrokes. Run
-# `hx --health <lang>` if a goto does nothing in real Helix; without a server
-# installed these commands fail silently.
 
 [[card]]
 id = "nav:goto-definition"
@@ -12,6 +9,38 @@ prompt = "Jump to the definition of the symbol under the cursor"
 text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
 start = "/helpers.read<ret>"
 keys = "gd"
+
+[[card]]
+id = "nav:goto-declaration"
+prompt = "Jump to the declaration of the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "gD"
+
+[[card]]
+id = "nav:goto-type-definition"
+prompt = "Jump to the type definition of the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "gy"
+
+[[card]]
+id = "nav:goto-implementation"
+prompt = "Jump to the implementation of the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+keys = "gi"
+
+[[card]]
+id = "nav:goto-references"
+prompt = "List every reference to the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
+start = "/load<ret>"
+keys = "gr"
+
+[[card]]
+id = "nav:goto-file"
+prompt = "Open the file whose path is under the cursor (no language server needed)"
+text = "see also: src/helix_spaced/deck.py\nand https://helix-editor.com\n"
+start = "/src<ret>"
+keys = "gf"
 
 [[card]]
 id = "nav:jump-back"
@@ -25,38 +54,6 @@ prompt = "Jump forward again, after having jumped back"
 text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
 keys = "<C-i>"
 accept = ["<tab>"]
-
-[[card]]
-id = "nav:goto-references"
-prompt = "List every reference to the symbol under the cursor"
-text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
-start = "/load<ret>"
-keys = "gr"
-
-[[card]]
-id = "nav:goto-implementation"
-prompt = "Jump to the implementation of the symbol under the cursor"
-text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
-keys = "gi"
-
-[[card]]
-id = "nav:goto-type-definition"
-prompt = "Jump to the type definition of the symbol under the cursor"
-text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
-keys = "gy"
-
-[[card]]
-id = "nav:goto-declaration"
-prompt = "Jump to the declaration of the symbol under the cursor"
-text = "from pathlib import Path\nimport helpers\n\ndef load(name):\n    return helpers.read(Path(name))\n"
-keys = "gD"
-
-[[card]]
-id = "nav:goto-file"
-prompt = "Open the file whose path is under the cursor (no language server needed)"
-text = "see also: src/helix_spaced/deck.py\nand https://helix-editor.com\n"
-start = "/src<ret>"
-keys = "gf"
 
 [[card]]
 id = "nav:save-jump"
@@ -99,45 +96,3 @@ id = "nav:label-jump"
 prompt = "Jump anywhere on screen using a two-character label"
 text = "from pathlib import Path\nimport helpers\n"
 keys = "gw"
-
-[[card]]
-id = "nav:window-top"
-prompt = "Move the cursor to the top of the visible window"
-text = "from pathlib import Path\nimport helpers\n"
-keys = "gt"
-
-[[card]]
-id = "nav:window-center"
-prompt = "Move the cursor to the middle of the visible window"
-text = "from pathlib import Path\nimport helpers\n"
-keys = "gc"
-
-[[card]]
-id = "nav:window-bottom"
-prompt = "Move the cursor to the bottom of the visible window"
-text = "from pathlib import Path\nimport helpers\n"
-keys = "gb"
-
-[[card]]
-id = "nav:page-down"
-prompt = "Scroll down a full page"
-text = "line one\nline two\nline three\nline four\n"
-keys = "<C-f>"
-
-[[card]]
-id = "nav:page-up"
-prompt = "Scroll up a full page"
-text = "line one\nline two\nline three\nline four\n"
-keys = "<C-b>"
-
-[[card]]
-id = "nav:half-page-down"
-prompt = "Scroll down half a page"
-text = "line one\nline two\nline three\nline four\n"
-keys = "<C-d>"
-
-[[card]]
-id = "nav:half-page-up"
-prompt = "Scroll up half a page"
-text = "line one\nline two\nline three\nline four\n"
-keys = "<C-u>"

@@ -1,0 +1,23 @@
+section = "search"
+title = "Search"
+order = 14
+
+[[card]]
+id = "selection:search"
+prompt = "Search forward for 'gamma'"
+text = "alpha beta gamma\n"
+keys = "/gamma<ret>"
+
+[[card]]
+id = "selection:search-selection"
+prompt = "Use the selected word as the search term, then jump to its next occurrence"
+text = "one two one two\n"
+start = "e"
+keys = "*n"
+
+[[card]]
+id = "selection:search-prev"
+prompt = "Jump to the previous occurrence of the current search term"
+text = "one two one two\n"
+start = "e*n"
+keys = "N"

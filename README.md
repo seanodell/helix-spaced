@@ -338,9 +338,60 @@ Not implemented at all (inert, so they cannot misfire, but no card can train
 them): `.` repeat, macros `q`/`@`, `=` format, selection rotation, and the
 treesitter text objects `mif`/`mic`, which need a real grammar.
 
+## The curriculum
+
+Cards are not drawn at random from the whole deck — that is how you end up
+bouncing between `gd` and `miw` and learning neither. They are grouped into
+**18 ordered sections**, and a section has to be mastered before the next one is
+introduced:
+
+| | Section | Cards | | Section | Cards |
+|---|---|---|---|---|---|
+| 1 | Moving around | 11 | 10 | Word and paragraph objects | 6 |
+| 2 | Jumping around the file | 6 | 11 | Matching pairs | 11 |
+| 3 | Finding a character | 4 | 12 | Surrounding text | 11 |
+| 4 | Selecting | 8 | 13 | Multiple cursors | 5 |
+| 5 | Basic editing | 9 | 14 | Search | 3 |
+| 6 | Undo and repeat | 3 | 15 | Files and buffers | 9 |
+| 7 | Copy and paste | 5 | 16 | Code navigation | 15 |
+| 8 | Reshaping lines | 11 | 17 | Workspace and view | 16 |
+| 9 | Comments | 4 | 18 | Macros | 2 |
+
+Grouped by what the keys have to do with each other — so the whole `mi`/`ma`
+family arrives together in *Matching pairs*, and `ms`/`md`/`mr` together in
+*Surrounding text* — and ordered so the keys you reach for hourly come first.
+
+**Gating applies to what is introduced, not to what is reviewed.** A section you
+have finished stays in rotation and comes back when the spacing model says so —
+otherwise mastering a section would mean never seeing it again, and it would rot.
+A section still locked is never drawn at all.
+
+If a mastered card lapses, its section becomes current again and you are pulled
+back to it. So "sections done" and "the section you are on" can disagree, and
+both are shown.
+
+The banner carries all of it:
+
+```
+ 3/18 Finding a character  ·  2/4 mastered  ·  2 sections done
+```
+
+and the verdict screen calls out the moment a section completes. `mise run stats`
+prints the whole curriculum with a progress bar per section.
+
 ## Adding cards
 
-Decks are TOML in [decks](decks). There are two kinds.
+Decks are TOML in [decks](decks), one file per section, named `NN-name.toml`.
+The file header sets the section:
+
+```toml
+section = "finding"
+title = "Finding a character"
+order = 3
+```
+
+`order` must be unique across sections; `mise run validate` checks it. There are
+two card kinds.
 
 ### State cards (the default)
 
@@ -370,9 +421,6 @@ buffer state to compare — real `hx` has nothing to report and the emulator has
 nothing to check. Those cards are graded on the keys pressed:
 
 ```toml
-deck = "navigation"
-kind = "keys"      # applies to every card in the file
-
 [[card]]
 id = "nav:jump-back"
 prompt = "Go back to where you were before that jump"
@@ -380,38 +428,26 @@ keys = "<C-o>"
 text = "..."
 ```
 
-Because nothing else validates them, the bindings in
-[decks/navigation.toml](decks/navigation.toml) were read out of the installed
-Helix's own Goto infobox rather than from memory, and `C-o`/`C-i` were confirmed
-by probing a real `hx`. [tests/test_keys_cards.py](tests/test_keys_cards.py)
-pins each binding, checks the keys are inert in the emulator, and checks no card
-asks for a key the trainer itself reserves.
+Because nothing else validates them, the bindings in the `codenav`, `files` and
+`workspace` sections were read out of the installed Helix's own infoboxes rather
+than from memory, and `C-o`/`C-i` were confirmed by probing a real `hx`.
+[tests/test_keys_cards.py](tests/test_keys_cards.py) pins each binding, checks
+the keys are inert in the emulator, and checks no card asks for a key the trainer
+itself reserves.
 
 `accept` matters more here: terminals send the same byte for `Ctrl-I` and `Tab`,
 so the jump-forward card accepts both.
 
+Card ids are stable and independent of the file they live in — the review log
+keys on them, so a card can be re-filed into another section without losing its
+history.
+
 ### Checking a deck
 
 ```
-mise run validate      # every card's solution solves it
-mise run verify-deck    # state cards re-probed in a real hx
+mise run validate      # every card's solution solves it; section orders unique
+mise run verify-deck   # state cards re-probed in a real hx
 ```
-
-## Coverage
-
-The deck covers **all 87 distinct commands** taught by
-[helix-trainer](https://github.com/bug-ops/helix-trainer) (read from its
-`scenarios/en/**/*.toml`, 160 scenarios), across 114 cards, plus 47 commands it
-does not teach — LSP navigation, the jumplist, `W`/`B`/`E`, `<A-;>`, `<A-d>`,
-counts, and search.
-
-Two places where we deliberately differ from it:
-
-- **`q` / `Q` are the right way round.** helix-trainer's lesson hints say `q`
-  records and `Q` replays; real Helix is the opposite. Verified by pressing each
-  in a real `hx` — `q` reports "Register [@] empty", a failed *replay*.
-- **No Vim-isms.** Its daily quests drill `0`, `$` and `yy`. `0`/`$` are
-  non-default aliases and `yy` is not a Helix binding at all.
 
 ## Navigation needs a language server
 

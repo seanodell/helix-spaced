@@ -50,6 +50,22 @@ the invented-name tests could never have caught.
 
 Same principle throughout: test against the real component, not your model of it.
 
+## The curriculum is gated
+
+Cards live in ordered sections, one TOML file each (`decks/NN-name.toml`, with
+`section`/`title`/`order` in the header). A section must be fully mastered before
+the next is introduced.
+
+**Gating applies to what is introduced, not to what is reviewed.** Earlier
+sections stay in rotation once due; locked sections are never drawn. Getting this
+backwards would mean a mastered section is never seen again and rots.
+
+`sections_mastered()` and `current_section()` can disagree — a lapse in an early
+section makes it current again while later ones stay mastered. Report both.
+
+**Card ids are stable and independent of their file.** The review log keys on
+them, so re-filing a card into another section must never change its id.
+
 ## Deck conventions
 
 Two card kinds:

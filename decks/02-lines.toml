@@ -1,0 +1,41 @@
+section = "lines"
+title = "Jumping around the file"
+order = 2
+
+[[card]]
+id = "motions:gh"
+prompt = "Jump to the start of the line"
+text = "alpha beta\ngamma delta\n"
+start = "ww"
+keys = "gh"
+
+[[card]]
+id = "motions:gl"
+prompt = "Jump to the end of the line"
+text = "alpha beta\ngamma delta\n"
+keys = "gl"
+
+[[card]]
+id = "motions:gs"
+prompt = "Jump to the first non-whitespace character of the line"
+text = "    indented line\n"
+keys = "gs"
+
+[[card]]
+id = "motions:gg"
+prompt = "Jump to the start of the file"
+text = "alpha beta\ngamma delta\nepsilon zeta\n"
+start = "jj"
+keys = "gg"
+
+[[card]]
+id = "motions:ge"
+prompt = "Jump to the last line of the file"
+text = "alpha beta\ngamma delta\nepsilon zeta\n"
+keys = "ge"
+
+[[card]]
+id = "motions:goto-line"
+prompt = "Jump to line 2"
+text = "alpha beta\ngamma delta\nepsilon zeta\n"
+keys = "2G"

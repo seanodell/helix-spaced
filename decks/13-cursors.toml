@@ -1,0 +1,35 @@
+section = "cursors"
+title = "Multiple cursors"
+order = 13
+
+[[card]]
+id = "selection:copy-cursor-below"
+prompt = "Add a second cursor on the line below"
+text = "alpha beta\ngamma delta\n"
+keys = "C"
+
+[[card]]
+id = "selection:copy-cursor-above"
+prompt = "Add a second cursor on the line above"
+text = "alpha beta\ngamma delta\n"
+start = "j"
+keys = "<A-C>"
+
+[[card]]
+id = "selection:split-on-newline"
+prompt = "Split this multi-line selection into one cursor per line"
+text = "alpha\nbeta\ngamma\n"
+start = "xx"
+keys = "<A-s>"
+
+[[card]]
+id = "selection:select-regex"
+prompt = "Select the whole file, then narrow to every occurrence of 'a' within it"
+text = "alpha beta gamma\n"
+keys = "%sa<ret>"
+
+[[card]]
+id = "selection:split-regex"
+prompt = "Select the whole line, then split it into pieces on every comma"
+text = "one,two,three\n"
+keys = "xS,<ret>"

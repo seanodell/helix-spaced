@@ -1,0 +1,59 @@
+section = "editing"
+title = "Basic editing"
+order = 5
+
+[[card]]
+id = "edits:d"
+prompt = "Delete the selection"
+text = "the quick brown fox\n"
+start = "w"
+keys = "d"
+
+[[card]]
+id = "edits:c"
+prompt = "Delete the selected word and type 'big' in its place, then return to normal mode"
+text = "the quick brown fox\n"
+start = "w"
+keys = "cbig<esc>"
+
+[[card]]
+id = "edits:i"
+prompt = "Enter insert mode before the cursor, type 'X', then escape"
+text = "the quick brown fox\n"
+keys = "iX<esc>"
+
+[[card]]
+id = "edits:a"
+prompt = "Append after the cursor: type 'X', then escape"
+text = "the quick brown fox\n"
+keys = "aX<esc>"
+
+[[card]]
+id = "edits:I"
+prompt = "Insert at the first non-whitespace character of the line: type '!', then escape"
+text = "    indented line\n"
+keys = "I!<esc>"
+
+[[card]]
+id = "edits:A"
+prompt = "Append at the end of the line: type '!', then escape"
+text = "the quick brown fox\n"
+keys = "A!<esc>"
+
+[[card]]
+id = "edits:o"
+prompt = "Open a new line below and type 'next', then escape"
+text = "alpha beta\n"
+keys = "onext<esc>"
+
+[[card]]
+id = "edits:O"
+prompt = "Open a new line above and type 'first', then escape"
+text = "alpha beta\n"
+keys = "Ofirst<esc>"
+
+[[card]]
+id = "edits:replace"
+prompt = "Replace the character under the cursor with '-'"
+text = "the quick brown fox\n"
+keys = "r-"

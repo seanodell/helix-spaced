@@ -1,0 +1,56 @@
+section = "selecting"
+title = "Selecting"
+order = 4
+
+[[card]]
+id = "selection:x"
+prompt = "Select the whole current line"
+text = "alpha beta\ngamma delta\n"
+keys = "x"
+
+[[card]]
+id = "selection:xx"
+prompt = "Select this line and the one below it"
+text = "alpha beta\ngamma delta\nepsilon zeta\n"
+keys = "xx"
+accept = ["2x"]
+
+[[card]]
+id = "selection:extend-line-bounds"
+prompt = "Expand the current selection out to whole-line boundaries"
+text = "alpha beta\ngamma delta\n"
+start = "w"
+keys = "X"
+
+[[card]]
+id = "selection:select-all"
+prompt = "Select the entire file"
+text = "alpha beta\ngamma delta\n"
+keys = "%"
+
+[[card]]
+id = "selection:collapse"
+prompt = "Collapse the selection down to just the cursor"
+text = "the quick brown fox\n"
+start = "x"
+keys = ";"
+
+[[card]]
+id = "selection:keep-primary"
+prompt = "Collapse multiple cursors back to just the primary one"
+text = "alpha beta\ngamma delta\n"
+start = "C"
+keys = ","
+
+[[card]]
+id = "selection:flip"
+prompt = "Flip the selection so the cursor sits at the other end"
+text = "the quick brown fox\n"
+start = "w"
+keys = "<A-;>"
+
+[[card]]
+id = "selection:extend-mode"
+prompt = "Turn on extend mode, then move forward a word so the selection grows"
+text = "the quick brown fox\n"
+keys = "vw"

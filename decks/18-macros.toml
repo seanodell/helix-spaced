@@ -1,0 +1,15 @@
+section = "macros"
+title = "Macros"
+order = 18
+
+[[card]]
+id = "edits:macro-record-replay"
+prompt = "Record a macro that deletes a line, stop recording, then replay it once"
+text = "one\ntwo\nthree\nfour\n"
+keys = "QxdQq"
+
+[[card]]
+id = "edits:macro-word"
+prompt = "Record deleting a word, stop recording, then replay it"
+text = "alpha beta gamma\n"
+keys = "QwdQq"

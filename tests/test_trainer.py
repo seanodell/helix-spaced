@@ -28,9 +28,14 @@ def test_every_card_is_solvable(cards):
     assert validate(cards) == []
 
 
-def test_deck_covers_each_category(cards):
-    decks = {c.deck for c in cards}
-    assert {"motions", "selection", "edits"} <= decks
+def test_the_curriculum_is_ordered_and_complete(cards):
+    from helix_spaced.deck import sections
+    secs = sections(cards)
+    assert len(secs) >= 10
+    assert [s.order for s in secs] == sorted(s.order for s in secs)
+    assert len({s.order for s in secs}) == len(secs), "orders must be unique"
+    assert sum(len(s.cards) for s in secs) == len(cards), "every card in a section"
+    assert secs[0].name == "moving", "movement comes first"
 
 
 def test_solving_a_card_by_typing_its_keys(cards):

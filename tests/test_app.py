@@ -505,3 +505,57 @@ def test_every_alt_key_in_the_deck_is_reachable():
                 for name, ch in shapes:
                     assert from_textual(name, ch) == f"<A-{token}>", \
                         f"{card.id}: {name} does not reach {token}"
+
+
+# -- curriculum in the UI -------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_the_banner_shows_the_current_section(tmp_path):
+    store = Store(tmp_path / "sec.db")
+    app = TrainerApp(Trainer(load_dir(), store), limit=99)
+    async with app.run_test():
+        banner = app.query_one("#section", Static).render().plain
+        assert "1/18" in banner
+        assert "Moving around" in banner
+        assert "0/11 mastered" in banner
+        assert "0 sections done" in banner
+    store.close()
+
+
+@pytest.mark.asyncio
+async def test_the_due_count_covers_only_unlocked_cards(tmp_path):
+    """`due 139` would be a lie when 11 cards are reachable."""
+    store = Store(tmp_path / "due.db")
+    trainer = Trainer(load_dir(), store)
+    app = TrainerApp(trainer, limit=99)
+    async with app.run_test():
+        status = app.query_one("#status", Static).render().plain
+        assert "due 11" in status
+    store.close()
+
+
+@pytest.mark.asyncio
+async def test_finishing_a_section_is_announced(tmp_path):
+    store = Store(tmp_path / "adv.db")
+    cards = load_dir()
+    trainer = Trainer(cards, store)
+    first = trainer.sections[0]
+    for card in first.cards[:-1]:
+        for _ in range(3):
+            trainer.review(card.id, clean_attempt())
+    last = first.cards[-1]
+    for _ in range(2):
+        trainer.review(last.id, clean_attempt())
+
+    app = TrainerApp(trainer, limit=99)
+    async with app.run_test() as pilot:
+        assert app.session.card.id == last.id, "only one card left to master"
+        for key in last.keys:
+            await pilot.press(key)
+        await pilot.pause()
+        text = verdict(app)
+        assert "MASTERED" in text
+        assert "section 1 complete" in text
+        assert trainer.sections[1].title in text
+    store.close()

@@ -1,0 +1,73 @@
+section = "moving"
+title = "Moving around"
+order = 1
+
+[[card]]
+id = "motions:l"
+prompt = "Move one character right"
+text = "the quick brown fox\n"
+keys = "l"
+
+[[card]]
+id = "motions:j"
+prompt = "Move down one line"
+text = "alpha beta\ngamma delta\nepsilon zeta\n"
+keys = "j"
+
+[[card]]
+id = "motions:k"
+prompt = "Move up one line"
+text = "alpha beta\ngamma delta\nepsilon zeta\n"
+start = "jj"
+keys = "k"
+
+[[card]]
+id = "motions:count-h"
+prompt = "Move three characters left in one command"
+text = "the quick brown fox\n"
+start = "5l"
+keys = "3h"
+
+[[card]]
+id = "motions:w"
+prompt = "Move to the start of the next word"
+text = "the quick brown fox\n"
+keys = "w"
+
+[[card]]
+id = "motions:b"
+prompt = "Move back to the start of the previous word"
+text = "the quick brown fox\n"
+start = "ww"
+keys = "b"
+
+[[card]]
+id = "motions:e"
+prompt = "Move to the end of the current word"
+text = "the quick brown fox\n"
+keys = "e"
+
+[[card]]
+id = "motions:count-w"
+prompt = "Jump forward three words in one command"
+text = "the quick brown fox\n"
+keys = "3w"
+
+[[card]]
+id = "motions:W"
+prompt = "Move to the next WORD start, treating punctuation as part of the word"
+text = "foo_bar baz-qux (nested)\n"
+keys = "W"
+
+[[card]]
+id = "motions:B"
+prompt = "Move back a WORD (punctuation included)"
+text = "foo_bar baz-qux (nested)\n"
+start = "WW"
+keys = "B"
+
+[[card]]
+id = "motions:E"
+prompt = "Move to the end of the current WORD"
+text = "foo_bar baz-qux (nested)\n"
+keys = "E"

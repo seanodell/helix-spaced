@@ -40,6 +40,9 @@ class Card:
     accept: tuple[str, ...] = field(default_factory=tuple)
     kind: str = STATE
     comment: str = "#"   # comment token Helix would use for this buffer's filetype
+    section: str = ""
+    title: str = ""
+    order: int = 0
 
     @property
     def answers(self) -> tuple[str, ...]:
@@ -102,12 +105,33 @@ def load_dir(path: Path | None = None) -> list[Card]:
     cards: list[Card] = []
     for f in sorted(path.glob("*.toml")):
         cards.extend(load_file(f))
-    return cards
+    return sorted(cards, key=lambda c: c.order)
+
+
+@dataclass(frozen=True, slots=True)
+class Section:
+    """One rung of the curriculum. Cards are learned a section at a time."""
+
+    name: str
+    title: str
+    order: int
+    cards: tuple[Card, ...]
+
+
+def sections(cards: list[Card]) -> list[Section]:
+    by_name: dict[str, list[Card]] = {}
+    for c in cards:
+        by_name.setdefault(c.section, []).append(c)
+    out = [Section(name, group[0].title, group[0].order, tuple(group))
+           for name, group in by_name.items()]
+    return sorted(out, key=lambda s: s.order)
 
 
 def load_file(path: Path) -> list[Card]:
     data = tomllib.loads(path.read_text())
-    deck = data.get("deck", path.stem)
+    deck = data.get("section", data.get("deck", path.stem))
+    title = data.get("title", deck)
+    order = data.get("order", 0)
     out = []
     for i, c in enumerate(data.get("card", [])):
         cid = c.get("id") or f"{deck}:{i:03d}"
@@ -115,14 +139,20 @@ def load_file(path: Path) -> list[Card]:
             id=cid, deck=deck, prompt=c["prompt"], text=c["text"], keys=c["keys"],
             start=c.get("start", ""),
             accept=tuple(c.get("accept", ())), kind=c.get("kind", data.get("kind", STATE)),
-            comment=c.get("comment", data.get("comment", "#"))))
+            comment=c.get("comment", data.get("comment", "#")),
+            section=deck, title=title, order=order))
     return out
 
 
 def validate(cards: list[Card]) -> list[str]:
     """Every card's own solution must solve it, and ids must be unique."""
     problems, seen = [], set()
+    orders = {c.section: c.order for c in cards}
+    if len(set(orders.values())) != len(orders):
+        problems.append(f"sections share an order: {sorted(orders.items())}")
     for c in cards:
+        if not c.section:
+            problems.append(f"{c.id}: no section")
         if c.id in seen:
             problems.append(f"{c.id}: duplicate id")
         seen.add(c.id)

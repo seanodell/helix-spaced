@@ -1,0 +1,100 @@
+section = "workspace"
+title = "Workspace and view"
+order = 17
+kind = "keys"
+
+[[card]]
+id = "files:global-search"
+prompt = "Search across every file in the workspace"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>/"
+
+[[card]]
+id = "files:clipboard-yank"
+prompt = "Yank the selection to the system clipboard, not just Helix's register"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>y"
+
+[[card]]
+id = "files:clipboard-paste"
+prompt = "Paste from the system clipboard after the selection"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>p"
+
+[[card]]
+id = "files:symbol-picker"
+prompt = "Open the symbol picker for this file"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>s"
+
+[[card]]
+id = "files:diagnostics"
+prompt = "Open the diagnostic picker to see errors in this file"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>d"
+
+[[card]]
+id = "files:hover-docs"
+prompt = "Show the documentation for the symbol under the cursor"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>k"
+
+[[card]]
+id = "files:rename-symbol"
+prompt = "Rename the symbol under the cursor across the project"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>r"
+
+[[card]]
+id = "files:code-action"
+prompt = "Offer code actions for the current position"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>a"
+
+[[card]]
+id = "files:jumplist-picker"
+prompt = "Open the jumplist picker"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "<space>j"
+
+[[card]]
+id = "nav:window-top"
+prompt = "Move the cursor to the top of the visible window"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gt"
+
+[[card]]
+id = "nav:window-center"
+prompt = "Move the cursor to the middle of the visible window"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gc"
+
+[[card]]
+id = "nav:window-bottom"
+prompt = "Move the cursor to the bottom of the visible window"
+text = "from pathlib import Path\nimport helpers\n"
+keys = "gb"
+
+[[card]]
+id = "nav:page-down"
+prompt = "Scroll down a full page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-f>"
+
+[[card]]
+id = "nav:page-up"
+prompt = "Scroll up a full page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-b>"
+
+[[card]]
+id = "nav:half-page-down"
+prompt = "Scroll down half a page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-d>"
+
+[[card]]
+id = "nav:half-page-up"
+prompt = "Scroll up half a page"
+text = "line one\nline two\nline three\nline four\n"
+keys = "<C-u>"

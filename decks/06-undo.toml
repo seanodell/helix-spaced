@@ -1,0 +1,21 @@
+section = "undo"
+title = "Undo and repeat"
+order = 6
+
+[[card]]
+id = "edits:undo"
+prompt = "Delete the whole line, then undo it"
+text = "alpha beta\ngamma delta\n"
+keys = "xdu"
+
+[[card]]
+id = "edits:redo"
+prompt = "Delete the line, undo, then redo the delete"
+text = "alpha beta\ngamma delta\n"
+keys = "xduU"
+
+[[card]]
+id = "edits:repeat-insert"
+prompt = "Insert 'X' and escape, then repeat that same insertion once more"
+text = "alpha beta\n"
+keys = "iX<esc>."

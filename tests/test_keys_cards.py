@@ -19,14 +19,14 @@ CARDS = {c.id: c for c in load_dir()}
 KEY_CARDS = [c for c in CARDS.values() if c.kind == KEYS]
 
 
-KEYSTROKE_DECKS = {"navigation", "files"}
+KEYSTROKE_SECTIONS = {"files", "codenav", "workspace"}
 
 
-def test_only_editor_level_decks_are_keystroke_graded():
+def test_only_editor_level_sections_are_keystroke_graded():
     """Keystroke grading is the fallback for commands with no buffer state --
     everything that touches text must be graded on the resulting state."""
     assert KEY_CARDS, "expected keystroke cards"
-    assert {c.deck for c in KEY_CARDS} == KEYSTROKE_DECKS
+    assert {c.section for c in KEY_CARDS} == KEYSTROKE_SECTIONS
 
 
 def test_state_cards_are_still_the_majority():
