@@ -25,6 +25,14 @@ PREFIXES = frozenset({"f", "t", "F", "T", "r", "g", "m",
 PROMPT_KEYS = frozenset({"s", "S", "/", "?", ":", "|", "!", "<A-!>", "<A-|>",
                          "<A-k>", "<A-K>"})
 
+# Commands that leave select mode, so `vgld` deletes to the end of the line and
+# then hands the keyboard back in normal mode. Pure selection manipulation
+# (`;`, `x`, `_`, `<A-;>`) stays in select mode. Verified against a real hx.
+# Undo and redo are deliberately absent: a real hx stays in select mode through
+# them, so `vwuw` keeps extending.
+EXITS_SELECT = frozenset({"d", "<A-d>", "c", "<A-c>", "y", "p", "P", "R",
+                          "~", "`", "<A-`>", "J", "<A-J>", ">", "<", "."})
+
 
 def incomplete(seq: list[Key]) -> bool:
     """Whether a pending sequence still needs more keys."""
@@ -145,6 +153,8 @@ class Engine:
             self.prompt_buf = ""
             return
         self._normal(k, n)
+        if k.spec in EXITS_SELECT:
+            self.extend = False
 
     # -- prompts -----------------------------------------------------------
 
@@ -230,10 +240,13 @@ class Engine:
         elif head == "r":
             if seq[1].char:
                 self._replace_char(seq[1].char)
+            self.extend = False
         elif head == "g":
             self._goto(seq[1], n)
         elif head == "m":
             self._match(seq, n)
+            if seq[1].spec in ("s", "d", "r"):
+                self.extend = False
         elif head == '"':
             if seq[1].char:
                 self.register = seq[1].char

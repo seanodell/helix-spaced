@@ -351,6 +351,24 @@ uv tool install ruff                    # lint + format
 Helix merges the features of every server it finds, so both together is fine.
 `gf` (open the file whose path is under the cursor) needs no server at all.
 
+## Things with no single key
+
+Some everyday operations have no dedicated binding, which is where a Vim habit
+misfires. `D` is not bound at all, and `gld` deletes only the last character.
+
+| To do this | Press |
+|---|---|
+| Delete to end of line | `vgld` |
+| Change to end of line | `vgl` then `c` |
+| Delete to start of line | `vghd` |
+| Close the file, stay in Helix | `:bc<ret>` |
+
+`v` enters select mode so the following motion *extends* rather than replaces the
+selection. An edit then hands the keyboard back: `d`, `c`, `y`, `p`, `~`, `>` and
+`r` all leave select mode, while pure selection work (`;`, `x`, `_`, `<A-;>`) and
+undo stay in it. That asymmetry is verified against a real `hx` and pinned in the
+corpus — the emulator originally got it wrong in both directions.
+
 ## Buffers, files and the space menu
 
 Closing a file without leaving Helix has no keybinding — it is

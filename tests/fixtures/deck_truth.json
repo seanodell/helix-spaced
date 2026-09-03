@@ -666,6 +666,60 @@
     "id": "edits:surround-replace-brace-paren"
   },
   {
+    "text": "keep this drop that\nsecond line\n",
+    "keys": "wwvgld",
+    "result": "keep \nsecond line\n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ],
+    "id": "edits:delete-to-line-end"
+  },
+  {
+    "text": "keep this drop that\nsecond line\n",
+    "keys": "wwvglcnew<esc>",
+    "result": "keep new\nsecond line\n",
+    "spans": [
+      [
+        8,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 9
+      }
+    ],
+    "id": "edits:change-to-line-end"
+  },
+  {
+    "text": "drop this keep that\nsecond line\n",
+    "keys": "wwvghd",
+    "result": "his keep that\nsecond line\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ],
+    "id": "edits:delete-to-line-start"
+  },
+  {
     "text": "the quick brown fox\n",
     "keys": "w",
     "result": "the quick brown fox\n",

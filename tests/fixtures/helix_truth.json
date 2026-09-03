@@ -10420,6 +10420,312 @@
     ]
   },
   {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwdw",
+    "result": "\u00fcber na\u00efve\n",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwyw",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        5,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vw~w",
+    "result": "CAF\u00c9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        5,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwpw",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        5,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vw<gt>w",
+    "result": "\tcaf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        6,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwcX<esc>w",
+    "result": "X\u00fcber na\u00efve\n",
+    "spans": [
+      [
+        1,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwr-w",
+    "result": "-----\u00fcber na\u00efve\n",
+    "spans": [
+      [
+        5,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwuw",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        0,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwmi(w",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        0,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vw;w",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        4,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vw_w",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vwxw",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        0,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 16
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vw<A-;>w",
+    "result": "caf\u00e9 \u00fcber na\u00efve\n",
+    "spans": [
+      [
+        4,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 4,
+        "head": 5
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "vgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "wvgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "wwvgld",
+    "result": "caf\u00e9 \n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "wwvgldw",
+    "result": "caf\u00e9 \n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "caf\u00e9 \u00fcber na\u00efve\n",
+    "keys": "gld",
+    "result": "caf\u00e9 \u00fcber na\u00efv\n",
+    "spans": [
+      [
+        14,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 14,
+        "head": 15
+      }
+    ]
+  },
+  {
     "text": "hello \u4e16\u754c end\n",
     "keys": "3d",
     "result": "ello \u4e16\u754c end\n",
@@ -11395,6 +11701,312 @@
       {
         "anchor": 0,
         "head": 1
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwdw",
+    "result": "\u4e16\u754c end\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwyw",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        6,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vw~w",
+    "result": "HELLO \u4e16\u754c end\n",
+    "spans": [
+      [
+        6,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwpw",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        6,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vw<gt>w",
+    "result": "\thello \u4e16\u754c end\n",
+    "spans": [
+      [
+        7,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwcX<esc>w",
+    "result": "X\u4e16\u754c end\n",
+    "spans": [
+      [
+        1,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 4
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwr-w",
+    "result": "------\u4e16\u754c end\n",
+    "spans": [
+      [
+        6,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwuw",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        0,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwmi(w",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        0,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vw;w",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        5,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vw_w",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        0,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vwxw",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        0,
+        13
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 13
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vw<A-;>w",
+    "result": "hello \u4e16\u754c end\n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "vgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "wvgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "wwvgld",
+    "result": "hello \n",
+    "spans": [
+      [
+        6,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 7
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "wwvgldw",
+    "result": "hello \n",
+    "spans": [
+      [
+        6,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 7
+      }
+    ]
+  },
+  {
+    "text": "hello \u4e16\u754c end\n",
+    "keys": "gld",
+    "result": "hello \u4e16\u754c en\n",
+    "spans": [
+      [
+        11,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 11,
+        "head": 12
       }
     ]
   },
@@ -12446,6 +13058,312 @@
     ]
   },
   {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwdw",
+    "result": "line\n\t\tsecond\n",
+    "spans": [
+      [
+        0,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 4
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwyw",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        7,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vw~w",
+    "result": "\tFIRST line\n\t\tsecond\n",
+    "spans": [
+      [
+        7,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwpw",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        7,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vw<gt>w",
+    "result": "\t\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        8,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 12
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwcX<esc>w",
+    "result": "Xline\n\t\tsecond\n",
+    "spans": [
+      [
+        1,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 5
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwr-w",
+    "result": "-------line\n\t\tsecond\n",
+    "spans": [
+      [
+        7,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwuw",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwmi(w",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vw;w",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        6,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vw_w",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        1,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 7
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vwxw",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        0,
+        14
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 14
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vw<A-;>w",
+    "result": "\tfirst line\n\t\tsecond\n",
+    "spans": [
+      [
+        6,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 7
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "vgld",
+    "result": "\n\t\tsecond\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "wvgld",
+    "result": "\t\n\t\tsecond\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "wwvgld",
+    "result": "\tfirst \n\t\tsecond\n",
+    "spans": [
+      [
+        7,
+        8
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 8
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "wwvgldw",
+    "result": "\tfirst \n\t\tsecond\n",
+    "spans": [
+      [
+        8,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "\tfirst line\n\t\tsecond\n",
+    "keys": "gld",
+    "result": "\tfirst lin\n\t\tsecond\n",
+    "spans": [
+      [
+        10,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 11
+      }
+    ]
+  },
+  {
     "text": "spaced   out   words\n",
     "keys": "3d",
     "result": "paced   out   words\n",
@@ -13413,6 +14331,312 @@
       {
         "anchor": 0,
         "head": 1
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwdw",
+    "result": "out   words\n",
+    "spans": [
+      [
+        0,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwyw",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        9,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 15
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vw~w",
+    "result": "SPACED   out   words\n",
+    "spans": [
+      [
+        9,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 15
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwpw",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        9,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 15
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vw<gt>w",
+    "result": "\tspaced   out   words\n",
+    "spans": [
+      [
+        10,
+        16
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 16
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwcX<esc>w",
+    "result": "Xout   words\n",
+    "spans": [
+      [
+        1,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 7
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwr-w",
+    "result": "---------out   words\n",
+    "spans": [
+      [
+        9,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 15
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwuw",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        0,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 15
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwmi(w",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        0,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 15
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vw;w",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        8,
+        15
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 15
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vw_w",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        0,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vwxw",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        0,
+        21
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 21
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vw<A-;>w",
+    "result": "spaced   out   words\n",
+    "spans": [
+      [
+        8,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "vgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "wvgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "wwvgld",
+    "result": "spaced   \n",
+    "spans": [
+      [
+        9,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "wwvgldw",
+    "result": "spaced   \n",
+    "spans": [
+      [
+        9,
+        10
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 10
+      }
+    ]
+  },
+  {
+    "text": "spaced   out   words\n",
+    "keys": "gld",
+    "result": "spaced   out   word\n",
+    "spans": [
+      [
+        19,
+        20
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 19,
+        "head": 20
       }
     ]
   },
@@ -14398,6 +15622,312 @@
     ]
   },
   {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwdw",
+    "result": "b,c;d:e f\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwyw",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vw~w",
+    "result": "A.b,c;d:e f\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwpw",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vw<gt>w",
+    "result": "\ta.b,c;d:e f\n",
+    "spans": [
+      [
+        3,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 3,
+        "head": 4
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwcX<esc>w",
+    "result": "Xb,c;d:e f\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwr-w",
+    "result": "--b,c;d:e f\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwuw",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwmi(w",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vw;w",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        1,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vw_w",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vwxw",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        0,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 12
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vw<A-;>w",
+    "result": "a.b,c;d:e f\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "vgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "wvgld",
+    "result": "a\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "wwvgld",
+    "result": "a.\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "wwvgldw",
+    "result": "a.\n",
+    "spans": [
+      [
+        2,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 2,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "a.b,c;d:e f\n",
+    "keys": "gld",
+    "result": "a.b,c;d:e \n",
+    "spans": [
+      [
+        10,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 10,
+        "head": 11
+      }
+    ]
+  },
+  {
     "text": "\n",
     "keys": "3d",
     "result": "",
@@ -15147,6 +16677,252 @@
         "head": 1
       }
     ]
+  },
+  {
+    "text": "\n",
+    "keys": "vwdw",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "\n",
+    "keys": "vwyw",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vw~w",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vwpw",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vw<gt>w",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vwcX<esc>w",
+    "result": "X\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vwr-w",
+    "result": "-\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vwuw",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vwmi(w",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vw;w",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vw_w",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vwxw",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vw<A-;>w",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "\n",
+    "keys": "vgld",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "\n",
+    "keys": "wvgld",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "\n",
+    "keys": "wwvgld",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "\n",
+    "keys": "wwvgldw",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "\n",
+    "keys": "gld",
+    "result": "",
+    "spans": [],
+    "ranges": []
   },
   {
     "text": "x\n",
@@ -15966,6 +17742,272 @@
     "text": "x\n",
     "keys": "S <ret>",
     "result": "x\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vwdw",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "x\n",
+    "keys": "vwyw",
+    "result": "x\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vw~w",
+    "result": "X\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vwpw",
+    "result": "x\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vw<gt>w",
+    "result": "\tx\n",
+    "spans": [
+      [
+        1,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vwcX<esc>w",
+    "result": "X\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vwr-w",
+    "result": "--\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vwuw",
+    "result": "x\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vwmi(w",
+    "result": "x\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vw;w",
+    "result": "x\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vw_w",
+    "result": "x\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vwxw",
+    "result": "x\n",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vw<A-;>w",
+    "result": "x\n",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 2
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "vgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "x\n",
+    "keys": "wvgld",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "x\n",
+    "keys": "wwvgld",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "x\n",
+    "keys": "wwvgldw",
+    "result": "",
+    "spans": [],
+    "ranges": []
+  },
+  {
+    "text": "x\n",
+    "keys": "gld",
+    "result": "\n",
     "spans": [
       [
         0,
@@ -17065,6 +19107,312 @@
     ]
   },
   {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwdw",
+    "result": "beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 5
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwyw",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        6,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vw~w",
+    "result": "ALPHA beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        6,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwpw",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        6,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vw<gt>w",
+    "result": "\talpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        7,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 12
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwcX<esc>w",
+    "result": "Xbeta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        1,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwr-w",
+    "result": "------beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        6,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwuw",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwmi(w",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vw;w",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        5,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vw_w",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        0,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vwxw",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        0,
+        46
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 46
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vw<A-;>w",
+    "result": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "spans": [
+      [
+        5,
+        6
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 5,
+        "head": 6
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "vgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "wvgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "wwvgld",
+    "result": "alpha \n",
+    "spans": [
+      [
+        6,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 7
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "wwvgldw",
+    "result": "alpha \n",
+    "spans": [
+      [
+        6,
+        7
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 6,
+        "head": 7
+      }
+    ]
+  },
+  {
+    "text": "alpha beta gamma delta epsilon zeta eta theta\n",
+    "keys": "gld",
+    "result": "alpha beta gamma delta epsilon zeta eta thet\n",
+    "spans": [
+      [
+        44,
+        45
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 44,
+        "head": 45
+      }
+    ]
+  },
+  {
     "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
     "keys": "3d",
     "result": "oo_Bar baz.qux (a[b]c) \"q\" end\n",
@@ -18058,6 +20406,312 @@
       {
         "anchor": 0,
         "head": 1
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwdw",
+    "result": "baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 3
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwyw",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        8,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vw~w",
+    "result": "fOO_bAR baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        8,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwpw",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        8,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vw<gt>w",
+    "result": "\tFoo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        9,
+        12
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 9,
+        "head": 12
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwcX<esc>w",
+    "result": "Xbaz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        1,
+        4
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 1,
+        "head": 4
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwr-w",
+    "result": "--------baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        8,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwuw",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwmi(w",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        0,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vw;w",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        7,
+        11
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 11
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vw_w",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        0,
+        8
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 8
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vwxw",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        0,
+        32
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 32
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vw<A-;>w",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "spans": [
+      [
+        7,
+        8
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 7,
+        "head": 8
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "vgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "wvgld",
+    "result": "\n",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 0,
+        "head": 1
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "wwvgld",
+    "result": "Foo_Bar \n",
+    "spans": [
+      [
+        8,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "wwvgldw",
+    "result": "Foo_Bar \n",
+    "spans": [
+      [
+        8,
+        9
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 8,
+        "head": 9
+      }
+    ]
+  },
+  {
+    "text": "Foo_Bar baz.qux (a[b]c) \"q\" end\n",
+    "keys": "gld",
+    "result": "Foo_Bar baz.qux (a[b]c) \"q\" en\n",
+    "spans": [
+      [
+        30,
+        31
+      ]
+    ],
+    "ranges": [
+      {
+        "anchor": 30,
+        "head": 31
       }
     ]
   },

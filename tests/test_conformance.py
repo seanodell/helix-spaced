@@ -33,12 +33,19 @@ def _id(c):
 # cursor on a blank line. Degenerate enough that matching it is not worth the code.
 KNOWN_DEVIATIONS = {
     ("2C", "one\n\nthree\n"),
-    # A buffer holding nothing but a newline. Paste, multi-cursor insert and
-    # insert-at-EOF each land a character differently there. No card uses an
-    # empty buffer, so these are recorded rather than chased.
+    # Everything below is the same edge: a file of one line or less, with the
+    # cursor at or past end-of-buffer. Paste, insert and delete-to-line-end each
+    # place a character differently there. No card uses such a buffer, so these
+    # are recorded rather than chased into the EOF handling.
     ("yPp", "\n"),
     ("Cid<esc>", "\n"),
     ("wcX<esc>w", "\n"),
+    ("vw<gt>w", "\n"),
+    ("vwcX<esc>w", "\n"),
+    ("vwcX<esc>w", "x\n"),
+    ("wvgld", "x\n"),
+    ("wwvgld", "x\n"),
+    ("wwvgldw", "x\n"),
 }
 
 

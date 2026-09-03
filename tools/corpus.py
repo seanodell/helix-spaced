@@ -55,6 +55,13 @@ STRESS_KEYS = [
     "w`", "w<A-`>", "x~",
     "wdwdu", "wdU", "xdduu",
     "%sa<ret>", "%se<ret>", "sxyz<esc>", "/e<ret>", "sd<ret>", "S <ret>",
+    # select mode must be handed back after an edit: `w` here must not extend
+    "vwdw", "vwyw", "vw~w", "vwpw", "vw<gt>w", "vwcX<esc>w", "vwr-w",
+    "vwuw", "vwmi(w",
+    # ...but pure selection work stays in select mode
+    "vw;w", "vw_w", "vwxw", "vw<A-;>w",
+    # delete to end of line, the thing with no single key
+    "vgld", "wvgld", "wwvgld", "wwvgldw", "gld",
 ]
 
 # Commands added to close the gap against helix-trainer's curriculum.
