@@ -206,6 +206,37 @@ it just does not touch your record.
 Mid-card, the same key restarts the attempt, and that *does* count — the
 keystrokes already spent are kept and the restart is charged.
 
+### If an Alt key does nothing
+
+```
+mise run keys      # shows what your terminal actually sends
+```
+
+Press the key. If nothing appears, the terminal is eating it — on macOS the
+Option key types accented characters unless told to send Meta:
+
+| Terminal | Setting |
+|---|---|
+| Terminal.app | Settings → Profiles → Keyboard → **Use Option as Meta key** |
+| iTerm2 | Settings → Profiles → Keys → Left/Right Option → **Esc+** |
+| Ghostty | `macos-option-as-alt = true` |
+| Kitty | `macos_option_as_alt yes` |
+| WezTerm | `send_composed_key_when_left_alt_is_pressed = false` |
+| Alacritty | `option_as_alt = "Both"` |
+
+If the name appears but says *ignored*, that is the trainer's bug, not yours.
+
+Two cards need more than Option-as-Meta. On the legacy `ESC`-prefix encoding,
+Textual reports `ESC ;` as a plain `semicolon` — the Alt is gone before the
+trainer sees it, so `<A-;>` silently becomes `;`, a different valid command.
+`<A-;>` (flip selection) and `` <A-`> `` (uppercase) therefore need a terminal
+speaking the **kitty keyboard protocol**: Ghostty, kitty, WezTerm or foot.
+Alt-letter keys (`<A-C>`, `<A-J>`, `<A-d>`, `<A-s>`) work either way.
+
+This is pinned by [tests/test_keymap_parser.py](tests/test_keymap_parser.py),
+which feeds real escape sequences through Textual's own parser rather than
+asserting against key names invented here.
+
 Those five are the only reserved keys. Helix's own ctrl bindings in normal mode
 are `b`/`f`/`u`/`d`, `e`/`y`, `i`/`o`, `s`, `a`/`x`, `w` and `c`, none of which
 overlap, so cards stay free to train them.

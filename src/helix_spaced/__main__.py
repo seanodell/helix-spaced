@@ -20,6 +20,12 @@ def cmd_validate(args) -> int:
     return 1 if problems else 0
 
 
+def cmd_keys(args) -> int:
+    from .keycheck import run
+    run()
+    return 0
+
+
 def cmd_stats(args) -> int:
     store = Store()
     cards = {c.id: c for c in load_dir()}
@@ -52,6 +58,8 @@ def main(argv=None) -> int:
         func=cmd_validate)
     sub.add_parser("stats", help="review history and hardest cards").set_defaults(
         func=cmd_stats)
+    sub.add_parser("keys", help="show what your terminal sends for each key").set_defaults(
+        func=cmd_keys)
 
     args = p.parse_args(argv)
     if not getattr(args, "func", None):

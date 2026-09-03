@@ -17,6 +17,10 @@ run = "pytest -q"
 [tasks.stats]
 run = "python -m helix_spaced stats"
 
+[tasks.keys]
+description = "Show what your terminal sends for each key (Alt/Option diagnosis)"
+run = "python -m helix_spaced keys"
+
 [tasks.validate]
 run = "python -m helix_spaced validate"
 

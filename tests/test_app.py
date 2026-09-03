@@ -1,3 +1,4 @@
+import re
 from datetime import UTC
 
 import pytest
@@ -468,3 +469,39 @@ async def test_a_practice_redo_cannot_grant_mastery(trainer):
         await pilot.press("w")
         assert trainer.store.card("t:w")["clean_streak"] == streak, "redo moved the streak"
         assert "MASTERED" not in verdict(app), "a redo must not re-announce it"
+
+
+# -- Alt keys -------------------------------------------------------------
+
+
+@pytest.mark.parametrize(("key", "character", "expected"), [
+    # Textual names a shifted Alt key either way, depending on the terminal
+    ("alt+C", "C", "<A-C>"),
+    ("alt+shift+c", None, "<A-C>"),
+    ("alt+shift+C", None, "<A-C>"),
+    ("alt+J", "J", "<A-J>"),
+    ("alt+shift+j", None, "<A-J>"),
+    # punctuation arrives spelled out once it carries a modifier
+    ("alt+grave_accent", None, "<A-`>"),
+    ("alt+semicolon", None, "<A-;>"),
+    ("alt+period", None, "<A-.>"),
+    ("alt+left_square_bracket", None, "<A-[>"),
+    # meta is alt on some terminals
+    ("meta+d", None, "<A-d>"),
+])
+def test_alt_keys_survive_every_name_a_terminal_uses(key, character, expected):
+    assert from_textual(key, character) == expected
+
+
+def test_every_alt_key_in_the_deck_is_reachable():
+    """A name the keymap does not recognise is swallowed, which reads as a dead
+    key -- `<A-C>` and `<A-`>` were both unreachable this way."""
+    for card in load_dir():
+        for answer in card.answers:
+            for token in re.findall(r"<A-(.)>", answer):
+                shapes = [(f"alt+{token}", token)]
+                if token.isalpha() and token.isupper():
+                    shapes.append((f"alt+shift+{token.lower()}", None))
+                for name, ch in shapes:
+                    assert from_textual(name, ch) == f"<A-{token}>", \
+                        f"{card.id}: {name} does not reach {token}"
