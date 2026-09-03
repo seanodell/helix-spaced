@@ -34,7 +34,7 @@ ACTIONS = {"n": NEXT, "t": ANSWER, "r": RESTART, "g": GIVE_UP, "q": QUIT}
 HELP = {
     ACTIVE: [("t", "answer"), ("r", "restart"), ("g", "give up"),
              ("n", "skip"), ("q", "quit")],
-    GRADED: [("n", "next"), ("q", "quit")],
+    GRADED: [("n", "next"), ("r", "redo"), ("q", "quit")],
 }
 
 # The verdict answers "did I get it?" first. The FSRS rating is scheduling
@@ -131,6 +131,7 @@ class TrainerApp(App):
         self.session: Session | None = None
         self.phase = ACTIVE
         self.done = 0
+        self.practice = False
         self.recent: deque[str] = deque(maxlen=5)
 
     def compose(self) -> ComposeResult:
@@ -170,6 +171,7 @@ class TrainerApp(App):
             return
         self.session = Session(card)
         self.session.begin()
+        self.practice = False
         self.set_phase(ACTIVE)
         self.write("#prompt", card.prompt)
         self.write("#hint", "")
@@ -202,13 +204,29 @@ class TrainerApp(App):
             bits.append(f"extra {s.extra_keys}")
         self.write("#status", Text("   ".join(bits), style="dim"))
 
+    def redo(self) -> None:
+        """Run the same card again for practice. Deliberately unscored."""
+        assert self.session
+        card = self.session.card
+        self.session = Session(card)
+        self.session.begin()
+        self.practice = True
+        self.set_phase(ACTIVE)
+        self.write("#hint", "")
+        self.write("#note", Text("practice run - this one will not be scored",
+                                 style="dim italic"))
+        self.redraw()
+
     def finish(self) -> None:
         assert self.session
         s = self.session
-        g = self.trainer.review(s.card.id, s.attempt(), s.typed)
+        if self.practice:
+            g = self.trainer.dry_grade(s.card.id, s.attempt())
+        else:
+            g = self.trainer.review(s.card.id, s.attempt(), s.typed)
+            self.done += 1
+            self.recent.append(s.card.id)
         self.set_phase(GRADED)
-        self.done += 1
-        self.recent.append(s.card.id)
 
         style, label = (RIGHT if g.clean else COSTLY) if s.solved else WRONG
         row = self.trainer.store.card(s.card.id)
@@ -225,9 +243,12 @@ class TrainerApp(App):
         if not s.solved:
             out.append("\n\nAnswer: ", style="dim")
             out.append(s.card.answer, style="bold")
-        out.append("\n\nnext in ", style="dim")
-        out.append(human_interval(row["due"] if row else None), style="bold")
-        out.append(f"  ({RATING_NOTE[g.rating]})", style="dim")
+        if self.practice:
+            out.append("\n\npractice run - not scored", style="dim italic")
+        else:
+            out.append("\n\nnext in ", style="dim")
+            out.append(human_interval(row["due"] if row else None), style="bold")
+            out.append(f"  ({RATING_NOTE[g.rating]})", style="dim")
         self.write("#status", out)
 
     def reveal(self) -> None:
@@ -259,9 +280,12 @@ class TrainerApp(App):
             self.next_card()
         elif action == ANSWER and self.phase == ACTIVE:
             self.reveal()
-        elif action == RESTART and self.phase == ACTIVE:
-            self.session.reset()
-            self.redraw()
+        elif action == RESTART:
+            if self.phase == ACTIVE:
+                self.session.reset()
+                self.redraw()
+            else:
+                self.redo()
         elif action == GIVE_UP and self.phase == ACTIVE:
             self.session.give_up()
             self.finish()

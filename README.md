@@ -147,13 +147,28 @@ a card is live, and drop it once the card is graded.
 | While a card runs | Once graded | Action |
 |---|---|---|
 | `Ctrl-T` | `t` | show the answer (penalty) |
-| `Ctrl-R` | `r` | restart the card (counts as a wrong try) |
+| `Ctrl-R` | `r` | restart a live card, or redo one you just finished |
 | `Ctrl-G` | `g` | give up, show the answer |
 | `Ctrl-N` | `n` | next card (skipping a live card scores nothing) |
 | `Ctrl-Q` | `q` | quit |
 
 Ctrl still works after grading, so muscle memory never misfires. `Enter` and
 `Space` also move to the next card.
+
+### Redoing a card
+
+`r` on the grade screen replays the card you just did. **A redo is never
+scored** — no review is logged, the penalty EWMA does not move, and the schedule
+does not shift. Only a card the spacing model actually offers you counts.
+
+That is deliberate on two grounds. An immediate re-test is not a review: FSRS
+depends on the gap, so recording one would corrupt the interval. And a scored
+redo would make a clean grade farmable — fumble it, retry until fast, keep the
+good result. You still get the full verdict on a redo, so it works as practice;
+it just does not touch your record.
+
+Mid-card, the same key restarts the attempt, and that *does* count — the
+keystrokes already spent are kept and the restart is charged.
 
 Those five are the only reserved keys. Helix's own ctrl bindings in normal mode
 are `b`/`f`/`u`/`d`, `e`/`y`, `i`/`o`, `s`, `a`/`x`, `w` and `c`, none of which

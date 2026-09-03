@@ -68,6 +68,12 @@ class Trainer:
 
     # -- review ------------------------------------------------------------
 
+    def dry_grade(self, card_id: str, attempt: Attempt) -> Grade:
+        """Grade an attempt for feedback without recording it. Used by a practice
+        redo: an immediate re-test is not a real review, and letting one count
+        would both corrupt the spacing and make Easy farmable."""
+        return grade(attempt, self.store.reference_time(card_id))
+
     def review(self, card_id: str, attempt: Attempt, keys: str = "") -> Grade:
         row = self.store.card(card_id)
         baseline = self.store.reference_time(card_id)

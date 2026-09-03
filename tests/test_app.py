@@ -287,3 +287,105 @@ def test_human_interval_reads_naturally():
     assert human_interval((now + timedelta(hours=5)).isoformat()) == "5h"
     assert human_interval((now + timedelta(days=3)).isoformat()) == "3d"
     assert human_interval(None) == "soon"
+
+
+# -- redo -----------------------------------------------------------------
+
+
+async def solve(pilot, app, keys):
+    for k in keys:
+        await pilot.press(k)
+    await pilot.pause()
+
+
+@pytest.mark.asyncio
+async def test_r_after_grading_runs_the_card_again(trainer):
+    app = TrainerApp(trainer, limit=5)
+    async with app.run_test() as pilot:
+        await solve(pilot, app, ["w"])
+        assert app.phase == GRADED
+        await pilot.press("r")
+        assert app.phase == ACTIVE
+        assert app.session.card.id == "t:w"
+        assert app.session.typed == ""
+
+
+@pytest.mark.asyncio
+async def test_a_redo_is_not_scored(trainer):
+    """Re-running a card you just did is practice. Letting it count would both
+    corrupt the spacing and make a clean grade farmable."""
+    app = TrainerApp(trainer, limit=5)
+    async with app.run_test() as pilot:
+        await solve(pilot, app, ["b", "b", "w"])       # sloppy: 2 over par
+        before = dict(trainer.store.card("t:w"))
+        reviews = trainer.store.stats()["reviews"]
+
+        await pilot.press("r")
+        await solve(pilot, app, ["w"])                  # perfect this time
+
+        after = dict(trainer.store.card("t:w"))
+        assert trainer.store.stats()["reviews"] == reviews, "logged a second review"
+        assert after["penalty_ewma"] == before["penalty_ewma"], "penalty moved"
+        assert after["due"] == before["due"], "schedule moved"
+        assert after["reviews"] == before["reviews"]
+
+
+@pytest.mark.asyncio
+async def test_a_redo_does_not_count_toward_the_session_total(trainer):
+    app = TrainerApp(trainer, limit=5)
+    async with app.run_test() as pilot:
+        await solve(pilot, app, ["w"])
+        assert app.done == 1
+        await pilot.press("r")
+        await solve(pilot, app, ["w"])
+        assert app.done == 1
+
+
+@pytest.mark.asyncio
+async def test_a_redo_still_gives_feedback(trainer):
+    """Unscored, but you still see whether you got it and what it would cost."""
+    app = TrainerApp(trainer, limit=5)
+    async with app.run_test() as pilot:
+        await solve(pilot, app, ["w"])
+        await pilot.press("r")
+        await solve(pilot, app, ["b", "b", "w"])
+        text = verdict(app)
+        assert "RIGHT, PENALISED" in text
+        assert "2 keystrokes over par" in text
+        assert "not scored" in text
+
+
+@pytest.mark.asyncio
+async def test_a_redo_can_be_repeated(trainer):
+    app = TrainerApp(trainer, limit=5)
+    async with app.run_test() as pilot:
+        await solve(pilot, app, ["w"])
+        for _ in range(3):
+            await pilot.press("r")
+            await solve(pilot, app, ["w"])
+        assert trainer.store.stats()["reviews"] == 1
+
+
+@pytest.mark.asyncio
+async def test_moving_on_after_a_redo_scores_again(tmp_path):
+    """Practice is per-card: the next card the schedule offers still counts."""
+    store = Store(tmp_path / "redo.db")
+    cards = [Card(id=f"t:{i}", deck="t", prompt="next word",
+                  text="the quick brown fox\n", keys="w") for i in range(3)]
+    app = TrainerApp(Trainer(cards, store), limit=5)
+    async with app.run_test() as pilot:
+        await solve(pilot, app, ["w"])
+        await pilot.press("r")
+        await solve(pilot, app, ["w"])
+        assert app.practice
+        assert store.stats()["reviews"] == 1
+
+        await pilot.press("n")
+        assert not app.practice
+        await solve(pilot, app, ["w"])
+        assert store.stats()["reviews"] == 2, "a scheduled card must score again"
+    store.close()
+
+
+def test_the_graded_help_offers_redo():
+    assert "redo" in render_help(GRADED).plain
